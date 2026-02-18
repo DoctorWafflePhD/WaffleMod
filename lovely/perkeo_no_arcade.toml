@@ -1,0 +1,35 @@
+[manifest]
+version = "0.1.0"
+priority = 0 # Priority for loading the file
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua' # The file you want to patch.
+pattern = "if G.consumeables.cards[1] then"
+position = "after"
+payload = '''
+        local foundArcadeCard
+        local nonArcadeConsumables = {}
+        for _, card in pairs(G.consumeables.cards) do
+            if card.ability.set ~= "wafflemod_arcade" then
+                table.insert(nonArcadeConsumables, card)
+            end
+        end
+        if #nonArcadeConsumables > 0 then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    local card = copy_card(pseudorandom_element(nonArcadeConsumables, pseudoseed('perkeo')), nil)
+                    card:set_edition({ negative = true }, true)
+                    card:add_to_deck()
+                    G.consumeables:emplace(card)
+                    return true
+                end
+            }))
+                    card_eval_status_text(context.blueprint_card or self, 'extra', nil, nil, nil,
+            { message = localize('k_duplicated_ex') })
+            return
+        else
+            return
+        end
+'''
+match_indent = true

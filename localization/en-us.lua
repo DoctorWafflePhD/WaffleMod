@@ -1,0 +1,709 @@
+return {
+
+    descriptions = {
+
+        Back = {
+
+            b_wafflemod_arcade = {
+                name = "Arcade Deck",
+                text = {
+                    "Start with Extra Credit voucher",
+                    "Arcade Cabinets cost {C:money}$1{} to use", }
+            },
+
+            b_wafflemod_mirage = {
+                name = "Mirage Deck",
+                text = {
+                    "When Blind is selected,",
+                    "create #1# {C:dark_edition,T:e_wafflemod_ephemeral}Ephemeral{} Jokers"
+                }
+            },
+
+            b_wafflemod_patchwork = {
+                name = "Patchwork Deck",
+                text = {
+                    "{C:attention}+#1#{} Joker slot",
+                    "Rightmost Joker",
+                    "is {C:attention}debuffed{}"
+                }
+            },
+
+            b_wafflemod_waffle = {
+                name = "Waffle Deck",
+                text = {
+                    "{C:green,E:1}#1# in #2# chance{} to",
+                    "replace Jokers in shop",
+                    "with {C:attention}WaffleMod Jokers{}"
+                }
+            }
+
+        },
+
+        Edition = {
+
+            e_wafflemod_ephemeral = {
+                name = "Ephemeral",
+                text = {
+                    "{C:attention}+1{} area slot",
+                    "{C:red,E:2}Self destructs{} at",
+                    "end of round"
+                }
+            },
+            e_wafflemod_ephemeral_consumable = {
+                name = "Ephemeral",
+                text = {
+                    "{C:attention}+1{} consumable slot",
+                    "{C:red,E:2}Self destructs{} at",
+                    "end of round"
+                }
+            },
+            e_wafflemod_ephemeral_joker = {
+                name = "Ephemeral",
+                text = {
+                    "{C:attention}+1{} Joker slot",
+                    "{C:red,E:2}Self destructs{} at",
+                    "end of round"
+                }
+            },
+            e_wafflemod_ephemeral_playing_card = {
+                name = "Ephemeral",
+                text = {
+                    "{C:attention}+1{} hand size",
+                    "{C:red,E:2}Self destructs{} when",
+                    "played, discarded,",
+                    "or at end of round"
+                }
+            },
+        },
+
+        Enhanced = {
+            m_wafflemod_scribbled = {
+                name = "Scribbled Card",
+                text = {
+                    "Counts as",
+                    "a {C:attention}face card{}"
+                },
+            },
+        },
+
+        Joker = {
+
+            j_wafflemod_blueberry_jam = {
+                name = "Blueberry Jam",
+                text = {
+                    "{C:mult}+#1#{} Mult",
+                    "{C:mult}-#2#{} Mult for each",
+                    "card held in hand"
+                },
+            },
+
+            j_wafflemod_broken_record = {
+                name = "Broken Record",
+                text = {
+                    "This Joker gains {C:mult}+#1#{} Mult",
+                    "per {C:attention}consecutive{} play",
+                    "of the same {C:attention}poker hand",
+                    "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)",
+                },
+            },
+
+            j_wafflemod_fickle = {
+                name = "Fickle Joker",
+                text = {
+                    "This Joker gains {C:chips}+#1#{} Chips when",
+                    "cards with {V:1}#2#{} suit are scored",
+                    "Loses {C:chips}-#3#{} Chips when",
+                    "other suits are scored",
+                    "{C:inactive}(Currently {C:chips}+#4#{C:inactive} Chips){}",
+                    "{C:inactive}(Suit changes at end of round){}"
+                }
+            },
+
+            j_wafflemod_dreamsicle = {
+                name = "Dreamsicle",
+                text = {
+                    "Earn {C:money}$#1#{} on your next",
+                    "{C:attention}#2#{} card purchases"
+                }
+            },
+
+            j_wafflemod_fountain = {
+                name = "Fountain",
+                text = {
+                    "Played cards have a",
+                    "{C:green,E:1}#1# in (rank) chance{} to",
+                    "earn {C:money}$#2#{} when {C:attention}scored{}"
+                }
+            },
+
+            j_wafflemod_instant_mac_and_cheese = {
+                name = "Instant Mac & Cheese",
+                text = {
+                    "After playing {C:attention}#1#{} hands, upgrade",
+                    "next played hand {C:attention}#2#{} times",
+                    "{C:inactive}(Currently {C:attention}#3#{C:inactive}/#1#)"
+                }
+            },
+
+            j_wafflemod_purple = {
+                name = "Purple Joker",
+                text = {
+                    "{C:chips}+#1#{} Chips for each",
+                    "card {C:attention}discarded{}, resets",
+                    "after each hand played",
+                    "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips){}"
+                }
+            },
+
+            j_wafflemod_miner = {
+                name = "Miner",
+                text = {
+                    "Played {C:attention}Stone Cards{} lose",
+                    "their {C:enhanced}Enhancement{}, but",
+                    "gain a {C:attention}Gold Seal{}"
+                },
+            },
+
+            j_wafflemod_mystery_gift = {
+                name = "Mystery Gift",
+                text = {
+                    "{C:green,E:1}#1# in #2# chance{} to create a",
+                    "{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or",
+                    "{C:dark_edition}Polychrome{} tag",
+                    "at end of round"
+                }
+            },
+
+            j_wafflemod_damocles = {
+                name = "Damocles",
+                text = {
+                    "Earn {C:money}$#1#{} at end of round",
+                    "{C:green,E:1}#2# in #3# chance{} to {C:attention}destroy{}",
+                    "a random Joker after",
+                    "each hand played"
+                }
+            },
+
+            j_wafflemod_snowman = {
+                name = "Snowman",
+                text = {
+                    "Earn {C:money}$#1#{} at end of round",
+                    "Payout increases by {C:money}$#2#{} if",
+                    "{C:attention}Blind{} is defeated {C:attention}in one hand{}"
+                }
+            },
+
+            j_wafflemod_stage_magician = {
+                name = "Stage Magician",
+                text = {
+                    "When round begins,",
+                    "add {C:attention}#1#{} random {C:dark_edition}Ephemeral{}",
+                    "playing cards to hand",
+                }
+            },
+
+            j_wafflemod_bring_me_your_love = {
+                name = "Bring Me Your Love",
+                text = {
+                    "When round begins, bring",
+                    "cards with {C:hearts}#1#{} suit",
+                    "to the {C:attention}top{} of your deck"
+                }
+            },
+
+            j_wafflemod_bring_me_your_love_vampire = {
+                name = "Bring Me Your Love",
+                text = {
+                    "When round begins, bring",
+                    "cards with {C:hearts}#1#{} suit",
+                    "to the {C:attention}top{} of your deck",
+                    "{C:inactive}\"I'll never let them hurt you\""
+                }
+            },
+
+            j_wafflemod_freddie_mercury = {
+                name = "Freddie Mercury",
+                text = {
+                    "This Joker gains {C:mult}+#1#{} Mult",
+                    "when a {C:attention}Queen{} is scored,",
+                    "and {C:white,X:mult}X#2#{} Mult when",
+                    "{C:planet}Mercury{} is used",
+                    "{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult",
+                    "{C:inactive}and {C:white,X:mult}X#4#{C:inactive} Mult)"
+                },
+            },
+
+            j_wafflemod_doctorwaffle_0 = {
+                name = "DoctorWaffle",
+                text = {
+                    '"Huh? What?',
+                    'How\'d I get here?"',
+                }
+            },
+
+            j_wafflemod_doctorwaffle_1 = {
+                name = "DoctorWaffle",
+                text = {
+                    "Oh, I get it. I'm a {C:legendary}Legendary{} Joker because I'm a",
+                    "{C:attention}fool{} for adding a dev self-insert. How original of me.\"",
+                }
+            },
+
+            j_wafflemod_doctorwaffle_2 = {
+                name = "DoctorWaffle",
+                text = {
+                    '"But uh, sorry for the confusion. Just {C:attention}sell{} me, I\'ll get an ',
+                    "actual {C:legendary}Legendary{} for you. Hell, I'll even make it {C:dark_edition}Negative{}.\"",
+                }
+            },
+
+            j_wafflemod_doctorwaffle_collection = {
+                name = "DoctorWaffle",
+                text = {
+                    "''It's kinda boring in here. All I ",
+                    'have is a DVD copy of {C:attention}SharkTale{}."'
+                }
+            },
+
+            j_wafflemod_jok = {
+                name = "jok",
+                text = {
+                    "This Joker gains {X:mult,C:white}X#1#{} Mult every",
+                    "time {C:tarot,T:c_tower}The Tower{} is used",
+                    "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
+                },
+            },
+
+            j_wafflemod_ice_juggler_cookie = {
+                name = "Ice Juggler Cookie",
+                text = {
+                    "+{C:attention}#1#{} hand size",
+                    "This Joker gains {C:white,X:mult}X#2#{} Mult if a",
+                    "{C:diamonds}Diamond{} card, {C:clubs}Club{} card,",
+                    "{C:hearts}Heart{} card, and {C:spades}Spade{} card",
+                    "are held in hand",
+                    "{C:inactive}(Currently {C:white,X:mult}X#3#{C:inactive} Mult){}"
+                }
+            },
+
+            j_wafflemod_mrdo = {
+                name = "Mr. Do!",
+                text = {
+                    "This Joker gains {X:mult,C:white}X#2#{} Mult",
+                    "after an {C:attention}Ace{}, {C:attention}King{}, {C:attention}Queen{},",
+                    "and {C:attention}Jack{} have been scored",
+                    "{C:inactive}({V:1}A{V:2}K{V:3}Q{V:4}J{C:inactive})",
+                    "{C:inactive}(Currently {C:white,X:mult}X#1#{C:inactive} Mult)"
+                }
+            },
+
+            j_wafflemod_club = {
+                name = "The Club",
+                text = {
+                    "This Joker gains",
+                    "{C:white,X:mult}X#1#{} Mult when a",
+                    "card with {C:clubs}#2#{}",
+                    "suit is scored",
+                    "{C:inactive}(Currently {C:white,X:mult}X#3#{C:inactive} Mult)"
+                }
+            },
+
+            j_wafflemod_goad = {
+                name = "The Goad",
+                text = {
+                    "This Joker gains",
+                    "{C:white,X:mult}X#1#{} Mult when a",
+                    "card with {C:spades}#2#{}",
+                    "suit is scored",
+                    "{C:inactive}(Currently {C:white,X:mult}X#3#{C:inactive} Mult)"
+                }
+            },
+
+            j_wafflemod_head = {
+                name = "The Head",
+                text = {
+                    "This Joker gains",
+                    "{C:white,X:mult}X#1#{} Mult when a",
+                    "card with {C:hearts}#2#{}",
+                    "suit is scored",
+                    "{C:inactive}(Currently {C:white,X:mult}X#3#{C:inactive} Mult)"
+                }
+            },
+
+            j_wafflemod_needle = {
+                name = "The Needle",
+                text = {
+                    "When {C:attention}Blind{} is selected,",
+                    "lose all but {C:blue}1 {}Hand and",
+                    "gain {C:white,X:mult}X#1#{} Mult for",
+                    "{C:attention}each hand lost,",
+                    "resets at {C:attention}end of round",
+                    "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
+                }
+            },
+
+            j_wafflemod_ox = {
+                name = "The Ox",
+                text = {
+                    "If {C:attention}poker hand{} is your",
+                    "{C:attention}most played{} poker hand, each",
+                    "card earns {C:money}$#1#{} when scored",
+                    --"{C:inactive}(Currently {C:attention}#2#{C:inactive})"
+                }
+            },
+
+            j_wafflemod_serpent = {
+                name = "The Serpent",
+                text = {
+                    "After {C:attention}Play or Discard{},",
+                    "increase hand size by {C:attention}#1#{}",
+                    "until end of round"
+                }
+            },
+
+            j_wafflemod_window = {
+                name = "The Window",
+                text = {
+                    "This Joker gains",
+                    "{C:white,X:mult}X#1#{} Mult when a",
+                    "card with {C:diamonds}#2#{}",
+                    "suit is scored",
+                    "{C:inactive}(Currently {C:white,X:mult}X#3#{C:inactive} Mult)"
+                }
+            },
+
+        },
+
+        Spectral = {
+
+            c_wafflemod_ritual = {
+                name = "Ritual",
+                text = {
+                    "{C:green,E:1}#1# in #2# chance{} to add",
+                    "a random {C:enhanced}Enhancement{} to",
+                    "each card in hand"
+                },
+            },
+
+            c_wafflemod_egregore = {
+                name = "Egregore",
+                text = {
+                    "Add an {C:wafflemod_ivory}Ivory Seal{}",
+                    "to {C:attention}1{} selected",
+                    "card in your hand",
+                },
+            }
+
+        },
+
+        Tarot = {
+
+            c_wafflemod_artist = {
+                name = "The Artist",
+                text = {
+                    "Enhances {C:attention}#1#",
+                    "selected cards to",
+                    "{C:attention}#2#s",
+                }
+            },
+
+            c_wafflemod_fool_rx = {
+                name = string.reverse("The Fool"),
+                text = {
+                    "{C:attention}Reverses{} all {C:tarot}Tarot{}",
+                    "cards on screen",
+                }
+            },
+
+            c_wafflemod_magician_rx = {
+                name = string.reverse("The Magician"),
+                text = {
+                    "Permanently add {C:attention}#1#{} retrigger",
+                    "to up to {C:attention}#2# Lucky Cards"
+                }
+            },
+
+            c_wafflemod_high_priestess_rx = {
+                name = string.reverse("The High Priestess"),
+                text = {
+                    "Upgrade {C:attention}#1#{}",
+                    "by {C:attention}#2# levels{}"
+                }
+            },
+
+            c_wafflemod_hermit_rx = {
+                name = string.reverse("The Hermit"),
+                text = {
+                    "Make cards and booster packs",
+                    "currently in the Shop free"
+                }
+            },
+
+            c_wafflemod_temperance_rx = {
+                name = string.reverse("Temperance"),
+                text = {
+                    "Sell the selected {C:attention}Joker{} for",
+                    "{C:attention}triple{} its sell value",
+                }
+            },
+
+            c_wafflemod_wheel_of_fortune_rx = {
+                name = string.reverse("The Wheel of Fortune"),
+                text = {
+                    "{C:green, E:1}#1# in #2# chance{} to either",
+                    "add {C:dark_edition}Negative{} to or {C:attention}destroy",
+                    "a random Joker"
+                }
+            },
+
+            c_wafflemod_artist_rx = {
+                name = string.reverse("The Artist"),
+                text = {
+                    "Destroys all {C:attention}face{}",
+                    "cards in hand",
+                }
+            },
+
+        },
+
+        Voucher = {
+
+            v_wafflemod_hunting_license = {
+                name = "Hunting License",
+                text = {
+                    "{C:attention}Boss Jokers{} appear",
+                    "{C:attention}#1#X{} more frequently after",
+                    "defeating a {C:attention}Boss Blind{}",
+                    "{C:inactive}(Must have room){}"
+                }
+            },
+
+            v_wafflemod_trophy_collector = {
+                name = "Trophy Collector",
+                text = {
+                    "If {C:attention}Boss Blind{} is defeated in one",
+                    "hand, its respective {C:attention}Boss Joker{}",
+                    "is {C:attention}guaranteed{} to appear",
+                    "{C:inactive}(Must have room){}"
+                }
+            },
+
+            v_wafflemod_insert_coin = {
+                name = "Insert Coin",
+                text = {
+                    "{C:wafflemod_arcade}Arcade Cabinets{}",
+                    "can be purchased",
+                    "from the {C:attention}shop{}"
+                }
+            },
+
+            v_wafflemod_kill_screen = {
+                name = "Kill Screen",
+                text = {
+                    "{C:wafflemod_arcade}Arcade Cabinets{}",
+                    "in {C:attention}shop{} can appear",
+                    "with {C:dark_edition}Negative{} edition"
+                }
+            }
+
+        },
+
+        Other = {
+
+            p_wafflemod_arcade_normal = {
+                name="Arcade Pack",
+                text={
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:wafflemod_arcade} Arcade Cabinets{} to",
+                    "add to your consumable area",
+                },
+            },
+
+            wafflemod_ebony_seal = {
+                name = "Ebony Seal",
+                text = {
+                    "{C:attention}+2{} hand size",
+                    "for the round",
+                    "when {C:attention}discarded{}"
+                }
+            },
+
+            -- Version with chance listed (unused)
+            wafflemod_ivory_seal = {
+                name = "Ivory Seal",
+                text = {
+                    "Creates a {C:spectral}Spectral{} card",
+                    "and has a {C:green,E:1}#1# in #2# chance{}",
+                    "to add an {C:wafflemod_ivory}Ivory Seal",
+                    "to a random card {C:attention}in deck{}",
+                    "when {C:attention}destroyed{}",
+                    "{C:inactive}(Must have room){}"
+                }
+            },
+
+            wafflemod_ivory_seal = {
+                name = "Ivory Seal",
+                text = {
+                    "Creates a {C:spectral}Spectral{} card",
+                    "and adds an {C:wafflemod_ivory}Ivory Seal{}",
+                    "to a random card {C:attention}in deck{}",
+                    "when {C:attention}destroyed{}",
+                    "{C:inactive}(Must have room){}"
+                }
+            },
+
+            wafflemod_sharktale = {
+                name = "SharkTale",
+                text = {
+                    "Dumbass fish movie",
+                    "made by {C:attention}DreamWorks{}"
+                }
+            },
+
+            wafflemod_arcade_hint = {
+                name = "Arcade Cabinet",
+                text = {
+                    "Costs {C:money}money{} to use,",
+                    "but is {C:attention}not{} consumed"
+                }
+            },
+
+            wafflemod_arcade_hint_perkeo = {
+                name = "Arcade Cabinet",
+                text = {
+                    "Costs {C:money}money{} to use,",
+                    "but is {C:attention}not{} consumed",
+                    "{C:inactive}(Cannot be copied by Perkeo)"
+                }
+            },
+
+            undiscovered_wafflemod_arcade = {
+                name = "Not Discovered",
+                text = {
+                    "Purchase or use",
+                    "this card in an",
+                    "unseeded run to",
+                    "learn what it does",
+                },
+            },
+
+            wafflemod_art_credit_jac = {
+                name = "Guest Artist",
+                text = {
+                    "Jac"
+                }
+            },
+
+            wafflemod_disabled_tooltip = {
+                name = "Disabled",
+                text = {
+                    "This feature is",
+                    "currently {C:red}disabled",
+                    "in the mod's config"
+                }
+            }
+
+        },
+
+        wafflemod_arcade = {
+
+            c_wafflemod_asteroids = {
+                name = "Asteroids",
+                text = {
+                    "When {C:attention}used:{} Spend {C:money}$#1#{} to",
+                    "create a random Planet card",
+                    "{C:inactive}(Must have room)",
+                    "While held: Destroying a Stone Card",
+                    "levels up your most played poker hand"
+                }
+            },
+
+            c_wafflemod_crystal_castles = {
+                name = "Crystal Castles",
+                text = {
+                    "When {C:attention}used:{} Spend {C:money}$#1#{} to",
+                    "add 2 Ephemeral Diamond cards to hand",
+                    "While held: Cards with Diamond suit",
+                    "add their rank to Mult when scored"
+                }
+            },
+
+            c_wafflemod_dig_dug = {
+                name = "Dig Dug",
+                text = {
+                    "When {C:attention}used:{} Spend {C:money}$#1#{} to enhance",
+                    "{C:attention}1{} selected card into a {C:attention}Stone Card{}",
+                    "While {C:attention}held:{} Create a {C:tarot}Tarot Card{}",
+                    "after every {C:attention}#2#{} {C:inactive}[#3#]{} {C:attention}Stone Cards{} played",
+                    "{C:inactive}(Must have room)"
+                },
+            },
+
+            c_wafflemod_pacman = {
+                name = "Pac-Man",
+                text = {
+                    "When {C:attention}used:{} Spend {C:money}$#1#{} to enhance",
+                    "{C:attention}1{} selected card into a {C:attention}Wild Card{}",
+                    "While {C:attention}held:{} {C:white,X:mult}X#2#{} Mult first",
+                    "time each unique {C:attention}suit{} is scored"
+                },
+            },
+
+            c_wafflemod_space_invaders = {
+                name = "Space Invaders",
+                text = {
+                    "When {C:attention}used:{} Spend {C:money}$#1#{} to",
+                    "create a random {C:planet}Planet{} card",
+                    "While {C:attention}held:{} Using a {C:planet}Planet{} card also",
+                    "upgrades a random {C:attention}poker hand{}"
+                }
+            },
+
+        },
+
+        Sleeve = {
+            sleeve_wafflemod_waffle = {
+                name = "Waffle Sleeve",
+                text = {
+                    "{C:green,E:1}#1# in #2# chance{} to",
+                    "replace Jokers in shop",
+                    "with {C:attention}WaffleMod Jokers{}"
+                }
+            },
+            sleeve_wafflemod_waffle_alt = {
+                name = "Waffle Sleeve",
+                text = {
+                    "{C:attention}WaffleMod{} Jokers",
+                    "cost {C:money}$#1#{} less"
+                }
+            }
+        }
+
+    },
+
+    misc = {
+
+        dictionary = {
+            b_wafflemod_arcade_cards = "Arcade Cabinets",
+            k_wafflemod_tarot_rx = "Tarot?",
+            k_wafflemod_jevil_copy = "Chaos!",
+            k_wafflemod_arcade = "Arcade Cabinet",
+            wafflemod_dubious_legendary = "Legendary?",
+            wafflemod_arcade_pack = "Arcade Pack"
+        },
+
+        labels = {
+            wafflemod_ebony_seal = "Ebony Seal",
+            wafflemod_ivory_seal = "Ivory Seal",
+            wafflemod_ephemeral = "Ephemeral",
+            wafflemod_arcade = "Arcade"
+        },
+
+        v_dictionary = {
+            a_chips_scale = "+#1# Chips",
+            a_chips_scale_minus = "-#1# Chips",
+        }
+
+    }
+
+}

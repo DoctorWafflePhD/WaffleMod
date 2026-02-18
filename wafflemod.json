@@ -1,0 +1,13 @@
+{
+	"id": "wafflemod",
+	"name": "WaffleMod",
+	"author": ["doctorwaffle"],
+	"description": "Content mod made by some unemployed weirdo",
+	"prefix": "wafflemod",
+	"main_file": "main.lua",
+	"priority": 0,
+	"badge_colour": "4F3B42",
+	"badge_text_colour": "FFFFFF",
+	"version": "0.1.0",
+	"dependencies": []
+}
