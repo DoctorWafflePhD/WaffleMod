@@ -136,6 +136,18 @@ return {
                 }
             },
 
+            j_wafflemod_in_the_rough = {
+                name = "In the Rough",
+                text = {
+                    "First scored card with",
+                    "{V:1}#1#{} suit gives",
+                    "{C:white,X:mult}X#2#{} Mult for each",
+                    "non-{V:1}#1#{} card in {C:attention}full deck",
+                    "{C:inactive}(Currently {C:white,X:mult}X#3#{C:inactive} Mult)"
+
+                }
+            },
+
             j_wafflemod_instant_mac_and_cheese = {
                 name = "Instant Mac & Cheese",
                 text = {
@@ -162,6 +174,16 @@ return {
                     "their {C:enhanced}Enhancement{}, but",
                     "gain a {C:attention}Gold Seal{}"
                 },
+            },
+
+            j_wafflemod_motley = {
+                name = "Motley Joker",
+                text = {
+                    "{C:hearts}Hearts{} and {C:diamonds}Diamonds{} give",
+                    "{C:mult}+#1#{} Mult when scored,",
+                    "{C:spades}Spades{} and {C:clubs}Clubs{} give",
+                    "{C:chips}+#2#{} Chips when scored"
+                }
             },
 
             j_wafflemod_mystery_gift = {

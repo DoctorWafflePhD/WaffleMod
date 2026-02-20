@@ -92,7 +92,7 @@ SMODS.Joker {
         }
     },
     atlas = "wafflemod_jokerAtlas",
-    pos = {x=5,y=0},
+    pos = { x = 5, y = 0 },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult_gain, card.ability.extra.mult } }
     end,
@@ -259,11 +259,65 @@ function SMODS.current_mod.reset_game_globals(run_start)
     reset_fickle_suit()
 end
 
+-- In the Rough
+local function getNumNonDiamondsInFullDeck()
+    local numberNonDiamonds = 0
+    if not G.playing_cards then -- For cases where there is no G.playing_cards, i.e. viewing in collection
+        return 52 - 13
+    else
+        for _, v in pairs(G.playing_cards) do
+            if not v:is_suit("Diamonds") then
+                numberNonDiamonds = numberNonDiamonds + 1
+            end
+        end
+    end
+    return numberNonDiamonds
+end
+SMODS.Joker {
+    key = "in_the_rough",
+    atlas = "wafflemod_jokerAtlas",
+    cost = 5,
+    config = {
+        extra = {
+            suit = "Diamonds",
+            xmult_per = 0.05
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+        local suit = card.ability.extra.suit
+        local nonDiamondCount = getNumNonDiamondsInFullDeck()
+        return {
+            vars = {
+                localize(suit, 'suits_singular'),
+                card.ability.extra.xmult_per,
+                card.ability.extra.xmult_per * nonDiamondCount,
+                colours = { G.C.SUITS[suit] }
+            },
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and context.other_card:is_suit(card.ability.extra.suit) then
+            local is_first_diamond = false
+            for i = 1, #context.scoring_hand do
+                if context.scoring_hand[i]:is_suit(card.ability.extra.suit) then
+                    is_first_diamond = context.scoring_hand[i] == context.other_card
+                    break
+                end
+            end
+            if is_first_diamond then
+                return {
+                    xmult = card.ability.extra.xmult_per * getNumNonDiamondsInFullDeck()
+                }
+            end
+        end
+    end
+}
+
 -- Instant Mac & Cheese
 SMODS.Joker {
     key = "instant_mac_and_cheese",
     atlas = "wafflemod_jokerAtlas",
-    pos = {x=8,y=0},
+    pos = { x = 8, y = 0 },
     cost = 4,
     config = {
         extra = {
@@ -355,6 +409,41 @@ SMODS.Joker {
     end,
     in_pool = function(self, args)
         return WaffleMod.isEnhancementInDeck("m_stone")
+    end
+}
+
+-- Motley Joker
+SMODS.Joker {
+    key = "motley",
+    atlas = "wafflemod_jokerAtlas",
+    pos = { x = 9, y = 0 },
+    cost = 4,
+    config = { extra = {
+        chips = 20,
+        mult = 2,
+        chips_suits = { "Spades", "Clubs" },
+        mult_suits = { "Hearts", "Diamonds" }
+    } },
+    loc_vars = function (self, info_queue, card)
+        return {vars = {card.ability.extra.mult, card.ability.extra.chips}}
+    end,
+    calculate = function(self, card, context)
+        local returnTable = {}
+        if context.individual and context.cardarea == G.play then
+            for _, suit in pairs(card.ability.extra.chips_suits) do
+                if context.other_card:is_suit(suit) then
+                    returnTable.chips = card.ability.extra.chips
+                    break
+                end
+            end
+            for _, suit in pairs(card.ability.extra.mult_suits) do
+                if context.other_card:is_suit(suit) then
+                    returnTable.mult = card.ability.extra.mult
+                    break
+                end
+            end
+            return returnTable
+        end
     end
 }
 
@@ -582,7 +671,7 @@ SMODS.Joker {
     rarity = 2,
     cost = 6,
     atlas = "wafflemod_jokerAtlas",
-    pos = {x = 6, y = 1},
+    pos = { x = 6, y = 1 },
     config = { extra = {
         cards_added = 4
     } },
@@ -1311,7 +1400,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "serpent",
     config = { extra = {
-        h_size = 2
+        h_size = 1
     } },
     loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
