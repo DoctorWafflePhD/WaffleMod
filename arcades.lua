@@ -44,7 +44,7 @@ SMODS.Consumable {
         return true
     end,
     can_use = function(self, card)
-        
+        return G.consumeables and #G.consumeables.cards < G.consumeables.config.card_limit
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
@@ -58,6 +58,7 @@ SMODS.Consumable {
         }))
         delay(0.2)
         ease_dollars(-card.ability.extra.use_cost)
+        SMODS.add_card{ set = "Planet", area = G.consumeables }
     end,
     calculate = function(self, card, context)
         if context.using_consumeable and context.consumeable.ability.set == "Planet" then
