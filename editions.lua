@@ -15,6 +15,8 @@ SMODS.Edition {
             info_queue[#info_queue] = { key = 'e_wafflemod_ephemeral_joker', set = 'Edition', config = {} }
         elseif card.config and (card.config.center.pools or {}).Consumeables then
             info_queue[#info_queue] = { key = 'e_wafflemod_ephemeral_consumable', set = 'Edition', config = {} }
+        elseif card.ability and card.ability.set == "Default" then
+            info_queue[#info_queue] = { key = 'e_wafflemod_ephemeral_playing_card', set = 'Edition', config = {} }
         else
             info_queue[#info_queue] = { key = 'e_wafflemod_ephemeral', set = 'Edition', config = {} }
         end

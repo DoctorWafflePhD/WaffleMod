@@ -742,7 +742,7 @@ SMODS.Joker {
         cards_added = 4
     } },
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = { key = 'e_wafflemod_ephemeral', set = 'Edition', config = {} }
+        info_queue[#info_queue + 1] = { key = 'e_wafflemod_ephemeral_playing_card', set = 'Edition', config = {} }
         return { vars = { card.ability.extra.cards_added } }
     end,
     calculate = function(self, card, context)
@@ -805,15 +805,6 @@ end
 -- Darkroom
 SMODS.Joker {
     key = "darkroom",
-    loc_txt = {
-        name = "Darkroom",
-        text = {
-            "Using a non-{C:dark_edition,T:e_negative}Negative{} {C:tarot}Tarot{},",
-            "{C:planet}Planet{}, or {C:spectral}Spectral{} card has",
-            "a {C:green,E:1}#1# in #2# chance{} of creating",
-            "a {C:dark_edition}Negative{} copy"
-        },
-    },
     config = {
         extra = {
             odds = 4,

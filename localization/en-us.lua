@@ -252,6 +252,16 @@ return {
                 }
             },
 
+            j_wafflemod_darkroom = {
+                name = "Darkroom",
+                text = {
+                    "Using a non-{C:dark_edition,T:e_negative}Negative{} {C:tarot}Tarot{},",
+                    "{C:planet}Planet{}, or {C:spectral}Spectral{} card has",
+                    "a {C:green,E:1}#1# in #2# chance{} of creating",
+                    "a {C:dark_edition}Negative{} copy"
+                },
+            },
+
             j_wafflemod_freddie_mercury = {
                 name = "Freddie Mercury",
                 text = {
@@ -553,8 +563,8 @@ return {
         Other = {
 
             p_wafflemod_arcade_normal = {
-                name="Arcade Pack",
-                text={
+                name = "Arcade Pack",
+                text = {
                     "Choose {C:attention}#1#{} of up to",
                     "{C:attention}#2#{C:wafflemod_arcade} Arcade Cabinets{} to",
                     "add to your consumable area",

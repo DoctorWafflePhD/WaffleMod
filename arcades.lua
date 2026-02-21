@@ -234,6 +234,7 @@ SMODS.Consumable {
     } },
     loc_vars = function(self, info_queue, card)
         addArcadeHint(info_queue)
+        info_queue[#info_queue + 1] = { key = 'e_negative_playing_card', set = 'Edition', config = { extra = 1 } }
         return { vars = { card.ability.extra.use_cost, card.ability.extra.mult } }
     end,
     hidden = true,
