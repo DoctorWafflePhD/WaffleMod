@@ -38,7 +38,7 @@ SMODS.Consumable {
     } },
     loc_vars = function(self, info_queue, card)
         addArcadeHint(info_queue)
-        return {vars = {card.ability.extra.use_cost}}
+        return { vars = { card.ability.extra.use_cost } }
     end,
     keep_on_use = function(self, card)
         return true
@@ -58,23 +58,22 @@ SMODS.Consumable {
         }))
         delay(0.2)
         ease_dollars(-card.ability.extra.use_cost)
-        SMODS.add_card{ set = "Planet", area = G.consumeables }
+        SMODS.add_card { set = "Planet", area = G.consumeables }
     end,
     calculate = function(self, card, context)
         if context.using_consumeable and context.consumeable.ability.set == "Planet" then
             G.E_MANAGER:add_event(Event({
-            trigger = "after",
-            delay = "0.2",
-            blocking = false,
-            func = function()
-                SMODS.smart_level_up_hand(card, WaffleMod.getRandomHand("wafflemod_space_invaders_hand"), false)
-                return true
-            end
-        }))
+                trigger = "after",
+                delay = "0.2",
+                blocking = false,
+                func = function()
+                    SMODS.smart_level_up_hand(card, WaffleMod.getRandomHand("wafflemod_space_invaders_hand"), false)
+                    return true
+                end
+            }))
         end
     end
 }
-
 
 -- Pac-Man
 SMODS.Consumable {
@@ -219,5 +218,51 @@ SMODS.Consumable {
                 end
             end
         end
+    end
+}
+
+-- Polybius
+SMODS.Consumable {
+    key = "polybius",
+    set = "Spectral",
+    atlas = "wafflemod_arcadeAtlas",
+    pos = { x = 3, y = 0 },
+    config = { extra = {
+        edition = "e_negative",
+        use_cost = 6,
+        mult = 6
+    } },
+    loc_vars = function(self, info_queue, card)
+        addArcadeHint(info_queue)
+        return { vars = { card.ability.extra.use_cost, card.ability.extra.mult } }
+    end,
+    hidden = true,
+    soul_set = "wafflemod_arcade",
+    keep_on_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        G.E_MANAGER:add_event(Event({
+            trigger = "after",
+            delay = "0.2",
+            blocking = false,
+            func = function()
+                card:juice_up()
+                G.hand.highlighted[1]:set_edition("e_negative")
+                ease_dollars(-card.ability.extra.use_cost)
+                return true
+            end
+        }))
+    end,
+    can_use = function(self, card)
+        return G.hand and #G.hand.highlighted == 1 and WaffleMod.canAfford(card.ability.extra.use_cost) and not G.hand.highlighted[1].edition
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and context.other_card.edition and context.other_card.edition.key == "e_negative" then
+            return { mult = card.ability.extra.mult }
+        end
+    end,
+    in_pool = function()
+        return WaffleMod.config.arcade_cabinets.enabled
     end
 }

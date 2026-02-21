@@ -259,6 +259,41 @@ function SMODS.current_mod.reset_game_globals(run_start)
     reset_fickle_suit()
 end
 
+-- Fountain
+SMODS.Joker {
+    key = "fountain",
+    atlas = "wafflemod_jokerAtlas",
+    config = { extra = {
+        dollars = 3,
+    } },
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                G.GAME.probabilities.normal or 1,
+                card.ability.extra.dollars
+            }
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and
+            SMODS.has_no_rank(context.other_card) ~= true and -- Stone cards have no rank and thus should not count for this
+            SMODS.pseudorandom_probability(card, "wafflemod_fountain_roll", 1, context.other_card.base.nominal) then
+            G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
+            return {
+                dollars = card.ability.extra.dollars,
+                func = function()
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            G.GAME.dollar_buffer = 0
+                            return true
+                        end
+                    }))
+                end
+            }
+        end
+    end
+}
+
 -- In the Rough
 local function getNumNonDiamondsInFullDeck()
     local numberNonDiamonds = 0
@@ -424,8 +459,8 @@ SMODS.Joker {
         chips_suits = { "Spades", "Clubs" },
         mult_suits = { "Hearts", "Diamonds" }
     } },
-    loc_vars = function (self, info_queue, card)
-        return {vars = {card.ability.extra.mult, card.ability.extra.chips}}
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult, card.ability.extra.chips } }
     end,
     calculate = function(self, card, context)
         local returnTable = {}
@@ -601,21 +636,21 @@ SMODS.Joker {
 }
 
 -- Fortune III
-SMODS.Joker{
+SMODS.Joker {
     key = "fortune_iii",
     atlas = "wafflemod_jokerAtlas",
-    config = {extra = {
+    config = { extra = {
         target_enhancement = "m_stone",
         repetitions = 1,
         odds = 2
-    }},
-    loc_vars = function (self, info_queue, card)
+    } },
+    loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.target_enhancement]
-        return {vars = {G.GAME.probabilities.normal or 1, card.ability.extra.odds}}
+        return { vars = { G.GAME.probabilities.normal or 1, card.ability.extra.odds } }
     end,
     rarity = 2,
     cost = 6,
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play and SMODS.has_enhancement(context.other_card, card.ability.extra.target_enhancement) then
             local repCount = card.ability.extra.repetitions
             if SMODS.pseudorandom_probability(card, "wafflemod_fortune_iii_retrigger", G.GAME.probabilities.normal or 1, card.ability.extra.odds) then

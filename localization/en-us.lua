@@ -423,7 +423,18 @@ return {
                     "to {C:attention}1{} selected",
                     "card in your hand",
                 },
-            }
+            },
+
+            c_wafflemod_polybius = {
+                name = "Polybius",
+                text = {
+                    "When {C:attention}used:{} Spend {C:money}$#1#{} to",
+                    "add {C:dark_edition}Negative{} edition",
+                    "to {C:attention}1{} selected card",
+                    "While {C:attention}held:{} {C:dark_edition}Negative{} cards",
+                    "give {C:mult}+#2#{} Mult when scored"
+                }
+            },
 
         },
 
@@ -644,7 +655,7 @@ return {
                     "When {C:attention}used:{} Spend {C:money}$#1#{} to",
                     "create a random Planet card",
                     "{C:inactive}(Must have room)",
-                    "While held: Destroying a Stone Card",
+                    "While {C:attention}held:{} Destroying a Stone Card",
                     "levels up your most played poker hand"
                 }
             },
