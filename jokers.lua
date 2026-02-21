@@ -483,14 +483,14 @@ SMODS.Joker {
 }
 
 -- Mystery Gift
-WaffleMod.mysteryGiftTags = { -- Other mods should be able to add to this table if they have edition tags of their own
-    --    "uncommon",
-    --    "rare",
-    --    "negative",
-    "foil",
-    "holo",
-    "polychrome",
+WaffleMod.mysteryGiftTags = { -- Other mods should be able to add to these tables if they have edition tags of their own
+    {name = "e_tag_foil", weight = 0.5},
+    {name = "e_tag_holo", weight = 0.35},
+    {name = "e_tag_polychrome", weight = 0.15},
 }
+local function removeEditionFromString(str)
+    return string.sub(str, 3)
+end
 SMODS.Joker {
     key = "mystery_gift",
     atlas = "wafflemod_jokerAtlas",
@@ -500,8 +500,8 @@ SMODS.Joker {
     } },
     cost = 6,
     loc_vars = function(self, info_queue, card)
-        for _, tagKey in pairs(WaffleMod.mysteryGiftTags) do
-            info_queue[#info_queue + 1] = { key = 'tag_' .. tagKey, set = 'Tag' }
+        for _, entry in pairs(WaffleMod.mysteryGiftTags) do
+            info_queue[#info_queue + 1] = { key = removeEditionFromString(entry.name), set = 'Tag' }
         end
         return { vars = { (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
     end,
@@ -511,10 +511,13 @@ SMODS.Joker {
             --print(pr, G.GAME.probabilities.normal / card.ability.extra.odds)
             local rollForTagCreation = pr < G.GAME.probabilities.normal / card.ability.extra.odds
             if rollForTagCreation then
-                local tagToCreate = pseudorandom_element(WaffleMod.mysteryGiftTags, "wafflemod_mystery_gift_selection")
+                -- this is kind of a hacky method since this function is made for editions and not their matching tags but it's a weighted pseudorandom pull from a table so i'm using it
+                -- I'm Lazy
+                -- if there's a weighted SMODS.pseudorandom_element lmk Roflmao
+                local tagToCreate = poll_edition("wafflemod_mystery_gift_selection", nil, true, true, WaffleMod.mysteryGiftTags)
                 G.E_MANAGER:add_event(Event {
                     func = function()
-                        add_tag(Tag('tag_' .. tagToCreate))
+                        add_tag(Tag(removeEditionFromString(tagToCreate)))
                         play_sound('generic1', 0.9 + math.random() * 0.1, 0.8)
                         play_sound('holo1', 1.2 + math.random() * 0.1, 0.4)
                         card:juice_up()
