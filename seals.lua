@@ -6,7 +6,7 @@ SMODS.Atlas {
 }
 
 -- Ebony Seal
-local handSizePerSealDiscarded = 2
+local handSizePerSealDiscarded = 1
 SMODS.Seal {
     key = 'ebony',
     pos = { x = 2, y = 0 },

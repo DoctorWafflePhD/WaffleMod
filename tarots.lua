@@ -11,7 +11,7 @@ if false then
     key = "well",
     set = "Tarot",
     atlas = "wafflemod_tarotsAtlas",
-    pos = {x=1,y=0},
+    pos = {x=0,y=0},
     config = { max_highlighted = 2, mod_conv = 'm_mult' }, -- temporary
 }
 end
@@ -21,7 +21,7 @@ SMODS.Consumable {
     key = "artist",
     set = "Tarot",
     atlas = "wafflemod_tarotsAtlas",
-    pos = {x=0,y=1},
+    pos = {x=1,y=0},
     config = { max_highlighted = 3, mod_conv = 'm_wafflemod_scribbled'},
     loc_vars = function (self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS[card.ability.mod_conv]
