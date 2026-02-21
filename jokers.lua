@@ -600,6 +600,34 @@ SMODS.Joker {
     end
 }
 
+-- Fortune III
+SMODS.Joker{
+    key = "fortune_iii",
+    atlas = "wafflemod_jokerAtlas",
+    config = {extra = {
+        target_enhancement = "m_stone",
+        repetitions = 1,
+        odds = 2
+    }},
+    loc_vars = function (self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.target_enhancement]
+        return {vars = {G.GAME.probabilities.normal or 1, card.ability.extra.odds}}
+    end,
+    rarity = 2,
+    cost = 6,
+    calculate = function (self, card, context)
+        if context.repetition and context.cardarea == G.play and SMODS.has_enhancement(context.other_card, card.ability.extra.target_enhancement) then
+            local repCount = card.ability.extra.repetitions
+            if SMODS.pseudorandom_probability(card, "wafflemod_fortune_iii_retrigger", G.GAME.probabilities.normal or 1, card.ability.extra.odds) then
+                repCount = repCount + card.ability.extra.repetitions
+            end
+            return {
+                repetitions = repCount
+            }
+        end
+    end
+}
+
 -- Jok
 SMODS.Joker {
     key = "jok",

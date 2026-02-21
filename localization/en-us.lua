@@ -170,7 +170,7 @@ return {
             j_wafflemod_miner = {
                 name = "Miner",
                 text = {
-                    "Played {C:attention}Stone Cards{} lose",
+                    "Played {C:attention}Stone{} cards lose",
                     "their {C:enhanced}Enhancement{}, but",
                     "gain a {C:attention}Gold Seal{}"
                 },
@@ -203,6 +203,15 @@ return {
                     "{C:green,E:1}#2# in #3# chance{} to {C:attention}destroy{}",
                     "a random Joker after",
                     "each hand played"
+                }
+            },
+
+            j_wafflemod_fortune_iii = {
+                name = "Fortune III",
+                text = {
+                    "{C:attention}Retrigger{} all played",
+                    "{C:attention}Stone{} cards, {C:green,E:1}#1# in #2# chance",
+                    "to {C:attention}retrigger{} them again"
                 }
             },
 

@@ -23,6 +23,5 @@ These experimental features include...
         - The Serpent
 - Reverse Tarot cards, which have a rare chance to replace Tarot Cards in the shop and in Arcana Packs, offering new effects.
 
-
 ## Feedback
 With the mod being in such a WIP state, feedback is appreciated, especially in the balance department. Playtesters welcome!
