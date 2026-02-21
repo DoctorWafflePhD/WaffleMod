@@ -625,6 +625,9 @@ SMODS.Joker{
                 repetitions = repCount
             }
         end
+    end,
+    in_pool = function(self, args)
+        return WaffleMod.isEnhancementInDeck("m_stone")
     end
 }
 
