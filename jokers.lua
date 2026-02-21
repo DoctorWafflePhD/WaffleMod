@@ -7,26 +7,6 @@ SMODS.Atlas {
     py = 95,
 }
 
--- Copypasta template
-if false then
-    SMODS.Joker {
-        key = "template",
-        config = {
-            extra = {}
-        },
-        loc_vars = function(self, info_queue, card)
-            return { vars = {} }
-        end,
-        rarity = 1,
-        atlas = "wafflemod_jokerAtlas",
-        pos = { x = 0, y = 0 },
-        cost = 4,
-        calculate = function(self, card, context)
-
-        end
-    }
-end
-
 -- Blueberry Jam
 SMODS.Joker {
     key = "blueberry_jam",
