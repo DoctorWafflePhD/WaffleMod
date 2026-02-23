@@ -464,9 +464,9 @@ SMODS.Joker {
 
 -- Mystery Gift
 WaffleMod.mysteryGiftTags = { -- Other mods should be able to add to these tables if they have edition tags of their own
-    {name = "e_tag_foil", weight = 0.5},
-    {name = "e_tag_holo", weight = 0.35},
-    {name = "e_tag_polychrome", weight = 0.15},
+    { name = "e_tag_foil",       weight = 0.5 },
+    { name = "e_tag_holo",       weight = 0.35 },
+    { name = "e_tag_polychrome", weight = 0.15 },
 }
 local function removeEditionFromString(str)
     return string.sub(str, 3)
@@ -494,7 +494,8 @@ SMODS.Joker {
                 -- this is kind of a hacky method since this function is made for editions and not their matching tags but it's a weighted pseudorandom pull from a table so i'm using it
                 -- I'm Lazy
                 -- if there's a weighted SMODS.pseudorandom_element lmk Roflmao
-                local tagToCreate = poll_edition("wafflemod_mystery_gift_selection", nil, true, true, WaffleMod.mysteryGiftTags)
+                local tagToCreate = poll_edition("wafflemod_mystery_gift_selection", nil, true, true,
+                    WaffleMod.mysteryGiftTags)
                 G.E_MANAGER:add_event(Event {
                     func = function()
                         add_tag(Tag(removeEditionFromString(tagToCreate)))
@@ -681,6 +682,69 @@ SMODS.Joker {
             return {
                 Xmult = card.ability.extra.Xmult
             }
+        end
+    end
+}
+
+-- Jokerton
+SMODS.Joker {
+    key = "wafflemod_jokerton",
+    atlas = "wafflemod_jokerAtlas",
+    pos = { x = 7, y = 1 },
+    config = { extra = {
+        discard_requirement = 10,
+        discards_remaining = 10,
+        is_juicing = false,
+        conv_enhancement = "m_steel"
+    } },
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.conv_enhancement]
+        return {
+            vars = {
+                card.ability.extra.discard_requirement,
+                card.ability.extra.discards_remaining
+            }
+        }
+    end,
+    rarity = 2,
+    cost = 6,
+    calculate = function(self, card, context)
+        local extra = card.ability.extra
+        if context.discard and context.other_card:is_suit("Hearts") then
+            extra.discards_remaining = math.max(extra.discards_remaining - 1, 0)
+            if extra.discards_remaining == 0 and not extra.is_juicing then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        SMODS.calculate_effect(
+                            {
+                                message = localize('k_active_ex'),
+                                colour = G.C.FILTER,
+                            },
+                            card)
+                        local eval = function(card) return not extra.is_juicing end
+                        juice_card_until(card, eval, true)
+                        extra.is_juicing = true
+                        return true
+                    end
+                }))
+            end
+        end
+        if extra.is_juicing and context.before then
+            if context.scoring_hand and context.scoring_hand[1] then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        local convCard = context.scoring_hand[1]
+                        convCard:set_ability(extra.conv_enhancement)
+                        convCard:juice_up()
+                        extra.is_juicing = false
+                        return true
+                    end
+                }))
+                return {
+                    message = localize('k_wafflemod_steel'),
+                    colour = G.C.FILTER,
+                }
+            end
         end
     end
 }

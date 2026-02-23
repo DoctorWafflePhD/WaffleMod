@@ -215,6 +215,25 @@ return {
                 }
             },
 
+            j_wafflemod_jok = {
+                name = "jok",
+                text = {
+                    "This Joker gains {X:mult,C:white}X#1#{} Mult every",
+                    "time {C:tarot,T:c_tower}The Tower{} is used",
+                    "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
+                },
+            },
+
+
+            j_wafflemod_jokerton = {
+                name = "Jokerton",
+                text = {
+                    "Every {C:attention}#1# {C:inactive}[#2#] {C:hearts}Hearts{} cards discarded,",
+                    "enhance {C:attention}first card{} of next",
+                    "hand played to a {C:attention}Steel Card{}"
+                }
+            },
+
             j_wafflemod_snowman = {
                 name = "Snowman",
                 text = {
@@ -248,7 +267,8 @@ return {
                     "When round begins, bring",
                     "cards with {C:hearts}#1#{} suit",
                     "to the {C:attention}top{} of your deck",
-                    "{C:inactive}\"I'll never let them hurt you\""
+                    "{C:inactive}\"I'll never let them",
+                    "{C:inactive}hurt you, I promise\""
                 }
             },
 
@@ -304,15 +324,6 @@ return {
                     "''It's kinda boring in here. All I ",
                     'have is a DVD copy of {C:attention}SharkTale{}."'
                 }
-            },
-
-            j_wafflemod_jok = {
-                name = "jok",
-                text = {
-                    "This Joker gains {X:mult,C:white}X#1#{} Mult every",
-                    "time {C:tarot,T:c_tower}The Tower{} is used",
-                    "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
-                },
             },
 
             j_wafflemod_ice_juggler_cookie = {
@@ -739,6 +750,7 @@ return {
             b_wafflemod_arcade_cards = "Arcade Cabinets",
             k_wafflemod_tarot_rx = "Tarot?",
             k_wafflemod_jevil_copy = "Chaos!",
+            k_wafflemod_steel = "Steel",
             k_wafflemod_arcade = "Arcade Cabinet",
             wafflemod_dubious_legendary = "Legendary?",
             wafflemod_arcade_pack = "Arcade Pack"
