@@ -461,6 +461,14 @@ return {
 
         Tarot = {
 
+            c_wafflemod_well = {
+                name = "The Well",
+                text = {
+                    "Create an {C:dark_edition}Ephemeral{} copy",
+                    "of {C:attention}1{} selected Joker"
+                }
+            },
+
             c_wafflemod_artist = {
                 name = "The Artist",
                 text = {

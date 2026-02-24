@@ -706,6 +706,7 @@ SMODS.Joker {
             }
         }
     end,
+    blueprint_compat = false,
     rarity = 2,
     cost = 6,
     calculate = function(self, card, context)
@@ -737,6 +738,7 @@ SMODS.Joker {
                         convCard:set_ability(extra.conv_enhancement)
                         convCard:juice_up()
                         extra.is_juicing = false
+                        extra.discards_remaining = 10
                         return true
                     end
                 }))
