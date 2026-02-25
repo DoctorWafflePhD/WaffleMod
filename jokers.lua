@@ -247,7 +247,7 @@ end
 SMODS.Joker {
     key = "fountain",
     atlas = "wafflemod_jokerAtlas",
-    pos = {x=8,y=1},
+    pos = { x = 8, y = 1 },
     config = { extra = {
         dollars = 3,
     } },
@@ -297,7 +297,7 @@ end
 SMODS.Joker {
     key = "in_the_rough",
     atlas = "wafflemod_jokerAtlas",
-    pos = {x=9,y=1},
+    pos = { x = 9, y = 1 },
     cost = 5,
     config = {
         extra = {
@@ -633,7 +633,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "fortune_iii",
     atlas = "wafflemod_jokerAtlas",
-    pos = {x=0,y=2},
+    pos = { x = 0, y = 2 },
     config = { extra = {
         target_enhancement = "m_stone",
         repetitions = 1,
@@ -1240,6 +1240,7 @@ WaffleMod.bossJokerTable = {
     bl_club = "j_wafflemod_club",
     bl_goad = "j_wafflemod_goad",
     bl_head = "j_wafflemod_head",
+    bl_hook = "j_wafflemod_hook",
     bl_needle = "j_wafflemod_ox",
     bl_ox = "j_wafflemod_ox",
     bl_serpent = "j_wafflemod_serpent",
@@ -1424,6 +1425,37 @@ SMODS.Joker {
                 message = localize('k_upgrade_ex'),
                 colour = G.C.MULT,
                 message_card = card
+            }
+        end
+    end
+}
+
+-- The Hook
+SMODS.Joker {
+    key = "hook",
+    atlas = "wafflemod_jokerAtlas",
+    rarity = "wafflemod_Boss",
+    config = { extra = {
+        dollars = 3
+    } },
+    loc_vars = function(self, info_queue, card)
+        WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
+        return { vars = { card.ability.extra.dollars } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.hand and context.end_of_round then
+            print("awawa")
+            G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
+            return {
+                dollars = card.ability.extra.dollars,
+                func = function()
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            G.GAME.dollar_buffer = 0
+                            return true
+                        end
+                    }))
+                end
             }
         end
     end

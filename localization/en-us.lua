@@ -382,6 +382,15 @@ return {
                 }
             },
 
+            j_wafflemod_hook = {
+                name = "The Hook",
+                text = {
+                    "Earn {C:money}$#1#{} for each",
+                    "card {C:attention}held in hand{}",
+                    "at end of round"
+                }
+            },
+
             j_wafflemod_needle = {
                 name = "The Needle",
                 text = {
