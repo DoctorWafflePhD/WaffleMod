@@ -1434,9 +1434,11 @@ SMODS.Joker {
 SMODS.Joker {
     key = "hook",
     atlas = "wafflemod_jokerAtlas",
+    pos = {x=4,y=4},
+    soul_pos = {x=5,y=4},
     rarity = "wafflemod_Boss",
     config = { extra = {
-        dollars = 3
+        dollars = 2
     } },
     loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
@@ -1444,7 +1446,6 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.hand and context.end_of_round then
-            print("awawa")
             G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
             return {
                 dollars = card.ability.extra.dollars,
