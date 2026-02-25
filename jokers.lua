@@ -7,6 +7,9 @@ SMODS.Atlas {
     py = 95,
 }
 
+-- Common
+------------------------------------------------------------------------------------------------------------------------------------------
+
 -- Blueberry Jam
 SMODS.Joker {
     key = "blueberry_jam",
@@ -71,6 +74,7 @@ SMODS.Joker {
             hand = nil
         }
     },
+    cost = 5,
     atlas = "wafflemod_jokerAtlas",
     pos = { x = 5, y = 0 },
     loc_vars = function(self, info_queue, card)
@@ -243,9 +247,11 @@ end
 SMODS.Joker {
     key = "fountain",
     atlas = "wafflemod_jokerAtlas",
+    pos = {x=8,y=1},
     config = { extra = {
         dollars = 3,
     } },
+    cost = 5,
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -291,6 +297,7 @@ end
 SMODS.Joker {
     key = "in_the_rough",
     atlas = "wafflemod_jokerAtlas",
+    pos = {x=9,y=1},
     cost = 5,
     config = {
         extra = {
@@ -557,6 +564,9 @@ SMODS.Joker {
     end
 }
 
+-- Uncommon
+------------------------------------------------------------------------------------------------------------------------------------------
+
 -- Damocles
 SMODS.Joker {
     key = "damocles",
@@ -623,6 +633,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "fortune_iii",
     atlas = "wafflemod_jokerAtlas",
+    pos = {x=0,y=2},
     config = { extra = {
         target_enhancement = "m_stone",
         repetitions = 1,
@@ -708,7 +719,7 @@ SMODS.Joker {
     end,
     blueprint_compat = false,
     rarity = 2,
-    cost = 6,
+    cost = 5,
     calculate = function(self, card, context)
         local extra = card.ability.extra
         if context.discard and context.other_card:is_suit("Hearts") then
@@ -784,7 +795,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "stage_magician",
     rarity = 2,
-    cost = 6,
+    cost = 4,
     atlas = "wafflemod_jokerAtlas",
     pos = { x = 6, y = 1 },
     config = { extra = {
@@ -815,6 +826,9 @@ SMODS.Joker {
         end
     end
 }
+
+-- Rare
+------------------------------------------------------------------------------------------------------------------------------------------
 
 -- Bring Me Your Love
 SMODS.Joker {
@@ -945,6 +959,9 @@ SMODS.Joker {
     end
 }
 
+-- Legendary
+------------------------------------------------------------------------------------------------------------------------------------------
+
 -- Waffle
 SMODS.Joker {
     key = "doctorwaffle",
@@ -982,8 +999,8 @@ SMODS.Joker {
             1.2)
     end,
     atlas = "wafflemod_jokerAtlas",
-    pos = { x = 4, y = 2 },
-    soul_pos = { x = 5, y = 2 },
+    pos = { x = 4, y = 3 },
+    soul_pos = { x = 5, y = 3 },
     cost = 20,
     calculate = function(self, card, context)
         if context.end_of_round and context.main_eval and context.game_over == false and not context.blueprint then
@@ -1025,8 +1042,8 @@ SMODS.Joker {
         return { vars = { card.ability.extra.h_size, card.ability.extra.xmult_gain, card.ability.extra.xmult } }
     end,
     atlas = "wafflemod_jokerAtlas",
-    pos = { x = 6, y = 2 },
-    soul_pos = { x = 7, y = 2 },
+    pos = { x = 6, y = 3 },
+    soul_pos = { x = 7, y = 3 },
     rarity = 4,
     cost = 20,
     add_to_deck = function(self, card, from_debuff)
@@ -1117,8 +1134,8 @@ SMODS.Joker {
     rarity = 4,
     cost = 20,
     atlas = "wafflemod_jokerAtlas",
-    pos = { x = 0, y = 2 },
-    soul_pos = { x = 1, y = 2 },
+    pos = { x = 0, y = 3 },
+    soul_pos = { x = 1, y = 3 },
     add_to_deck = function(self, card, from_debuff)
         WaffleMod.legendary_sound("mrdo_appear")
     end,
@@ -1198,8 +1215,8 @@ SMODS.Joker {
     },
     rarity = 4,
     atlas = "wafflemod_jokerAtlas",
-    pos = { x = 2, y = 2 },
-    soul_pos = { x = 3, y = 2 },
+    pos = { x = 2, y = 3 },
+    soul_pos = { x = 3, y = 3 },
     cost = 20,
     calculate = function(self, card, context)
         if context.selling_self and G.STATE == G.STATES.SHOP then
@@ -1213,7 +1230,8 @@ SMODS.Joker {
     end
 }
 
--- BOSS JOKERS -----------------------------------------------
+-- Boss
+------------------------------------------------------------------------------------------------------------------------------------------
 
 -- Table of blinds and their corresponding jokers
 -- Other mods can add to this table (or should theoretically be able to, at least)
@@ -1295,8 +1313,8 @@ SMODS.Joker {
     end,
     rarity = "wafflemod_Boss",
     atlas = "wafflemod_jokerAtlas",
-    pos = { x = 0, y = 5 },
-    soul_pos = { x = 1, y = 5 },
+    pos = { x = 0, y = 6 },
+    soul_pos = { x = 1, y = 6 },
     cost = 15,
     draw = bossCardDraw,
     calculate = function(self, card, context)
@@ -1339,8 +1357,8 @@ SMODS.Joker {
     end,
     rarity = "wafflemod_Boss",
     atlas = "wafflemod_jokerAtlas",
-    pos = { x = 2, y = 5 },
-    soul_pos = { x = 3, y = 5 },
+    pos = { x = 2, y = 6 },
+    soul_pos = { x = 3, y = 6 },
     cost = 15,
     draw = bossCardDraw,
     calculate = function(self, card, context)
@@ -1383,8 +1401,8 @@ SMODS.Joker {
     end,
     rarity = "wafflemod_Boss",
     atlas = "wafflemod_jokerAtlas",
-    pos = { x = 0, y = 4 },
-    soul_pos = { x = 1, y = 4 },
+    pos = { x = 0, y = 5 },
+    soul_pos = { x = 1, y = 5 },
     cost = 15,
     draw = bossCardDraw,
     calculate = function(self, card, context)
@@ -1426,8 +1444,8 @@ SMODS.Joker {
     end,
     rarity = "wafflemod_Boss",
     atlas = "wafflemod_jokerAtlas",
-    pos = { x = 0, y = 3 },
-    soul_pos = { x = 1, y = 3 },
+    pos = { x = 0, y = 4 },
+    soul_pos = { x = 1, y = 4 },
     cost = 15,
     draw = bossCardDraw,
     calculate = function(self, card, context)
@@ -1470,8 +1488,8 @@ SMODS.Joker {
     end,
     rarity = "wafflemod_Boss",
     atlas = "wafflemod_jokerAtlas",
-    pos = { x = 2, y = 3 },
-    soul_pos = { x = 3, y = 3 },
+    pos = { x = 2, y = 4 },
+    soul_pos = { x = 3, y = 4 },
     cost = 15,
     draw = bossCardDraw,
     calculate = function(self, card, context)
@@ -1513,8 +1531,8 @@ SMODS.Joker {
         return { vars = { card.ability.extra.h_size } }
     end,
     atlas = "wafflemod_jokerAtlas",
-    pos = { x = 4, y = 5 },
-    soul_pos = { x = 5, y = 5 },
+    pos = { x = 4, y = 6 },
+    soul_pos = { x = 5, y = 6 },
     rarity = "wafflemod_Boss",
     cost = 15,
     draw = bossCardDraw,
@@ -1553,8 +1571,8 @@ SMODS.Joker {
     end,
     rarity = "wafflemod_Boss",
     atlas = "wafflemod_jokerAtlas",
-    pos = { x = 2, y = 4 },
-    soul_pos = { x = 3, y = 4 },
+    pos = { x = 2, y = 5 },
+    soul_pos = { x = 3, y = 5 },
     cost = 15,
     draw = bossCardDraw,
     calculate = function(self, card, context)
@@ -1580,38 +1598,3 @@ SMODS.Joker {
         end
     end
 }
-
--- -- wafflemod joker pool
--- SMODS.ObjectType({
---     key = "wafflemod_jokers",
---     default = "j_wafflemod_purple",
---     cards = {},
---     rarities = {
---         {
---             key = "Common",
---             rate = 0.75
---         },
---         {
---             key = "Uncommon",
---             rate = 0.2
---         },
---         {
---             key = "Rare",
---             rate = 0.05
---         }
---     }
--- })
--- WaffleMod.hasInjected = false
--- local injectRef = SMODS.injectItems
--- function SMODS.injectItems()
---     injectRef()
---     if not WaffleMod.hasInjected then -- otherwise will repeat when changing language (i think)
---         for i, v in ipairs(G.P_CENTER_POOLS.Joker) do
---             local key = v.key
---             if string.sub(key, 1, 12) == "j_wafflemod_" then
---                 SMODS.ObjectTypes.wafflemod_jokers:inject_card(v)
---             end
---         end
---         WaffleMod.hasInjected = true
---     end
--- end
