@@ -1436,7 +1436,7 @@ SMODS.Joker {
     atlas = "wafflemod_jokerAtlas",
     rarity = "wafflemod_Boss",
     config = { extra = {
-        dollars = 3
+        dollars = 2
     } },
     loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
