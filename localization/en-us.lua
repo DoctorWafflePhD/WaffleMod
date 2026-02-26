@@ -329,7 +329,7 @@ return {
             j_wafflemod_ice_juggler_cookie = {
                 name = "Ice Juggler Cookie",
                 text = {
-                    "+{C:attention}#1#{} hand size",
+                    "{C:attention}+#1#{} hand size",
                     "This Joker gains {C:white,X:mult}X#2#{} Mult if a",
                     "{C:diamonds}Diamond{} card, {C:clubs}Club{} card,",
                     "{C:hearts}Heart{} card, and {C:spades}Spade{} card",
