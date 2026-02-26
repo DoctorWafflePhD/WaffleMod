@@ -1436,6 +1436,7 @@ SMODS.Joker {
     atlas = "wafflemod_jokerAtlas",
     pos = {x=4,y=4},
     soul_pos = {x=5,y=4},
+    draw = bossCardDraw,
     rarity = "wafflemod_Boss",
     config = { extra = {
         dollars = 2
@@ -1549,6 +1550,48 @@ SMODS.Joker {
         -- Payout each time a card is scored
         if context.individual and context.cardarea == G.play and context.scoring_name == WaffleMod.getMostPlayedHand() then
             return dosh()
+        end
+    end
+}
+
+-- The Psychic
+SMODS.Joker {
+    key = "psychic",
+    config = {extra = {
+        xmult = 1.5,
+    }},
+    loc_vars = function (self, info_queue, card)
+        return {vars = {card.ability.extra.xmult}}
+    end,
+    rarity = "wafflemod_Boss",
+    atlas = "wafflemod_jokerAtlas",
+    pos = {x=4,y=5},
+    soul_pos = {x=5,y=5},
+    draw = bossCardDraw,
+    calculate = function (self, card, context)
+        if context.joker_main then
+            for _, scoredCard in pairs(context.scoring_hand) do
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        scoredCard:juice_up()
+                        return true
+                    end
+                }))
+
+                if scoredCard.debuff then
+                    SMODS.calculate_effect(
+                        {message = localize('k_debuffed'),
+                        colour = G.C.RED},
+                        card
+                    )
+                else
+                    SMODS.calculate_effect(
+                    {xmult = card.ability.extra.xmult},
+                    card
+                )
+                end
+                
+            end
         end
     end
 }

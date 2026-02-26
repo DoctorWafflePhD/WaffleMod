@@ -76,6 +76,7 @@ SMODS.Voucher {
     requires = { 'v_wafflemod_insert_coin' },
         loc_vars = function(self, info_queue)
         info_queue[#info_queue + 1] = { key = "wafflemod_arcade_hint", set = "Other", config = {} }
+        info_queue[#info_queue + 1] = { key = "e_negative_consumable", set = "Edition", config = {extra = 1} }
         if not WaffleMod.config.arcade_cabinets.enabled then
             info_queue[#info_queue + 1] = { key = 'wafflemod_disabled_tooltip', set = 'Other', config = {} }
         end

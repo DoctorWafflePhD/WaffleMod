@@ -413,6 +413,14 @@ return {
                 }
             },
 
+            j_wafflemod_psychic = {
+                name = "The Psychic",
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult for each",
+                    "card in scored hand"
+                }
+            },
+
             j_wafflemod_serpent = {
                 name = "The Serpent",
                 text = {
