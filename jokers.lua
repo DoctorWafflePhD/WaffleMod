@@ -1631,6 +1631,31 @@ function SMODS.current_mod.calculate(self, context)
     return curModCalcRef(self, context)
 end
 
+-- The Water
+SMODS.Joker {
+    key = "water",
+    atlas = "wafflemod_jokerAtlas",
+    pos = {x=6,y=4},
+    soul_pos = {x=7,y=4},
+    config = {extra = {
+        xmult = 1
+    }},
+    loc_vars = function (self, info_queue, card)
+        return {vars = {
+            card.ability.extra.xmult,
+            (card.ability.extra.xmult * G.GAME.current_round.discards_left) + 1
+        }}
+    end,
+    calculate = function (self, card, context)
+        if context.joker_main then
+            return {
+                xmult = (card.ability.extra.xmult * G.GAME.current_round.discards_left) + 1
+            }
+        end
+    end,
+    draw = bossCardDraw
+}
+
 -- The Window
 SMODS.Joker {
     key = "window",

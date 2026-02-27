@@ -119,6 +119,14 @@ return {
                 }
             },
 
+            j_wafflemod_golfer = {
+                name = "Golfer",
+                text = {
+                    "{C:clubs}Clubs{} held in hand",
+                    "each give {C:mult}+#1#{} Mult"
+                }
+            },
+
             j_wafflemod_dreamsicle = {
                 name = "Dreamsicle",
                 text = {
@@ -430,6 +438,15 @@ return {
                 }
             },
 
+            j_wafflemod_water = {
+                name = "The Water",
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult for each",
+                    "{C:attention}discard{} remaining",
+                    "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
+                }
+            },
+
             j_wafflemod_window = {
                 name = "The Window",
                 text = {
@@ -474,6 +491,17 @@ return {
                 }
             },
 
+        },
+
+        Tag = {
+            tag_wafflemod_photocopy = {
+                name = "Photocopy Tag",
+                text = {
+                    "Next Joker purchased",
+                    "in Shop immediately puts",
+                    "a copy of it on sale"
+                }
+            }
         },
 
         Tarot = {
