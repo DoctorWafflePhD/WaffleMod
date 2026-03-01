@@ -93,7 +93,8 @@ return {
                 text = {
                     "{C:mult}+#1#{} Mult",
                     "{C:mult}-#2#{} Mult for each",
-                    "card held in hand"
+                    "card held in hand",
+                    "after hand played"
                 },
             },
 
@@ -706,7 +707,7 @@ return {
             wafflemod_art_credit_jac = {
                 name = "Guest Artist",
                 text = {
-                    "Jac"
+                    "Jac1231"
                 }
             },
 

@@ -19,7 +19,7 @@ assert(SMODS.load_file("editions.lua"))()
 assert(SMODS.load_file("arcades.lua"))()
 assert(SMODS.load_file("boosters.lua"))()
 
-if SMODS.find_mod("CardSleeves") then
+if next(SMODS.find_mod("CardSleeves")) then
     assert(SMODS.load_file("xmod/sleeves.lua"))()
 end
 

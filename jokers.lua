@@ -1637,6 +1637,7 @@ SMODS.Joker {
     atlas = "wafflemod_jokerAtlas",
     pos = {x=6,y=4},
     soul_pos = {x=7,y=4},
+    rarity = "wafflemod_Boss",
     config = {extra = {
         xmult = 1
     }},
