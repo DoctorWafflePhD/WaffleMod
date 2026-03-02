@@ -699,7 +699,7 @@ SMODS.Joker {
 
 -- Jokerton
 SMODS.Joker {
-    key = "wafflemod_jokerton",
+    key = "jokerton",
     atlas = "wafflemod_jokerAtlas",
     pos = { x = 7, y = 1 },
     config = { extra = {
@@ -1241,10 +1241,14 @@ WaffleMod.bossJokerTable = {
     bl_goad = "j_wafflemod_goad",
     bl_head = "j_wafflemod_head",
     bl_hook = "j_wafflemod_hook",
-    bl_needle = "j_wafflemod_ox",
-    bl_ox = "j_wafflemod_ox",
+    bl_needle = "j_wafflemod_needle",
+    bl_ox = "j_wafflemod_ox", -- roblox ?!?!
+    bl_psychic = "j_wafflemod_psychic",
     bl_serpent = "j_wafflemod_serpent",
-    bl_window = "j_wafflemod_window"
+    bl_water = "j_wafflemod_water",
+    bl_window = "j_wafflemod_window",
+
+    bl_crimson_heart = "j_wafflemod_crimson_heart"
 
 }
 
@@ -1698,5 +1702,29 @@ SMODS.Joker {
                 message_card = card
             }
         end
+    end
+}
+
+-- Crimson Heart
+SMODS.Joker {
+    key = "crimson_heart",
+    atlas = "wafflemod_jokerAtlas",
+    pos = {x = 6, y = 5},
+    soul_pos = {x = 7, y = 5},
+    --draw = bossCardDraw,
+    rarity = "wafflemod_Showdown",
+    cost = 20,
+    config = {extra = {
+        xmult = 1.5
+    }},
+    loc_vars = function (self, info_queue, card)
+        return {vars = {card.ability.extra.xmult}}
+    end,
+    calculate = function (self, card, context)
+            if context.other_joker and context.other_joker ~= card then
+            return {
+                xmult = card.ability.extra.xmult
+            }
+        end 
     end
 }

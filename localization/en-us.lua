@@ -459,6 +459,14 @@ return {
                 }
             },
 
+            j_wafflemod_crimson_heart = {
+                name = "Crimson Heart",
+                text = {
+                    "Other Jokers each",
+                    "give {C:white,X:mult}X#1#{} Mult"
+                }
+            },
+
         },
 
         Spectral = {
