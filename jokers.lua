@@ -1575,12 +1575,7 @@ SMODS.Joker {
     calculate = function (self, card, context)
         if context.joker_main then
             for _, scoredCard in pairs(context.scoring_hand) do
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        scoredCard:juice_up()
-                        return true
-                    end
-                }))
+
 
                 if scoredCard.debuff then
                     SMODS.calculate_effect(
@@ -1722,9 +1717,23 @@ SMODS.Joker {
     end,
     calculate = function (self, card, context)
             if context.other_joker and context.other_joker ~= card then
-            return {
+            if context.other_joker.debuff then
+                                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        context.other_joker:juice_up()
+                        return true
+                    end
+                }))
+                    SMODS.calculate_effect(
+                        {message = localize('k_debuffed'),
+                        colour = G.C.RED},
+                        card
+                    )
+        else
+                return {
                 xmult = card.ability.extra.xmult
             }
+            end
         end 
     end
 }

@@ -9,12 +9,6 @@ SMODS.Atlas {
 -- The Axe
 SMODS.Blind {
     key = "axe",
-    loc_txt = {
-        name = "The Axe",
-        text = {
-            "Discards cost $3"
-        }
-    },
     atlas = "blinds",
     dollars = 5,
     mult = 2,
@@ -44,13 +38,6 @@ SMODS.Blind {
 SMODS.Blind {
     boss_colour = HEX("8F7EA0"),
     key = "gate",
-    loc_txt = {
-        name = "The Gate",
-        text = {
-            "Played cards lose",
-            "their enhancements"
-        }
-    },
     boss = { min = 2 },
     atlas = "blinds",
     dollars = 5,
@@ -100,13 +87,6 @@ SMODS.Blind {
 SMODS.Blind {
     key = "tail",
     boss_colour = HEX("89AF7D"),
-    loc_txt = {
-        name = "The Tail",
-        text = {
-            "Decrease rank of",
-            "played cards by 1"
-        }
-    },
     boss = { min = 1 },
     atlas = "blinds",
     dollars = 5,

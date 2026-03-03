@@ -39,6 +39,41 @@ return {
 
         },
 
+        Blind = {
+
+            bl_wafflemod_axe = {
+                name = "The Axe",
+                text = {
+                    "Discards cost $3"
+                }
+            },
+
+            bl_wafflemod_gate = {
+                name = "The Gate",
+                text = {
+                    "Played cards lose",
+                    "their enhancements"
+                }
+            },
+
+            bl_wafflemod_tail = {
+                name = "The Tail",
+                text = {
+                    "Decrease rank of",
+                    "played cards by 1"
+                }
+            },
+
+            bl_wafflemod_union = {
+                name = "The Union",
+                text = {
+                    "Played hand must have",
+                    "2 or more scoring cards"
+                }
+            },
+
+        },
+
         Edition = {
 
             e_wafflemod_ephemeral = {
@@ -462,7 +497,7 @@ return {
             j_wafflemod_crimson_heart = {
                 name = "Crimson Heart",
                 text = {
-                    "Other Jokers each",
+                    "Other {C:attention}Jokers{} each",
                     "give {C:white,X:mult}X#1#{} Mult"
                 }
             },
