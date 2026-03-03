@@ -1,5 +1,5 @@
 SMODS.Atlas {
-    key = "blinds",
+    key = "wafflemod_blindAtlas",
     path = "blind_chips.png",
     px = 34,
     py = 34,
@@ -9,7 +9,7 @@ SMODS.Atlas {
 -- The Axe
 SMODS.Blind {
     key = "axe",
-    atlas = "blinds",
+    atlas = "wafflemod_blindAtlas",
     dollars = 5,
     mult = 2,
     pos = { x = 0, y = 1 },
@@ -39,7 +39,7 @@ SMODS.Blind {
     boss_colour = HEX("8F7EA0"),
     key = "gate",
     boss = { min = 2 },
-    atlas = "blinds",
+    atlas = "wafflemod_blindAtlas",
     dollars = 5,
     mult = 2,
     pos = { x = 0, y = 2 },
@@ -88,7 +88,7 @@ SMODS.Blind {
     key = "tail",
     boss_colour = HEX("89AF7D"),
     boss = { min = 1 },
-    atlas = "blinds",
+    atlas = "wafflemod_blindAtlas",
     dollars = 5,
     mult = 2,
     pos = { x = 0, y = 3 },
@@ -105,6 +105,25 @@ SMODS.Blind {
                 end
                 delay(0.4)
             end
+        end
+    end
+}
+
+-- The Union
+SMODS.Blind {
+    key = "union",
+    boss = {min=1},
+    boss_colour = HEX('95509B'),
+    atlas = "wafflemod_blindAtlas",
+    dollars = 5,
+    mult = 2,
+    pos = {x = 0, y = 4},
+    calculate = function (self, blind, context)
+        if context.debuff_hand and context.scoring_hand and #context.scoring_hand < 2 then
+            blind.triggered = true
+            return {
+                debuff = true
+            }
         end
     end
 }
