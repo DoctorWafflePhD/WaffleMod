@@ -1,5 +1,5 @@
 SMODS.Atlas {
-    key = "sealAtlas",
+    key = "wafflemod_sealAtlas",
     path = "seals.png",
     px = 71,
     py = 95,
@@ -16,7 +16,7 @@ SMODS.Seal {
     loc_vars = function(self, info_queue, card)
         return { vars = { self.config.extra.h_size, "test" } }
     end,
-    atlas = "sealAtlas",
+    atlas = "wafflemod_sealAtlas",
     badge_colour = HEX('4F6367'),
     calculate = function(self, card, context)
         if context.discard and card == context.other_card then
@@ -47,7 +47,7 @@ WaffleMod.addLocColor("wafflemod_ivory", HEX('ADC5CC'))
 SMODS.Seal {
     key = 'ivory',
     pos = { x = 1, y = 0 },
-    atlas = "sealAtlas",
+    atlas = "wafflemod_sealAtlas",
     badge_colour = G.C.wafflemod_ivory,
     config = { extra = {
         odds_numerator = 2,
@@ -109,3 +109,35 @@ function Card.start_dissolve(self)
 
     return removeRef(self, card, from_debuff)
 end
+
+-- Viridian Seal
+WaffleMod.addLocColor("wafflemod_viridian", HEX('42B374'))
+SMODS.Seal {
+    key = "viridian",
+    pos = {x = 3, y = 0},
+    atlas = "wafflemod_sealAtlas",
+    badge_colour = G.C.GREEN,
+        config = { extra = {
+        odds_numerator = 1,
+        odds_denominator = 2,
+    } },
+    loc_vars = function(self, info_queue)
+        return { vars = { G.GAME.probabilities.normal * self.config.extra.odds_numerator, self.config.extra.odds_denominator } }
+    end,
+    calculate = function (self, card, context)
+        if context.before then
+            for _, v in pairs(context.scoring_hand) do
+                if v == card then
+                    print("v seal in scoring hand")
+                    if SMODS.pseudorandom_probability(card, "wafflemod_viridianRoll", G.GAME.probabilities.normal * self.config.extra.odds_numerator, self.config.extra.odds_denominator) then
+                        SMODS.upgrade_poker_hands({
+                            hands = context.scoring_name,
+                            from = card,
+                            level_up = 1
+                        })
+                    end
+                end
+            end
+        end
+    end,
+}

@@ -474,6 +474,13 @@ return {
                 }
             },
 
+            j_wafflemod_wall = {
+                name = "The Wall",
+                text = {
+                    "{C:white,X:mult}X#1#{} Mult"
+                }
+            },
+
             j_wafflemod_water = {
                 name = "The Water",
                 text = {
@@ -712,6 +719,16 @@ return {
                 }
             },
 
+            wafflemod_viridian_seal = {
+                name = "Viridian Seal",
+                text = {
+                    "{C:green,E:1}#1# in #2# chance{} to",
+                    "{C:attention}level up{} poker hand",
+                    "if part of {C:attention}scoring hand{}"
+                }
+            },
+
+
             wafflemod_sharktale = {
                 name = "SharkTale",
                 text = {
@@ -856,6 +873,7 @@ return {
         labels = {
             wafflemod_ebony_seal = "Ebony Seal",
             wafflemod_ivory_seal = "Ivory Seal",
+            wafflemod_viridian_seal = "Viridian Seal",
             wafflemod_ephemeral = "Ephemeral",
             wafflemod_arcade = "Arcade"
         },

@@ -1245,6 +1245,7 @@ WaffleMod.bossJokerTable = {
     bl_ox = "j_wafflemod_ox", -- roblox ?!?!
     bl_psychic = "j_wafflemod_psychic",
     bl_serpent = "j_wafflemod_serpent",
+    bl_wall = "j_wafflemod_wall",
     bl_water = "j_wafflemod_water",
     bl_window = "j_wafflemod_window",
 
@@ -1629,6 +1630,29 @@ function SMODS.current_mod.calculate(self, context)
     end
     return curModCalcRef(self, context)
 end
+
+-- The Wall
+SMODS.Joker {
+    key = "wall",
+    config = {extra = {
+        xmult = 3
+    }},
+    loc_vars = function (self, info_queue, card)
+        return {vars = {card.ability.extra.xmult}}
+    end,
+    rarity = "wafflemod_Boss",
+    atlas = "wafflemod_jokerAtlas",
+    pos = {x = 6, y = 6},
+    soul_pos = {x = 7, y = 6},
+    calculate = function (self, card, context)
+        if context.joker_main then
+            return {
+                xmult = card.ability.extra.xmult
+            }
+        end
+    end,
+    draw = bossCardDraw
+}
 
 -- The Water
 SMODS.Joker {
