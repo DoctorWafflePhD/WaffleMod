@@ -25,6 +25,31 @@ SMODS.DeckSkin {
     pos_style = "collab"
 }
 
+-- Dino Run (Clubs)
+SMODS.Atlas{
+    key = "drDefaultAtlas",
+    px = 71,
+    py = 95,
+    path = "collabs/collab_DR_1.png"
+}
+SMODS.Atlas{
+    key = "drHighContrastAtlas",
+    px = 71,
+    py = 95,
+    path = "collabs/collab_DR_2.png"
+}
+SMODS.DeckSkin {
+    key = "skin_dinorun",
+    loc_txt = {
+        ['en-us'] = "Dino Run"
+    },
+    suit = "Clubs",
+    ranks = {"Jack", "Queen", "King"},
+    lc_atlas = "drDefaultAtlas",
+    hc_atlas = "drHighContrastAtlas",
+    pos_style = "collab"
+}
+
 -- ROBLOX (Diamonds)
 SMODS.Atlas{
     key = "rblxDefaultAtlas",
