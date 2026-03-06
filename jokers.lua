@@ -411,10 +411,11 @@ SMODS.Joker {
             for _, playedCard in pairs(context.scoring_hand) do
                 if SMODS.has_enhancement(playedCard, card.ability.extra.target_enhancement) then
                     didActivate = true
-                    playedCard:set_ability('c_base', nil, true)
-                    playedCard:set_seal(card.ability.extra.seal, nil, true)
+                    -- If the below line is moved into the event then it doesn't count as a gold seal card when scored, which kinda sucks :/
+                    playedCard:set_seal(card.ability.extra.seal, true, false)
                     G.E_MANAGER:add_event(Event({
                         func = function()
+                            playedCard:set_ability('c_base', nil, false)
                             playedCard:juice_up()
                             return true
                         end
