@@ -11,6 +11,16 @@ return {
                     "Arcade Cabinets cost {C:money}$1{} to use", }
             },
 
+            b_wafflemod_blighted = {
+                name = "Blighted Deck",
+                text = {
+                    "Start with {C:money,T:v_clearance_sale}Clearance Sale{}",
+                    "All Jokers are {C:attention,T:perishable}Perishable{}",
+                    "Gain {C:attention}+#1#{} Joker slot for every",
+                    "{C:attention}#2#{} {C:inactive}[#3#]{} debuffed Jokers sold"
+                }
+            },
+
             b_wafflemod_mirage = {
                 name = "Mirage Deck",
                 text = {
