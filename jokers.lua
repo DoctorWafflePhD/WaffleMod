@@ -345,7 +345,7 @@ SMODS.Joker {
         extra = {
             hands_needed = 3,
             hands_played = 0,
-            levels = 2
+            levels = 3
         }
     },
     loc_vars = function(self, info_queue, card)
