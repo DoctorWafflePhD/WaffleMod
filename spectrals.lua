@@ -5,6 +5,100 @@ SMODS.Atlas {
     py = 95,
 }
 
+-- Egregore
+SMODS.Consumable {
+    key = "egregore",
+    set = "Spectral",
+    atlas = "wafflemod_spectralAtlas",
+    pos = { x = 2, y = 0 },
+    config = {
+        max_highlighted = 1,
+        extra = {
+            seal = "wafflemod_ivory"
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_SEALS[card.ability.extra.seal]
+        return { vars = { card.ability.max_highlighted } }
+    end,
+    use = function(self, card, area, copier)
+        local conv_card = G.hand.highlighted[1]
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                play_sound('tarot1')
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+        }))
+
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.1,
+            func = function()
+                conv_card:set_seal(card.ability.extra.seal, nil, true)
+                return true
+            end
+        }))
+
+        delay(0.5)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                G.hand:unhighlight_all()
+                return true
+            end
+        }))
+    end,
+}
+
+-- Psychopomp
+SMODS.Consumable {
+    key = "psychopomp",
+    set = "Spectral",
+    atlas = "wafflemod_spectralAtlas",
+    pos = { x = 3, y = 0 },
+    config = {
+        max_highlighted = 1,
+        extra = {
+            seal = "wafflemod_ebony"
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_SEALS[card.ability.extra.seal]
+        return { vars = { card.ability.max_highlighted } }
+    end,
+    use = function(self, card, area, copier)
+        local conv_card = G.hand.highlighted[1]
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                play_sound('tarot1')
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+        }))
+
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.1,
+            func = function()
+                conv_card:set_seal(card.ability.extra.seal, nil, true)
+                return true
+            end
+        }))
+
+        delay(0.5)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                G.hand:unhighlight_all()
+                return true
+            end
+        }))
+    end,
+}
+
 -- Ritual
 SMODS.Consumable {
     key = "ritual",
@@ -12,7 +106,7 @@ SMODS.Consumable {
     atlas = "wafflemod_spectralAtlas",
     config = {
         extra = {
-            odds = 3
+            odds = 2
         }
     },
     loc_vars = function(self, info_queue, card)
@@ -125,49 +219,3 @@ SMODS.Consumable {
     end,
 }
 
--- Egregore
-SMODS.Consumable {
-    key = "egregore",
-    set = "Spectral",
-    atlas = "wafflemod_spectralAtlas",
-    pos = { x = 2, y = 0 },
-    config = {
-        max_highlighted = 1,
-        extra = {
-            seal = "wafflemod_ivory"
-        }
-    },
-    loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_SEALS[card.ability.extra.seal]
-        return { vars = { card.ability.max_highlighted } }
-    end,
-    use = function(self, card, area, copier)
-        local conv_card = G.hand.highlighted[1]
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                play_sound('tarot1')
-                card:juice_up(0.3, 0.5)
-                return true
-            end
-        }))
-
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.1,
-            func = function()
-                conv_card:set_seal(card.ability.extra.seal, nil, true)
-                return true
-            end
-        }))
-
-        delay(0.5)
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.2,
-            func = function()
-                G.hand:unhighlight_all()
-                return true
-            end
-        }))
-    end,
-}

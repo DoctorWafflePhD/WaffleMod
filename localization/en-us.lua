@@ -522,21 +522,30 @@ return {
 
         Spectral = {
 
-            c_wafflemod_ritual = {
-                name = "Ritual",
-                text = {
-                    "{C:green,E:1}#1# in #2# chance{} to add",
-                    "a random {C:enhanced}Enhancement{} to",
-                    "each card in hand"
-                },
-            },
-
             c_wafflemod_egregore = {
                 name = "Egregore",
                 text = {
                     "Add an {C:wafflemod_ivory}Ivory Seal{}",
                     "to {C:attention}1{} selected",
                     "card in your hand",
+                },
+            },
+
+            c_wafflemod_psychopomp = {
+                name = "Psychopomp",
+                text = {
+                    "Add an {C:wafflemod_ebony}Ebony Seal{}",
+                    "to {C:attention}1{} selected",
+                    "card in your hand",
+                },
+            },
+
+            c_wafflemod_ritual = {
+                name = "Ritual",
+                text = {
+                    "{C:green,E:1}#1# in #2# chance{} to add",
+                    "a random {C:enhanced}Enhancement{} to",
+                    "each card in hand"
                 },
             },
 
