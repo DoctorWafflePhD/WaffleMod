@@ -830,6 +830,33 @@ SMODS.Joker {
 -- Rare
 ------------------------------------------------------------------------------------------------------------------------------------------
 
+-- AAAAAA
+SMODS.Joker {
+    key = "aaaaaa",
+    atlas = "wafflemod_jokerAtlas",
+    pos = {x = 1, y = 2},
+    config = {extra = {
+        xmult = 0.2
+    }},
+    rarity = 3,
+    loc_vars = function (self, info_queue, card)
+        return {vars = {card.ability.extra.xmult}}
+    end,
+    calculate = function (self, card, context)
+        if context.individual and context.cardarea == G.play and context.other_card:get_id() == 14 then
+            local xmultToGive = 1
+            for i, v in pairs(context.scoring_hand) do
+                if v:get_id() == 14 then
+                    xmultToGive = xmultToGive + card.ability.extra.xmult
+                end
+            end
+            return {
+                xmult = xmultToGive
+            }
+        end
+    end
+}
+
 -- Bring Me Your Love
 SMODS.Joker {
     key = "bring_me_your_love",

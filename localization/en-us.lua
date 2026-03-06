@@ -296,6 +296,15 @@ return {
                 }
             },
 
+            j_wafflemod_aaaaaa = {
+                name = "AAAAAA",
+                text = {
+                    "Played {C:attention}Aces{} give {C:white,X:mult}+X#1#{} Mult",
+                    "when scored for every",
+                    "{C:attention}Ace{} in scoring hand"
+                }
+            },
+
             j_wafflemod_bring_me_your_love = {
                 name = "Bring Me Your Love",
                 text = {
@@ -686,6 +695,17 @@ return {
                 },
             },
 
+            wafflemod_copper_seal = {
+                name = "Copper Seal",
+                text = {
+                    "Earn {C:money}$#1#{} for",
+                    "each {C:wafflemod_copper}Copper Seal{}",
+                    "in your {C:attention}full deck{}",
+                    "at end of round",
+                    "{C:inactive}(Currently {C:money}$#2#{C:inactive})"
+                }
+            },
+
             wafflemod_ebony_seal = {
                 name = "Ebony Seal",
                 text = {
@@ -863,14 +883,16 @@ return {
         dictionary = {
             b_wafflemod_arcade_cards = "Arcade Cabinets",
             k_wafflemod_tarot_rx = "Tarot?",
-            k_wafflemod_jevil_copy = "Chaos!",
             k_wafflemod_steel = "Steel",
             k_wafflemod_arcade = "Arcade Cabinet",
+            k_wafflemod_copper_seal_eval = "Copper Seals",
+            k_wafflemod_copper_seal_eval_singular = "Copper Seal",
             wafflemod_dubious_legendary = "Legendary?",
             wafflemod_arcade_pack = "Arcade Pack"
         },
 
         labels = {
+            wafflemod_copper_seal = "Copper Seal",
             wafflemod_ebony_seal = "Ebony Seal",
             wafflemod_ivory_seal = "Ivory Seal",
             wafflemod_viridian_seal = "Viridian Seal",

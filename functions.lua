@@ -244,6 +244,10 @@ function SMODS.current_mod.calculate(self, context)
     end
 end
 
+function SMODS.current_mod.calc_dollar_bonus()
+    return 5
+end
+
 -- i am far too used to luau and its capabilities
 table.find = function(tab, findThis)
     for i, v in pairs(tab) do

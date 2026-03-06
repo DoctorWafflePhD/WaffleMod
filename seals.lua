@@ -5,6 +5,61 @@ SMODS.Atlas {
     py = 95,
 }
 
+local shinySealDraw = function(self, card, layer)
+        if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
+            G.shared_seals[card.seal].role.draw_major = card
+            G.shared_seals[card.seal]:draw_shader('dissolve', nil, nil, nil, card.children.center)
+            G.shared_seals[card.seal]:draw_shader('voucher', nil, card.ARGS.send_to_shader, nil, card.children.center)
+        end
+    end
+
+-- Copper Seal
+local dollarsPerCopperSeal = 1
+WaffleMod.addLocColor("wafflemod_copper", HEX('E08043'))
+local function getNumCopperSealsInFullDeck()
+    local numCopperSeals = 0
+    if not G.playing_cards then -- For cases where there is no G.playing_cards, i.e. viewing in collection
+        return 1
+    else
+        for _, v in pairs(G.playing_cards) do
+            if v.seal == "wafflemod_copper" then
+                numCopperSeals = numCopperSeals + 1
+            end
+        end
+    end
+    return numCopperSeals
+end
+SMODS.Seal {
+    key = "copper",
+    pos = {x = 4, y = 0},
+    config = {extra = {
+        dollars = dollarsPerCopperSeal
+    }},
+    loc_vars = function (self, info_queue, card)
+        return {vars = {self.config.extra.dollars, getNumCopperSealsInFullDeck()}}
+    end,
+    atlas = "wafflemod_sealAtlas",
+    badge_colour = HEX('E08043'),
+    draw = shinySealDraw
+}
+WaffleMod.bindToModCalculate(function (context)
+    if context.round_eval and getNumCopperSealsInFullDeck() > 0 then
+        local localizeKey = 'k_wafflemod_copper_seal_eval'
+        if getNumCopperSealsInFullDeck() == 1 then
+            localizeKey = 'k_wafflemod_copper_seal_eval_singular'
+        end
+        add_round_eval_row({
+            name = "custom",
+            text = localize(localizeKey),
+            number = getNumCopperSealsInFullDeck(),
+            number_colour = G.C.wafflemod_copper,
+            dollars = getNumCopperSealsInFullDeck(),
+            --card = G.deck,
+            pitch = 1
+        })
+    end
+end, "copperSealEvalDollars")
+
 -- Ebony Seal
 local handSizePerSealDiscarded = 1
 SMODS.Seal {
@@ -24,13 +79,7 @@ SMODS.Seal {
             G.hand:change_size(self.config.extra.h_size)
         end
     end,
-    draw = function(self, card, layer)
-        if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
-            G.shared_seals[card.seal].role.draw_major = card
-            G.shared_seals[card.seal]:draw_shader('dissolve', nil, nil, nil, card.children.center)
-            G.shared_seals[card.seal]:draw_shader('voucher', nil, card.ARGS.send_to_shader, nil, card.children.center)
-        end
-    end,
+    draw = shinySealDraw,
 }
 local curModCalcRef = SMODS.current_mod.calculate or function() end
 SMODS.current_mod.calculate = function(self, context)
@@ -58,13 +107,7 @@ SMODS.Seal {
     end,
     calculate = function(self, card, context)
     end,
-    draw = function(self, card, layer)
-        if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
-            G.shared_seals[card.seal].role.draw_major = card
-            G.shared_seals[card.seal]:draw_shader('dissolve', nil, nil, nil, card.children.center)
-            G.shared_seals[card.seal]:draw_shader('voucher', nil, card.ARGS.send_to_shader, nil, card.children.center)
-        end
-    end,
+    draw = shinySealDraw,
 }
 local removeRef = Card.start_dissolve
 function Card.start_dissolve(self)
@@ -128,7 +171,6 @@ SMODS.Seal {
         if context.before then
             for _, v in pairs(context.scoring_hand) do
                 if v == card then
-                    print("v seal in scoring hand")
                     if SMODS.pseudorandom_probability(card, "wafflemod_viridianRoll", G.GAME.probabilities.normal * self.config.extra.odds_numerator, self.config.extra.odds_denominator) then
                         SMODS.upgrade_poker_hands({
                             hands = context.scoring_name,
