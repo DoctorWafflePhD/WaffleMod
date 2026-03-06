@@ -128,7 +128,7 @@ function Card.start_dissolve(self)
         if (not ivorySealUsesChance) or SMODS.pseudorandom_probability(self, "wafflemod_ivorySealSpreadRoll", 2, 3) then
             if #eligibleCards > 0 then
                 local chosenCarrier = pseudorandom_element(eligibleCards, "wafflemod_ivorySealInheritance")
-                chosenCarrier:set_seal("wafflemod_ivory", nil, true)
+                chosenCarrier:set_seal("wafflemod_ivory", true, true)
             else
                 -- print("no eligible cards!")
             end
