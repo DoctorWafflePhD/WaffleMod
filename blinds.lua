@@ -84,7 +84,8 @@ SMODS.Blind {
 }
 
 -- The Tail
-SMODS.Blind {
+if false then
+    SMODS.Blind {
     key = "tail",
     boss_colour = HEX("89AF7D"),
     boss = { min = 1 },
@@ -95,9 +96,22 @@ SMODS.Blind {
     calculate = function(self, blind, context)
         if not blind.disabled then
             if context.before then
-                WaffleMod.flipFunctionCards(G.play.cards, function(card)
-                    SMODS.modify_rank(card, -1)
-                end)
+                for _, v in pairs(context.full_hand) do
+                    G.E_MANAGER:add_event(Event{
+                        func = function ()
+                            SMODS.modify_rank(v, -1)
+                            return true
+                        end
+                    })
+                end
+                -- G.E_MANAGER:add_event(Event({
+                --     func = function ()
+                --         WaffleMod.flipFunctionCards(G.play.cards, function(card)
+                --             SMODS.modify_rank(card, -1)
+                --         end)
+                --         return true
+                --     end
+                -- }))
                 blind.triggered = true
                 delay(0.2)
                 if blind.triggered then
@@ -108,6 +122,7 @@ SMODS.Blind {
         end
     end
 }
+end
 
 -- The Union
 SMODS.Blind {

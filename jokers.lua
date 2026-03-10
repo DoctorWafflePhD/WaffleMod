@@ -384,7 +384,8 @@ SMODS.Joker {
 }
 
 -- Miner
-SMODS.Joker {
+if false then
+    SMODS.Joker {
     key = "miner",
     config = {
         extra = {
@@ -408,15 +409,17 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.before and not context.blueprint then
             local didActivate = false
-            for _, playedCard in pairs(context.scoring_hand) do
-                if SMODS.has_enhancement(playedCard, card.ability.extra.target_enhancement) then
-                    didActivate = true
+            for _, scoredCard in ipairs(context.scoring_hand) do
+                if SMODS.has_enhancement(scoredCard, card.ability.extra.target_enhancement) and not scoredCard.mined then
+                    scoredCard.mined = true
+                    scoredCard:set_ability('c_base', nil, true)
                     -- If the below line is moved into the event then it doesn't count as a gold seal card when scored, which kinda sucks :/
-                    playedCard:set_seal(card.ability.extra.seal, true, false)
+                    scoredCard:set_seal(card.ability.extra.seal, true, false)
+                    didActivate = true
                     G.E_MANAGER:add_event(Event({
                         func = function()
-                            playedCard:set_ability('c_base', nil, false)
-                            playedCard:juice_up()
+                            scoredCard.mined = nil
+                            scoredCard:juice_up()
                             return true
                         end
                     }))
@@ -434,6 +437,8 @@ SMODS.Joker {
         return WaffleMod.isEnhancementInDeck("m_stone")
     end
 }
+
+end
 
 -- Motley Joker
 SMODS.Joker {
@@ -835,15 +840,15 @@ SMODS.Joker {
 SMODS.Joker {
     key = "aaaaaa",
     atlas = "wafflemod_jokerAtlas",
-    pos = {x = 1, y = 2},
-    config = {extra = {
+    pos = { x = 1, y = 2 },
+    config = { extra = {
         xmult = 0.2
-    }},
+    } },
     rarity = 3,
-    loc_vars = function (self, info_queue, card)
-        return {vars = {card.ability.extra.xmult}}
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.xmult } }
     end,
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card:get_id() == 14 then
             local xmultToGive = 1
             for i, v in pairs(context.scoring_hand) do
@@ -1467,8 +1472,8 @@ SMODS.Joker {
 SMODS.Joker {
     key = "hook",
     atlas = "wafflemod_jokerAtlas",
-    pos = {x=4,y=4},
-    soul_pos = {x=5,y=4},
+    pos = { x = 4, y = 4 },
+    soul_pos = { x = 5, y = 4 },
     draw = bossCardDraw,
     rarity = "wafflemod_Boss",
     config = { extra = {
@@ -1590,35 +1595,34 @@ SMODS.Joker {
 -- The Psychic
 SMODS.Joker {
     key = "psychic",
-    config = {extra = {
+    config = { extra = {
         xmult = 1.5,
-    }},
-    loc_vars = function (self, info_queue, card)
-        return {vars = {card.ability.extra.xmult}}
+    } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.xmult } }
     end,
     rarity = "wafflemod_Boss",
     atlas = "wafflemod_jokerAtlas",
-    pos = {x=4,y=5},
-    soul_pos = {x=5,y=5},
+    pos = { x = 4, y = 5 },
+    soul_pos = { x = 5, y = 5 },
     draw = bossCardDraw,
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
         if context.joker_main then
             for _, scoredCard in pairs(context.scoring_hand) do
-
-
                 if scoredCard.debuff then
                     SMODS.calculate_effect(
-                        {message = localize('k_debuffed'),
-                        colour = G.C.RED},
+                        {
+                            message = localize('k_debuffed'),
+                            colour = G.C.RED
+                        },
                         card
                     )
                 else
                     SMODS.calculate_effect(
-                    {xmult = card.ability.extra.xmult},
-                    card
-                )
+                        { xmult = card.ability.extra.xmult },
+                        card
+                    )
                 end
-                
             end
         end
     end
@@ -1662,17 +1666,17 @@ end
 -- The Wall
 SMODS.Joker {
     key = "wall",
-    config = {extra = {
+    config = { extra = {
         xmult = 3
-    }},
-    loc_vars = function (self, info_queue, card)
-        return {vars = {card.ability.extra.xmult}}
+    } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.xmult } }
     end,
     rarity = "wafflemod_Boss",
     atlas = "wafflemod_jokerAtlas",
-    pos = {x = 6, y = 6},
-    soul_pos = {x = 7, y = 6},
-    calculate = function (self, card, context)
+    pos = { x = 6, y = 6 },
+    soul_pos = { x = 7, y = 6 },
+    calculate = function(self, card, context)
         if context.joker_main then
             return {
                 xmult = card.ability.extra.xmult
@@ -1686,19 +1690,21 @@ SMODS.Joker {
 SMODS.Joker {
     key = "water",
     atlas = "wafflemod_jokerAtlas",
-    pos = {x=6,y=4},
-    soul_pos = {x=7,y=4},
+    pos = { x = 6, y = 4 },
+    soul_pos = { x = 7, y = 4 },
     rarity = "wafflemod_Boss",
-    config = {extra = {
+    config = { extra = {
         xmult = 1
-    }},
-    loc_vars = function (self, info_queue, card)
-        return {vars = {
-            card.ability.extra.xmult,
-            (card.ability.extra.xmult * G.GAME.current_round.discards_left) + 1
-        }}
+    } },
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.xmult,
+                (card.ability.extra.xmult * G.GAME.current_round.discards_left) + 1
+            }
+        }
     end,
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
         if context.joker_main then
             return {
                 xmult = (card.ability.extra.xmult * G.GAME.current_round.discards_left) + 1
@@ -1756,36 +1762,38 @@ SMODS.Joker {
 SMODS.Joker {
     key = "crimson_heart",
     atlas = "wafflemod_jokerAtlas",
-    pos = {x = 6, y = 5},
-    soul_pos = {x = 7, y = 5},
+    pos = { x = 6, y = 5 },
+    soul_pos = { x = 7, y = 5 },
     --draw = bossCardDraw,
     rarity = "wafflemod_Showdown",
     cost = 20,
-    config = {extra = {
+    config = { extra = {
         xmult = 1.5
-    }},
-    loc_vars = function (self, info_queue, card)
-        return {vars = {card.ability.extra.xmult}}
+    } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.xmult } }
     end,
-    calculate = function (self, card, context)
-            if context.other_joker and context.other_joker ~= card then
+    calculate = function(self, card, context)
+        if context.other_joker and context.other_joker ~= card then
             if context.other_joker.debuff then
-                                G.E_MANAGER:add_event(Event({
+                G.E_MANAGER:add_event(Event({
                     func = function()
                         context.other_joker:juice_up()
                         return true
                     end
                 }))
-                    SMODS.calculate_effect(
-                        {message = localize('k_debuffed'),
-                        colour = G.C.RED},
-                        card
-                    )
-        else
+                SMODS.calculate_effect(
+                    {
+                        message = localize('k_debuffed'),
+                        colour = G.C.RED
+                    },
+                    card
+                )
+            else
                 return {
-                xmult = card.ability.extra.xmult
-            }
+                    xmult = card.ability.extra.xmult
+                }
             end
-        end 
+        end
     end
 }
