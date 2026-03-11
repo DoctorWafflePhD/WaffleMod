@@ -48,12 +48,6 @@ SMODS.Back {
 }
 
 -- Blighted Deck
-local function makePerishable(card)
-    card.ability.eternal = false
-    if card.ability.set == "Joker" then
-        card:add_sticker("perishable", true)
-    end
-end
 SMODS.Back {
     key = "blighted",
     atlas = "wafflemod_deckAtlas",
@@ -104,11 +98,11 @@ SMODS.Back {
     end
 }
 local emplaceRef = CardArea.emplace
-function CardArea.emplace(self, card)
+function CardArea.emplace(self, card, flipped)
     if self == G.pack_cards or self == G.shop_jokers or (self == G.jokers and not card:is_rarity(4)) and WaffleMod.getCurrentBack() == "b_wafflemod_blighted" then
-        makePerishable(card)
+        WaffleMod.blightedMakePerishable(card)
     end
-    emplaceRef(self, card)
+    emplaceRef(self, card, flipped)
 end
 
 

@@ -892,7 +892,22 @@ return {
                     "{C:attention}WaffleMod{} Jokers",
                     "cost {C:money}$#1#{} less"
                 }
-            }
+            },
+            sleeve_wafflemod_blighted = {
+                name = "Blighted Sleeve",
+                text = {
+                    "All Jokers are {C:attention,T:perishable}Perishable{}",
+                    "Gain {C:attention}+#1#{} Joker slot for every",
+                    "{C:attention}#2#{} {C:inactive}[#3#]{} debuffed Jokers sold"
+                }
+            },
+            sleeve_wafflemod_blighted_alt = {
+                name = "Blighted Sleeve",
+                text = {
+                    "Earn {C:money}$#1#{} whenever a",
+                    "debuffed Joker is sold"
+                }
+            },
         }
 
     },

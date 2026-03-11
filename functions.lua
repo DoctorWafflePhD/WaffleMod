@@ -229,6 +229,13 @@ function WaffleMod.endOfRoundContext(context)
     return context.end_of_round and context.main_eval and context.game_over == false
 end
 
+function WaffleMod.blightedMakePerishable(card)
+    if card.ability.set == "Joker" then
+        card.ability.eternal = false
+        card:add_sticker("perishable", true)
+    end
+end
+
 WaffleMod.calculateFunctions = {}
 function WaffleMod.bindToModCalculate(func, name)
     if name then
