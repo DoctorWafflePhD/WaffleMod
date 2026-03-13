@@ -1,0 +1,13 @@
+[manifest]
+version = "0.1.0"
+priority = 0 # Priority for loading the file
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua' # The file you want to patch.
+pattern = "and context.cards and context.cards[1] then"
+position = "after"
+payload = '''
+        if context.cards[1].edition and context.cards[1].edition.key == "e_wafflemod_ephemeral" then return end
+'''
+match_indent = true

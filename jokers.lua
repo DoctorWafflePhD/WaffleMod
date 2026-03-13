@@ -386,58 +386,57 @@ SMODS.Joker {
 -- Miner
 if false then
     SMODS.Joker {
-    key = "miner",
-    config = {
-        extra = {
-            target_enhancement = "m_stone",
-            seal = "Gold"
-        }
-    },
-    loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.target_enhancement]
-        info_queue[#info_queue + 1] = G.P_SEALS[card.ability.extra.seal]
-        return {
-            vars = {
+        key = "miner",
+        config = {
+            extra = {
+                target_enhancement = "m_stone",
+                seal = "Gold"
             }
-        }
-    end,
-    rarity = 1,
-    atlas = "wafflemod_jokerAtlas",
-    pos = { x = 3, y = 0 },
-    cost = 5,
-    blueprint_compat = false,
-    calculate = function(self, card, context)
-        if context.before and not context.blueprint then
-            local didActivate = false
-            for _, scoredCard in ipairs(context.scoring_hand) do
-                if SMODS.has_enhancement(scoredCard, card.ability.extra.target_enhancement) and not scoredCard.mined then
-                    scoredCard.mined = true
-                    scoredCard:set_ability('c_base', nil, true)
-                    -- If the below line is moved into the event then it doesn't count as a gold seal card when scored, which kinda sucks :/
-                    scoredCard:set_seal(card.ability.extra.seal, true, false)
-                    didActivate = true
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            scoredCard.mined = nil
-                            scoredCard:juice_up()
-                            return true
-                        end
-                    }))
+        },
+        loc_vars = function(self, info_queue, card)
+            info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.target_enhancement]
+            info_queue[#info_queue + 1] = G.P_SEALS[card.ability.extra.seal]
+            return {
+                vars = {
+                }
+            }
+        end,
+        rarity = 1,
+        atlas = "wafflemod_jokerAtlas",
+        pos = { x = 3, y = 0 },
+        cost = 5,
+        blueprint_compat = false,
+        calculate = function(self, card, context)
+            if context.before and not context.blueprint then
+                local didActivate = false
+                for _, scoredCard in ipairs(context.scoring_hand) do
+                    if SMODS.has_enhancement(scoredCard, card.ability.extra.target_enhancement) and not scoredCard.mined then
+                        scoredCard.mined = true
+                        scoredCard:set_ability('c_base', nil, true)
+                        -- If the below line is moved into the event then it doesn't count as a gold seal card when scored, which kinda sucks :/
+                        scoredCard:set_seal(card.ability.extra.seal, true, false)
+                        didActivate = true
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                scoredCard.mined = nil
+                                scoredCard:juice_up()
+                                return true
+                            end
+                        }))
+                    end
+                end
+                if didActivate then
+                    return {
+                        message = localize('k_upgrade_ex'),
+                        colour = G.C.MONEY,
+                    }
                 end
             end
-            if didActivate then
-                return {
-                    message = localize('k_upgrade_ex'),
-                    colour = G.C.MONEY,
-                }
-            end
+        end,
+        in_pool = function(self, args)
+            return WaffleMod.isEnhancementInDeck("m_stone")
         end
-    end,
-    in_pool = function(self, args)
-        return WaffleMod.isEnhancementInDeck("m_stone")
-    end
-}
-
+    }
 end
 
 -- Motley Joker
@@ -1758,42 +1757,74 @@ SMODS.Joker {
     end
 }
 
+-- Cerulean Bell
+local ceruleanStickerXMult = 3
+SMODS.Joker {
+    key = "cerulean_bell",
+    config = { extra = {
+        sticker = "wafflemod_cerulean"
+    } },
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = { key = 'wafflemod_cerulean', set = 'Other', config = { vars = { 2.5 } } }
+    end,
+    atlas = "wafflemod_jokerAtlas",
+    rarity = "wafflemod_Showdown",
+    pos = { x = 8, y = 5 },
+    soul_pos = { x = 9, y = 5 },
+    blueprint_compat = false,
+}
+WaffleMod.bindToModCalculate(function(context)
+    if context.hand_drawn then
+        for _, deckCard in pairs(G.playing_cards) do
+            deckCard.ability.wafflemod_cerulean = false
+        end
+        if next(SMODS.find_card("j_wafflemod_cerulean_bell")) then
+            local eligibleCards = {}
+            for _, handCard in pairs(G.hand.cards) do
+                if handCard.ability.wafflemod_cerulean then
+                    handCard.ability.wafflemod_cerulean = false
+                else
+                    table.insert(eligibleCards, handCard)
+                end
+            end
+            local whichCard = pseudorandom_element(eligibleCards, "wafflemod_ceruleanSticker")
+            if whichCard then
+                G.E_MANAGER:add_event(Event {
+                    func = function()
+                        whichCard:add_sticker("wafflemod_cerulean", true)
+                        play_sound("generic1")
+                        whichCard:juice_up()
+                        return true
+                    end
+                })
+            end
+        end
+    end
+end)
+
 -- Crimson Heart
 SMODS.Joker {
     key = "crimson_heart",
     atlas = "wafflemod_jokerAtlas",
     pos = { x = 6, y = 5 },
     soul_pos = { x = 7, y = 5 },
-    --draw = bossCardDraw,
     rarity = "wafflemod_Showdown",
     cost = 20,
-    config = { extra = {
-        xmult = 1.5
-    } },
+    config = {
+        extra = {
+            slots = 2
+        }
+    },
+    add_to_deck = function (self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+    end,
+    remove_from_deck = function (self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+    end,
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.xmult } }
+        return { vars = { card.ability.extra.slots } }
     end,
     calculate = function(self, card, context)
-        if context.other_joker and context.other_joker ~= card then
-            if context.other_joker.debuff then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        context.other_joker:juice_up()
-                        return true
-                    end
-                }))
-                SMODS.calculate_effect(
-                    {
-                        message = localize('k_debuffed'),
-                        colour = G.C.RED
-                    },
-                    card
-                )
-            else
-                return {
-                    xmult = card.ability.extra.xmult
-                }
-            end
-        end
+
     end
 }

@@ -18,6 +18,7 @@ assert(SMODS.load_file("vouchers.lua"))()
 assert(SMODS.load_file("editions.lua"))()
 assert(SMODS.load_file("arcades.lua"))()
 assert(SMODS.load_file("boosters.lua"))()
+assert(SMODS.load_file("stickers.lua"))()
 
 if next(SMODS.find_mod("CardSleeves")) then
     assert(SMODS.load_file("xmod/sleeves.lua"))()

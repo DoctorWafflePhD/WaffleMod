@@ -246,9 +246,20 @@ function WaffleMod.bindToModCalculate(func, name)
 end
 
 function SMODS.current_mod.calculate(self, context)
+    local retTable
+    local curExtra
     for _, func in pairs(WaffleMod.calculateFunctions) do
-        func(context)
+        local returnEffect = func(context)
+        if returnEffect then
+            if not retTable then
+                retTable = returnEffect
+            elseif curExtra then
+                curExtra.extra = returnEffect
+            end
+            curExtra = returnEffect
+        end
     end
+    return retTable
 end
 
 function SMODS.current_mod.calc_dollar_bonus()

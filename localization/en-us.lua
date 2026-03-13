@@ -520,11 +520,18 @@ return {
                 }
             },
 
+            j_wafflemod_cerulean_bell = {
+                name = "Cerulean Bell",
+                text = {
+                    "Adds a {C:attention}Cerulean Sticker{}",
+                    "to a random card in hand"
+                }
+            },
+
             j_wafflemod_crimson_heart = {
                 name = "Crimson Heart",
                 text = {
-                    "Other {C:attention}Jokers{} each",
-                    "give {C:white,X:mult}X#1#{} Mult"
+                    "{C:attention}+#1#{} Joker slots"
                 }
             },
 
@@ -817,6 +824,15 @@ return {
                     "currently {C:red}disabled",
                     "in the mod's config"
                 }
+            },
+
+            wafflemod_cerulean = {
+                name = "Cerulean",
+                text = {
+                    "{C:white,X:mult}X3{} Mult",
+                    "{C:inactive,s:0.85}(Sticker removed",
+                    "{C:inactive,s:0.85}after Play or Discard)"
+                }
             }
 
         },
@@ -931,7 +947,8 @@ return {
             wafflemod_ivory_seal = "Ivory Seal",
             wafflemod_viridian_seal = "Viridian Seal",
             wafflemod_ephemeral = "Ephemeral",
-            wafflemod_arcade = "Arcade"
+            wafflemod_arcade = "Arcade",
+            wafflemod_cerulean = "Cerulean"
         },
 
         v_dictionary = {
