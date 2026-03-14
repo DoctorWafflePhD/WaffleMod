@@ -121,7 +121,7 @@ SMODS.Back {
         return { vars = { self.config.joker_slot, self.config.debuffed_slots } }
     end
 }
--- Patchwork update hook (this disables the rightmost joker)
+-- Patchwork update hook (this disables the rightmost joker when using the deck)
 local updateRef = Game.update
 function Game:update(dt)
     
