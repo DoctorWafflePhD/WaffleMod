@@ -236,12 +236,10 @@ local function reset_fickle_suit()
     for k, v in ipairs({ 'Spades', 'Hearts', 'Clubs', 'Diamonds' }) do
         if v ~= G.GAME.current_round.wafflemod_fickle_suit.suit then picky_suits[#picky_suits + 1] = v end
     end
-    local picky_card = pseudorandom_element(picky_suits, 'vremade_ancient' .. G.GAME.round_resets.ante)
+    local picky_card = pseudorandom_element(picky_suits, 'wafflemod_fickle' .. G.GAME.round_resets.ante)
     G.GAME.current_round.wafflemod_fickle_suit.suit = picky_card
 end
-function SMODS.current_mod.reset_game_globals(run_start)
-    reset_fickle_suit()
-end
+
 
 -- Fountain
 SMODS.Joker {
@@ -653,7 +651,7 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play and SMODS.has_enhancement(context.other_card, card.ability.extra.target_enhancement) then
             local repCount = card.ability.extra.repetitions
-            if SMODS.pseudorandom_probability(card, "wafflemod_fortune_iii_retrigger", G.GAME.probabilities.normal or 1, card.ability.extra.odds) then
+            if SMODS.pseudorandom_probability(card, "wafflemod_fortune_iii_retrigger", 1, card.ability.extra.odds) then
                 repCount = repCount + card.ability.extra.repetitions
             end
             return {
@@ -766,6 +764,71 @@ SMODS.Joker {
         end
     end
 }
+
+-- Pop Art
+SMODS.Joker {
+    key = "pop_art",
+    atlas = "wafflemod_jokerAtlas",
+    pos = {x = 2,y = 2},
+    rarity = 2,
+    config = {extra = {
+        dollars = 0,
+        dollar_gain = 1,
+        target_suit = "Spades",
+    }},
+    loc_vars = function (self, info_queue, card)
+        local suit = (G.GAME.current_round.wafflemod_pop_art_suit or {}).suit or 'Spades'
+        return { vars = { card.ability.extra.dollars, card.ability.extra.dollar_gain, localize(suit, 'suits_singular'), colours = { G.C.SUITS[suit] } } }
+    end,
+    blueprint_compat = false,
+    calculate = function (self, card, context)
+        if context.before and not context.blueprint then
+            local upgradeCount = 0
+            for _, scoring_card in pairs(context.scoring_hand) do
+                if scoring_card:is_suit(card.ability.extra.target_suit) then
+                    upgradeCount = upgradeCount + 1
+                    G.E_MANAGER:add_event(Event({
+                        func = function ()
+                            scoring_card:juice_up()
+                            return true
+                        end
+                    }))
+                end
+            end
+            if upgradeCount > 0 then
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "dollars",
+                    change = "dollar_gain",
+                    operation = function (ref_table, ref_value, initial, change)
+                        ref_table[ref_value] = initial + upgradeCount*card.ability.extra.dollar_gain
+                    end 
+                })
+            end
+        end
+    end,
+    calc_dollar_bonus = function (self, card)
+        if card.ability.extra.dollars > 0 then
+            local dollarsGiven = card.ability.extra.dollars
+            card.ability.extra.dollars = 0
+            return dollarsGiven
+        end
+    end
+}
+local function reset_pop_art_suit()
+    G.GAME.current_round.wafflemod_pop_art_suit = G.GAME.current_round.wafflemod_pop_art_suit or { suit = 'Spades' }
+    local valid_pop_art_cards = {}
+    for _, playing_card in ipairs(G.playing_cards) do
+        if not SMODS.has_no_suit(playing_card) then
+            valid_pop_art_cards[#valid_pop_art_cards + 1] = playing_card
+        end
+        local pop_art_card = pseudorandom_element(valid_pop_art_cards,
+        'wafflemod_pop_art' .. G.GAME.round_resets.ante)
+        if pop_art_card then
+            G.GAME.current_round.wafflemod_pop_art_suit.suit = pop_art_card.base.suit
+        end
+    end
+end
 
 -- Snowman
 SMODS.Joker {
@@ -1269,6 +1332,7 @@ SMODS.Joker {
 -- Other mods can add to this table (or should theoretically be able to, at least)
 WaffleMod.bossJokerTable = {
 
+    bl_arm = "j_wafflemod_arm",
     bl_club = "j_wafflemod_club",
     bl_goad = "j_wafflemod_goad",
     bl_head = "j_wafflemod_head",
@@ -1281,6 +1345,7 @@ WaffleMod.bossJokerTable = {
     bl_water = "j_wafflemod_water",
     bl_window = "j_wafflemod_window",
 
+    bl_cerulean_bell = "j_wafflemod_cerulean_bell",
     bl_crimson_heart = "j_wafflemod_crimson_heart"
 
 }
@@ -1334,6 +1399,29 @@ local bossCardDraw = function(self, card, layer)
 end
 
 local suitBossMultGain = 0.05
+
+-- The Arm
+SMODS.Joker {
+    key = "arm",
+    rarity = "wafflemod_Boss",
+    config = {extra = {
+        odds = 2
+    }},
+    pos = {x = 8, y = 4},
+    soul_pos = {x = 9, y = 4},
+    loc_vars = function (self, info_queue, card)
+        return {vars = {G.GAME.probabilities.normal or 1, card.ability.extra.odds}}
+    end,
+    atlas = "wafflemod_jokerAtlas",
+    calculate = function (self, card, context)
+        if context.before and SMODS.pseudorandom_probability(card, 'wafflemod_arm', 1, card.ability.extra.odds) then
+            return {
+                level_up = true,
+                message = localize('k_level_up_ex')
+            }
+        end
+    end
+}
 
 -- The Club
 SMODS.Joker {
@@ -1810,6 +1898,7 @@ SMODS.Joker {
     soul_pos = { x = 7, y = 5 },
     rarity = "wafflemod_Showdown",
     cost = 20,
+    blueprint_compat = false,
     config = {
         extra = {
             slots = 2
@@ -1828,3 +1917,10 @@ SMODS.Joker {
 
     end
 }
+
+-- Reset game globals (Change suits for random-suit Jokers)
+
+function SMODS.current_mod.reset_game_globals(run_start)
+    reset_fickle_suit()
+    reset_pop_art_suit()
+end

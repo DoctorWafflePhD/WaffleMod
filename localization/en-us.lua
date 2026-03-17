@@ -41,7 +41,7 @@ return {
             b_wafflemod_waffle = {
                 name = "Waffle Deck",
                 text = {
-                    "{C:green,E:1}#1# in #2# chance{} to",
+                    "{C:green}#1# in #2#{} chance to",
                     "replace Jokers in shop",
                     "with {C:attention}WaffleMod Jokers{}"
                 }
@@ -185,7 +185,7 @@ return {
                 name = "Fountain",
                 text = {
                     "Played cards have a",
-                    "{C:green,E:1}#1# in (rank) chance{} to",
+                    "{C:green}#1# in (rank){} chance to",
                     "earn {C:money}$#2#{} when {C:attention}scored{}"
                 }
             },
@@ -243,7 +243,7 @@ return {
             j_wafflemod_mystery_gift = {
                 name = "Mystery Gift",
                 text = {
-                    "{C:green,E:1}#1# in #2# chance{} to create a",
+                    "{C:green}#1# in #2#{} chance to create a",
                     "{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or",
                     "{C:dark_edition}Polychrome{} tag",
                     "at end of round"
@@ -254,7 +254,7 @@ return {
                 name = "Damocles",
                 text = {
                     "Earn {C:money}$#1#{} at end of round",
-                    "{C:green,E:1}#2# in #3# chance{} to {C:attention}destroy{}",
+                    "{C:green}#2# in #3#{} chance to {C:attention}destroy{}",
                     "a random Joker after",
                     "each hand played"
                 }
@@ -264,7 +264,7 @@ return {
                 name = "Fortune III",
                 text = {
                     "{C:attention}Retrigger{} all played",
-                    "{C:attention}Stone{} cards, {C:green,E:1}#1# in #2# chance",
+                    "{C:attention}Stone{} cards, {C:green}#1# in #2#{} chance",
                     "to {C:attention}retrigger{} them again"
                 }
             },
@@ -278,13 +278,21 @@ return {
                 },
             },
 
-
             j_wafflemod_jokerton = {
                 name = "Jokerton",
                 text = {
                     "Every {C:attention}#1# {C:inactive}[#2#] {C:hearts}Hearts{} cards discarded,",
                     "enhance {C:attention}first card{} of next",
                     "hand played to a {C:attention}Steel Card{}"
+                }
+            },
+
+            j_wafflemod_pop_art = {
+                name = "Pop Art",
+                text = {
+                    "Earn {C:money}$#1#{} at end of round, increases",
+                    "by {C:money}$#2#{} for each {V:1}#3#{} card in {C:attention}scoring hand{},",
+                    "{s:0.85}value resets and suit changes at end of round"
                 }
             },
 
@@ -340,7 +348,7 @@ return {
                 text = {
                     "Using a non-{C:dark_edition,T:e_negative}Negative{} {C:tarot}Tarot{},",
                     "{C:planet}Planet{}, or {C:spectral}Spectral{} card has",
-                    "a {C:green,E:1}#1# in #2# chance{} of creating",
+                    "a {C:green}#1# in #2#{} chance of creating",
                     "a {C:dark_edition}Negative{} copy"
                 },
             },
@@ -409,6 +417,15 @@ return {
                     "and {C:attention}Jack{} have been scored",
                     "{C:inactive}({V:1}A{V:2}K{V:3}Q{V:4}J{C:inactive})",
                     "{C:inactive}(Currently {C:white,X:mult}X#1#{C:inactive} Mult)"
+                }
+            },
+
+            j_wafflemod_arm = {
+                name = "The Arm",
+                text = {
+                    "{C:green}#1# in #2#{} chance to",
+                    "upgrade level of",
+                    "played {C:attention}poker hand{}",
                 }
             },
 
@@ -560,7 +577,7 @@ return {
             c_wafflemod_ritual = {
                 name = "Ritual",
                 text = {
-                    "{C:green,E:1}#1# in #2# chance{} to add",
+                    "{C:green}#1# in #2#{} chance to add",
                     "a random {C:enhanced}Enhancement{} to",
                     "each card in hand"
                 },
@@ -652,7 +669,7 @@ return {
             c_wafflemod_wheel_of_fortune_rx = {
                 name = string.reverse("The Wheel of Fortune"),
                 text = {
-                    "{C:green, E:1}#1# in #2# chance{} to either",
+                    "{C:green}#1# in #2#{} chance to either",
                     "add {C:dark_edition}Negative{} to or {C:attention}destroy",
                     "a random Joker"
                 }
@@ -746,7 +763,7 @@ return {
                 name = "Ivory Seal",
                 text = {
                     "Creates a {C:spectral}Spectral{} card",
-                    "and has a {C:green,E:1}#1# in #2# chance{}",
+                    "and has a {C:green}#1# in #2#{} chance",
                     "to add an {C:wafflemod_ivory}Ivory Seal",
                     "to a random card {C:attention}in deck{}",
                     "when {C:attention}destroyed{}",
@@ -768,7 +785,7 @@ return {
             wafflemod_viridian_seal = {
                 name = "Viridian Seal",
                 text = {
-                    "{C:green,E:1}#1# in #2# chance{} to",
+                    "{C:green}#1# in #2#{} chance to",
                     "{C:attention}level up{} poker hand",
                     "if part of {C:attention}scoring hand{}"
                 }
@@ -897,7 +914,7 @@ return {
             sleeve_wafflemod_waffle = {
                 name = "Waffle Sleeve",
                 text = {
-                    "{C:green,E:1}#1# in #2# chance{} to",
+                    "{C:green}#1# in #2#{} chance to",
                     "replace Jokers in shop",
                     "with {C:attention}WaffleMod Jokers{}"
                 }
