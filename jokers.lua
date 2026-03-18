@@ -1412,6 +1412,7 @@ SMODS.Joker {
     loc_vars = function (self, info_queue, card)
         return {vars = {G.GAME.probabilities.normal or 1, card.ability.extra.odds}}
     end,
+    cost = 15,
     atlas = "wafflemod_jokerAtlas",
     calculate = function (self, card, context)
         if context.before and SMODS.pseudorandom_probability(card, 'wafflemod_arm', 1, card.ability.extra.odds) then
@@ -1420,7 +1421,8 @@ SMODS.Joker {
                 message = localize('k_level_up_ex')
             }
         end
-    end
+    end,
+    draw = bossCardDraw
 }
 
 -- The Club
@@ -1770,6 +1772,7 @@ SMODS.Joker {
             }
         end
     end,
+    cost = 15,
     draw = bossCardDraw
 }
 
@@ -1779,6 +1782,7 @@ SMODS.Joker {
     atlas = "wafflemod_jokerAtlas",
     pos = { x = 6, y = 4 },
     soul_pos = { x = 7, y = 4 },
+    cost = 15,
     rarity = "wafflemod_Boss",
     config = { extra = {
         xmult = 1
@@ -1799,6 +1803,68 @@ SMODS.Joker {
         end
     end,
     draw = bossCardDraw
+}
+
+-- The Wheel
+SMODS.Joker {
+    key = "wheel",
+    atlas = "wafflemod_jokerAtlas",
+    config = {extra = {
+        odds = 4
+    }},
+    loc_vars = function (self, info_queue, card)
+        return {vars = {
+            G.GAME.probabilities.normal or 1,
+            card.ability.extra.odds
+        }}
+    end,
+    cost = 15,
+    pos = {x = 8, y = 6},
+    soul_pos = {x = 9, y = 6},
+    calculate = function (self, card, context)
+        if context.before then
+            for _, playing_card in pairs(context.scoring_hand) do
+                if playing_card.edition == nil and SMODS.pseudorandom_probability(card, 'wafflemod_wheel', 1, card.ability.extra.odds) then
+                    local edition = SMODS.poll_edition { key = "wafflemod_wheel_edition", guaranteed = true, no_negative = true, options = { 'e_polychrome', 'e_holo', 'e_foil' } }
+                    playing_card:set_edition(edition, nil, nil, true)
+                    G.E_MANAGER:add_event(Event({
+                        func = function ()
+                            card:juice_up()
+                            return true
+                        end
+                    }))
+                end
+            end
+        end
+    end,
+    draw = bossCardDraw
+}
+
+-- testing joker Lolol
+SMODS.Joker {
+    key = "debug",
+    atlas = "wafflemod_jokerAtlas",
+    calculate = function (self, card, context)
+        if context.before then
+            for _, playing_card in pairs(context.scoring_hand) do
+                if playing_card.edition == nil then
+
+                    -- Card scores as holographic and juices up before scoring but is visually editioned as soon as play is pressed, which looks odd
+                    playing_card:set_edition("e_holo", nil, nil, true)
+
+                    -- Card juices up and visually turns holographic before scoring, but does not actually score as holo
+                    -- Additionally the juice up is immediately before scoring with no delay, which also looks odd
+                    -- G.E_MANAGER:add_event(Event({
+                    --     func = function ()
+                    --         playing_card:set_edition("e_holo", true)
+                    --         return true
+                    --     end
+                    -- }))
+
+                end
+            end
+        end
+    end
 }
 
 -- The Window
@@ -1860,6 +1926,7 @@ SMODS.Joker {
     pos = { x = 8, y = 5 },
     soul_pos = { x = 9, y = 5 },
     blueprint_compat = false,
+    cost = 20
 }
 WaffleMod.bindToModCalculate(function(context)
     if context.hand_drawn then

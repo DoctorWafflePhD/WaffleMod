@@ -526,6 +526,15 @@ return {
                 }
             },
 
+            j_wafflemod_wheel = {
+                name = "The Wheel",
+                text = {
+                    "{C:green}#1# in #2#{} chance to add",
+                    "{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or {C:dark_edition}Polychrome{}",
+                    "to each card in scoring hand"
+                }
+            },
+
             j_wafflemod_window = {
                 name = "The Window",
                 text = {
@@ -752,7 +761,7 @@ return {
             wafflemod_ebony_seal = {
                 name = "Ebony Seal",
                 text = {
-                    "{C:attention}+2{} hand size",
+                    "{C:attention}+1{} hand size",
                     "for the round",
                     "when {C:attention}discarded{}"
                 }
