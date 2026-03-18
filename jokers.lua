@@ -240,7 +240,6 @@ local function reset_fickle_suit()
     G.GAME.current_round.wafflemod_fickle_suit.suit = picky_card
 end
 
-
 -- Fountain
 SMODS.Joker {
     key = "fountain",
