@@ -1829,31 +1829,6 @@ SMODS.Joker {
     draw = bossCardDraw
 }
 
--- testing joker Lolol
-SMODS.Joker {
-    key = "debug",
-    atlas = "wafflemod_jokerAtlas",
-    calculate = function(self, card, context)
-        if context.before then
-            for _, playing_card in pairs(context.scoring_hand) do
-                if playing_card.edition == nil then
-                    -- Card scores as holographic and juices up before scoring but is visually editioned as soon as play is pressed, which looks odd
-                    playing_card:set_edition("e_holo", nil, nil, true)
-
-                    -- Card juices up and visually turns holographic before scoring, but does not actually score as holo
-                    -- Additionally the juice up is immediately before scoring with no delay, which also looks odd
-                    -- G.E_MANAGER:add_event(Event({
-                    --     func = function ()
-                    --         playing_card:set_edition("e_holo", true)
-                    --         return true
-                    --     end
-                    -- }))
-                end
-            end
-        end
-    end
-}
-
 -- The Window
 SMODS.Joker {
     key = "window",
