@@ -381,60 +381,48 @@ SMODS.Joker {
 }
 
 -- Miner
-if false then
-    SMODS.Joker {
-        key = "miner",
-        config = {
-            extra = {
-                target_enhancement = "m_stone",
-                seal = "Gold"
+SMODS.Joker {
+    key = "miner",
+    config = {
+        extra = {
+            target_enhancement = "m_stone",
+            seal = "Gold"
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.target_enhancement]
+        info_queue[#info_queue + 1] = G.P_SEALS[card.ability.extra.seal]
+        return {
+            vars = {
             }
-        },
-        loc_vars = function(self, info_queue, card)
-            info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.target_enhancement]
-            info_queue[#info_queue + 1] = G.P_SEALS[card.ability.extra.seal]
-            return {
-                vars = {
-                }
-            }
-        end,
-        rarity = 1,
-        atlas = "wafflemod_jokerAtlas",
-        pos = { x = 3, y = 0 },
-        cost = 5,
-        blueprint_compat = false,
-        calculate = function(self, card, context)
-            if context.before and not context.blueprint then
-                local didActivate = false
-                for _, scoredCard in ipairs(context.scoring_hand) do
-                    if SMODS.has_enhancement(scoredCard, card.ability.extra.target_enhancement) and not scoredCard.mined then
-                        scoredCard.mined = true
-                        scoredCard:set_ability('c_base', nil, true)
-                        -- If the below line is moved into the event then it doesn't count as a gold seal card when scored, which kinda sucks :/
-                        scoredCard:set_seal(card.ability.extra.seal, true, false)
-                        didActivate = true
-                        G.E_MANAGER:add_event(Event({
-                            func = function()
-                                scoredCard.mined = nil
-                                scoredCard:juice_up()
-                                return true
-                            end
-                        }))
-                    end
-                end
-                if didActivate then
-                    return {
-                        message = localize('k_upgrade_ex'),
-                        colour = G.C.MONEY,
-                    }
+        }
+    end,
+    rarity = 1,
+    atlas = "wafflemod_jokerAtlas",
+    pos = { x = 3, y = 0 },
+    cost = 5,
+    blueprint_compat = false,
+    calculate = function(self, card, context)
+        if context.before and not context.blueprint then
+            local didActivate = false
+            for _, scoredCard in ipairs(context.scoring_hand) do
+                if SMODS.has_enhancement(scoredCard, card.ability.extra.target_enhancement) then
+                    scoredCard:set_ability('c_base', nil, true)
+                    scoredCard:set_seal(card.ability.extra.seal, nil, nil, true)
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            card:juice_up()
+                            return true
+                        end
+                    }))
                 end
             end
-        end,
-        in_pool = function(self, args)
-            return WaffleMod.isEnhancementInDeck("m_stone")
         end
-    }
-end
+    end,
+    in_pool = function(self, args)
+        return WaffleMod.isEnhancementInDeck("m_stone")
+    end
+}
 
 -- Motley Joker
 SMODS.Joker {
@@ -768,26 +756,26 @@ SMODS.Joker {
 SMODS.Joker {
     key = "pop_art",
     atlas = "wafflemod_jokerAtlas",
-    pos = {x = 2,y = 2},
+    pos = { x = 2, y = 2 },
     rarity = 2,
-    config = {extra = {
+    config = { extra = {
         dollars = 0,
         dollar_gain = 1,
         target_suit = "Spades",
-    }},
-    loc_vars = function (self, info_queue, card)
+    } },
+    loc_vars = function(self, info_queue, card)
         local suit = (G.GAME.current_round.wafflemod_pop_art_suit or {}).suit or 'Spades'
         return { vars = { card.ability.extra.dollars, card.ability.extra.dollar_gain, localize(suit, 'suits_singular'), colours = { G.C.SUITS[suit] } } }
     end,
     blueprint_compat = false,
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
         if context.before and not context.blueprint then
             local upgradeCount = 0
             for _, scoring_card in pairs(context.scoring_hand) do
                 if scoring_card:is_suit(card.ability.extra.target_suit) then
                     upgradeCount = upgradeCount + 1
                     G.E_MANAGER:add_event(Event({
-                        func = function ()
+                        func = function()
                             scoring_card:juice_up()
                             return true
                         end
@@ -799,14 +787,14 @@ SMODS.Joker {
                     ref_table = card.ability.extra,
                     ref_value = "dollars",
                     change = "dollar_gain",
-                    operation = function (ref_table, ref_value, initial, change)
-                        ref_table[ref_value] = initial + upgradeCount*card.ability.extra.dollar_gain
-                    end 
+                    operation = function(ref_table, ref_value, initial, change)
+                        ref_table[ref_value] = initial + upgradeCount * card.ability.extra.dollar_gain
+                    end
                 })
             end
         end
     end,
-    calc_dollar_bonus = function (self, card)
+    calc_dollar_bonus = function(self, card)
         if card.ability.extra.dollars > 0 then
             local dollarsGiven = card.ability.extra.dollars
             card.ability.extra.dollars = 0
@@ -822,7 +810,7 @@ local function reset_pop_art_suit()
             valid_pop_art_cards[#valid_pop_art_cards + 1] = playing_card
         end
         local pop_art_card = pseudorandom_element(valid_pop_art_cards,
-        'wafflemod_pop_art' .. G.GAME.round_resets.ante)
+            'wafflemod_pop_art' .. G.GAME.round_resets.ante)
         if pop_art_card then
             G.GAME.current_round.wafflemod_pop_art_suit.suit = pop_art_card.base.suit
         end
@@ -1403,17 +1391,17 @@ local suitBossMultGain = 0.05
 SMODS.Joker {
     key = "arm",
     rarity = "wafflemod_Boss",
-    config = {extra = {
+    config = { extra = {
         odds = 2
-    }},
-    pos = {x = 8, y = 4},
-    soul_pos = {x = 9, y = 4},
-    loc_vars = function (self, info_queue, card)
-        return {vars = {G.GAME.probabilities.normal or 1, card.ability.extra.odds}}
+    } },
+    pos = { x = 8, y = 4 },
+    soul_pos = { x = 9, y = 4 },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { G.GAME.probabilities.normal or 1, card.ability.extra.odds } }
     end,
     cost = 15,
     atlas = "wafflemod_jokerAtlas",
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
         if context.before and SMODS.pseudorandom_probability(card, 'wafflemod_arm', 1, card.ability.extra.odds) then
             return {
                 level_up = true,
@@ -1808,26 +1796,28 @@ SMODS.Joker {
 SMODS.Joker {
     key = "wheel",
     atlas = "wafflemod_jokerAtlas",
-    config = {extra = {
+    config = { extra = {
         odds = 4
-    }},
-    loc_vars = function (self, info_queue, card)
-        return {vars = {
-            G.GAME.probabilities.normal or 1,
-            card.ability.extra.odds
-        }}
+    } },
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                G.GAME.probabilities.normal or 1,
+                card.ability.extra.odds
+            }
+        }
     end,
     cost = 15,
-    pos = {x = 8, y = 6},
-    soul_pos = {x = 9, y = 6},
-    calculate = function (self, card, context)
+    pos = { x = 8, y = 6 },
+    soul_pos = { x = 9, y = 6 },
+    calculate = function(self, card, context)
         if context.before then
             for _, playing_card in pairs(context.scoring_hand) do
                 if playing_card.edition == nil and SMODS.pseudorandom_probability(card, 'wafflemod_wheel', 1, card.ability.extra.odds) then
                     local edition = SMODS.poll_edition { key = "wafflemod_wheel_edition", guaranteed = true, no_negative = true, options = { 'e_polychrome', 'e_holo', 'e_foil' } }
                     playing_card:set_edition(edition, nil, nil, true)
                     G.E_MANAGER:add_event(Event({
-                        func = function ()
+                        func = function()
                             card:juice_up()
                             return true
                         end
@@ -1843,11 +1833,10 @@ SMODS.Joker {
 SMODS.Joker {
     key = "debug",
     atlas = "wafflemod_jokerAtlas",
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
         if context.before then
             for _, playing_card in pairs(context.scoring_hand) do
                 if playing_card.edition == nil then
-
                     -- Card scores as holographic and juices up before scoring but is visually editioned as soon as play is pressed, which looks odd
                     playing_card:set_edition("e_holo", nil, nil, true)
 
@@ -1859,7 +1848,6 @@ SMODS.Joker {
                     --         return true
                     --     end
                     -- }))
-
                 end
             end
         end
@@ -1970,10 +1958,10 @@ SMODS.Joker {
             slots = 2
         }
     },
-    add_to_deck = function (self, card, from_debuff)
+    add_to_deck = function(self, card, from_debuff)
         G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
     end,
-    remove_from_deck = function (self, card, from_debuff)
+    remove_from_deck = function(self, card, from_debuff)
         G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
     end,
     loc_vars = function(self, info_queue, card)

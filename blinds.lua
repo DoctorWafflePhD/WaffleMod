@@ -55,7 +55,7 @@ SMODS.Blind {
 
                     for _, has in pairs(enhancements) do
                         if has then
-                            print("enhanced")
+                            --print("enhanced")
                             isEnhanced = true
                         end
                     end
@@ -86,54 +86,49 @@ SMODS.Blind {
 -- The Tail
 if false then
     SMODS.Blind {
-    key = "tail",
-    boss_colour = HEX("89AF7D"),
-    boss = { min = 1 },
-    atlas = "wafflemod_blindAtlas",
-    dollars = 5,
-    mult = 2,
-    pos = { x = 0, y = 3 },
-    calculate = function(self, blind, context)
-        if not blind.disabled then
-            if context.before then
-                for _, v in pairs(context.full_hand) do
-                    G.E_MANAGER:add_event(Event{
-                        func = function ()
-                            SMODS.modify_rank(v, -1)
-                            return true
+        key = "tail",
+        boss_colour = HEX("89AF7D"),
+        boss = { min = 1 },
+        atlas = "wafflemod_blindAtlas",
+        dollars = 5,
+        mult = 2,
+        pos = { x = 0, y = 3 },
+        calculate = function(self, blind, context)
+            if not blind.disabled then
+                if context.before then
+                    for _, v in pairs(context.full_hand) do
+                        if not SMODS.has_no_rank(v) then
+                            SMODS.modify_rank(v, -1, true)
+                            G.E_MANAGER:add_event(Event({
+                                func = function ()
+                                    v:juice_up()
+                                    return true
+                                end
+                            }))
+                            blind.triggered = true
                         end
-                    })
+                    end
+                    delay(0.2)
+                    if blind.triggered then
+                        WaffleMod.juiceBlindWithSound()
+                    end
+                    delay(0.4)
                 end
-                -- G.E_MANAGER:add_event(Event({
-                --     func = function ()
-                --         WaffleMod.flipFunctionCards(G.play.cards, function(card)
-                --             SMODS.modify_rank(card, -1)
-                --         end)
-                --         return true
-                --     end
-                -- }))
-                blind.triggered = true
-                delay(0.2)
-                if blind.triggered then
-                    WaffleMod.juiceBlindWithSound()
-                end
-                delay(0.4)
             end
         end
-    end
-}
+    }
 end
 
 -- The Union
 SMODS.Blind {
     key = "union",
-    boss = {min=1},
+    boss = { min = 1 },
     boss_colour = HEX('95509B'),
     atlas = "wafflemod_blindAtlas",
     dollars = 5,
     mult = 2,
-    pos = {x = 0, y = 4},
-    calculate = function (self, blind, context)
+    pos = { x = 0, y = 4 },
+    calculate = function(self, blind, context)
         if context.debuff_hand and context.scoring_hand and #context.scoring_hand < 2 then
             blind.triggered = true
             return {
