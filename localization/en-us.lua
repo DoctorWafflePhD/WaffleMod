@@ -546,6 +546,14 @@ return {
                 }
             },
 
+            j_wafflemod_amber_acorn = {
+                name = "Amber Acorn",
+                text = {
+                    "Jokers to the {C:attention}left{} give {C:white,X:mult}X#1#{} Mult",
+                    "Jokers to the {C:attention}right{} give {C:money}$#2#{}"
+                }
+            },
+
             j_wafflemod_cerulean_bell = {
                 name = "Cerulean Bell",
                 text = {

@@ -1385,7 +1385,7 @@ local bossCardDraw = function(self, card, layer)
     end
 end
 
-local suitBossMultGain = 0.05
+local suitBossMultGain = 0.02
 
 -- The Arm
 SMODS.Joker {
@@ -1869,6 +1869,45 @@ SMODS.Joker {
                 colour = G.C.MULT,
                 message_card = card
             }
+        end
+    end
+}
+
+-- Amber Acorn
+SMODS.Joker {
+    key = "amber_acorn",
+    atlas = "wafflemod_jokerAtlas",
+    rarity = "wafflemod_Showdown",
+    pos = { x = 0, y = 7 },
+    soul_pos = { x = 1, y = 7 },
+    config = { extra = {
+        dollars = 5,
+        xmult = 1.5
+    } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.xmult, card.ability.extra.dollars } }
+    end,
+    calculate = function(self, card, context)
+        if context.other_joker then
+            local myIndex = table.find(G.jokers.cards, card)
+
+            local otherIndex = table.find(G.jokers.cards, context.other_joker)
+
+            local calcEffect = {}
+
+            if myIndex > otherIndex then -- If AA is to the right
+                calcEffect.xmult = card.ability.extra.xmult
+            elseif myIndex < otherIndex then -- If AA is to the left
+                calcEffect.dollars = card.ability.extra.dollars
+            end
+
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    context.other_joker:juice_up()
+                    return true
+                end
+            }))
+            SMODS.calculate_effect(calcEffect, card)
         end
     end
 }
