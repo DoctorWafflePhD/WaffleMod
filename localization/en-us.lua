@@ -471,6 +471,13 @@ return {
                 }
             },
 
+            j_wafflemod_manacle = {
+                name = "The Manacle",
+                text = {
+                    "{C:attention}+#1#{} hand size"
+                }
+            },
+
             j_wafflemod_needle = {
                 name = "The Needle",
                 text = {

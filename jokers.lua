@@ -1116,7 +1116,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "ice_juggler_cookie",
     config = { extra = {
-        h_size = 3,
+        h_size = 2,
         xmult = 1,
         xmult_gain = 0.25,
     } },
@@ -1574,6 +1574,28 @@ SMODS.Joker {
                 end
             }
         end
+    end
+}
+
+-- The Manacle
+SMODS.Joker {
+    key = "manacle",
+    atlas = "wafflemod_jokerAtlas",
+    pos = {x = 2, y = 7},
+    soul_pos = {x = 3, y = 7},
+    draw = bossCardDraw,
+    rarity = "wafflemod_Boss",
+    config = {extra = {
+        h_size = 2
+    }},
+        loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.h_size } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.hand:change_size(card.ability.extra.h_size)
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.hand:change_size(-card.ability.extra.h_size)
     end
 }
 
