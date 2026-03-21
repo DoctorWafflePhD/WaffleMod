@@ -1041,6 +1041,77 @@ SMODS.Joker {
     end
 }
 
+-- Trophy Hunter's Tricorn
+SMODS.Joker {
+    key = "trophy_hunters_tricorn",
+    atlas = "wafflemod_jokerAtlas",
+    loc_vars = function(self, info_queue, card)
+        WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
+        local main_end = nil
+        if card.area and (card.area == G.jokers) then
+            local disableable = G.GAME.blind and ((not G.GAME.blind.disabled) and (G.GAME.blind.boss))
+            local bossJokerExists = false
+            if G.GAME.blind then
+                bossJokerExists = WaffleMod.bossJokerTable[G.GAME.blind.config.blind.key] ~= nil
+            end
+            local text
+            if disableable and bossJokerExists then
+                text = "k_active"
+            elseif disableable and not bossJokerExists then
+                text = "ph_wafflemod_no_boss_joker"
+            elseif not disableable then
+                text = "ph_no_boss_active"
+            end
+            main_end = {
+                {
+                    n = G.UIT.C,
+                    config = { align = "bm", minh = 0.4 },
+                    nodes = {
+                        {
+                            n = G.UIT.C,
+                            config = { ref_table = card, align = "m", colour = (disableable and bossJokerExists) and G.C.GREEN or G.C.RED, r = 0.05, padding = 0.06 },
+                            nodes = {
+                                { n = G.UIT.T, config = { text = ' ' .. localize(text) .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.9 } },
+                            }
+                        }
+                    }
+                }
+            }
+        end
+        return { main_end = main_end, key = card.edition and "j_wafflemod_trophy_hunters_tricorn_edition" or "j_wafflemod_trophy_hunters_tricorn" }
+    end,
+    calculate = function(self, card, context)
+        if context.selling_self then
+            if G.GAME.blind and not G.GAME.blind.disabled and G.GAME.blind.boss then
+
+                local getJokerKeyFromBlind = WaffleMod.bossJokerTable[G.GAME.blind.config.blind.key]
+                if getJokerKeyFromBlind then
+                G.E_MANAGER:add_event(Event({
+                trigger = 'immediate',
+                delay = 0.4,
+                func = function()
+                    play_sound('timpani')
+                    local newJoker = SMODS.add_card({ set = 'Joker', key = getJokerKeyFromBlind, edition = card.edition })
+                    newJoker:juice_up(0.3, 0.5)
+                    return true
+                end
+            }))
+                end
+
+                return {
+                    message = localize('ph_boss_disabled'),
+                    func = function() -- This is for timing purposes, it runs after the message
+                        G.GAME.blind:disable()
+                    end
+                }
+            end
+        end
+    end,
+    in_pool = function ()
+        return WaffleMod.config.boss_jokers.enabled
+    end
+}
+
 -- Legendary
 ------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1324,6 +1395,7 @@ WaffleMod.bossJokerTable = {
     bl_goad = "j_wafflemod_goad",
     bl_head = "j_wafflemod_head",
     bl_hook = "j_wafflemod_hook",
+    bl_manacle = "j_wafflemod_manacle",
     bl_needle = "j_wafflemod_needle",
     bl_ox = "j_wafflemod_ox", -- roblox ?!?!
     bl_psychic = "j_wafflemod_psychic",
@@ -1385,7 +1457,7 @@ local bossCardDraw = function(self, card, layer)
     end
 end
 
-local suitBossMultGain = 0.02
+local suitBossMultGain = 0.025
 
 -- The Arm
 SMODS.Joker {
@@ -1581,14 +1653,15 @@ SMODS.Joker {
 SMODS.Joker {
     key = "manacle",
     atlas = "wafflemod_jokerAtlas",
-    pos = {x = 2, y = 7},
-    soul_pos = {x = 3, y = 7},
+    pos = { x = 2, y = 7 },
+    soul_pos = { x = 3, y = 7 },
     draw = bossCardDraw,
     rarity = "wafflemod_Boss",
-    config = {extra = {
+    cost = 15,
+    config = { extra = {
         h_size = 2
-    }},
-        loc_vars = function(self, info_queue, card)
+    } },
+    loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.h_size } }
     end,
     add_to_deck = function(self, card, from_debuff)
@@ -1917,7 +1990,7 @@ SMODS.Joker {
 
             local calcEffect = {}
 
-            if myIndex > otherIndex then -- If AA is to the right
+            if myIndex > otherIndex then     -- If AA is to the right
                 calcEffect.xmult = card.ability.extra.xmult
             elseif myIndex < otherIndex then -- If AA is to the left
                 calcEffect.dollars = card.ability.extra.dollars

@@ -1,3 +1,4 @@
+WaffleMod.addLocColor("wafflemod_boss", HEX('E08B4A'))
 SMODS.Rarity {
     key = "Boss",
         loc_txt = {

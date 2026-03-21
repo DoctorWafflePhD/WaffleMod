@@ -5,7 +5,7 @@ return {
     },
     boss_jokers = {
         enabled = false,
-        chance = 8
+        chance = 10
     },
     reverse_arcana = {
         enabled = false

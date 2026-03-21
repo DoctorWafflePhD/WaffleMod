@@ -20,29 +20,28 @@ SMODS.Back {
         }
     },
     loc_vars = function(self, info_queue)
-        return {vars = {(G.GAME.probabilities.normal or 1), self.config.extra.odds}}
+        return { vars = { (G.GAME.probabilities.normal or 1), self.config.extra.odds } }
     end,
-    calculate = function (self, back, context)
+    calculate = function(self, back, context)
         if context.create_shop_card then
-            
             local isJoker = context.set == "Joker"
 
             if isJoker then
-                local rollToReplace = SMODS.pseudorandom_probability(back, "waffleDeckJokerRng", 1, self.config.extra.odds)
+                local rollToReplace = SMODS.pseudorandom_probability(back, "waffleDeckJokerRng", 1,
+                    self.config.extra.odds)
                 if rollToReplace then
-                   --print("replaced a joker")
-                    return{
+                    --print("replaced a joker")
+                    return {
                         shop_create_flags = {
                             set = "wafflemod_jokers"
                         }
                     }
                 else
-                   -- print("chance failed")
+                    -- print("chance failed")
                 end
             else
                 --print("not joker")
             end
-
         end
     end
 }
@@ -51,24 +50,26 @@ SMODS.Back {
 SMODS.Back {
     key = "blighted",
     atlas = "wafflemod_deckAtlas",
-    pos = {x = 2, y = 0},
+    pos = { x = 2, y = 0 },
     config = {
-        vouchers = {"v_clearance_sale"},
+        vouchers = { "v_clearance_sale" },
         extra = {
             debuffed_sales_needed = 4,
             joker_slot_gain = 1
         }
     },
-    loc_vars = function (self, info_queue)
+    loc_vars = function(self, info_queue)
         local remaining = self.config.extra.debuffed_sales_needed
         if G.GAME then
             remaining = remaining - (G.GAME.debuffed_joker_sales or 0) % remaining
         end
-        return {vars = {
-            self.config.extra.joker_slot_gain, self.config.extra.debuffed_sales_needed, remaining
-        }}
+        return {
+            vars = {
+                self.config.extra.joker_slot_gain, self.config.extra.debuffed_sales_needed, remaining
+            }
+        }
     end,
-    calculate = function (self, back, context)
+    calculate = function(self, back, context)
         -- if context.modify_shop_card and context.card.ability.set == "Joker" then
         --     makePerishable(context.card)
         -- end
@@ -91,7 +92,7 @@ SMODS.Back {
                                 message = localize('k_upgrade_ex')
                             }
                         end
-                    end 
+                    end
                 end
             end
         end
@@ -105,6 +106,50 @@ function CardArea.emplace(self, card, flipped)
     emplaceRef(self, card, flipped)
 end
 
+-- Hunting Deck
+SMODS.Back {
+    key = "hunting",
+    config = {
+        extra = {
+            voucher = "v_wafflemod_hunting_license",
+            joker = "j_wafflemod_trophy_hunters_tricorn"
+        },
+    },
+    loc_vars = function(self, info_queue)
+        local key
+        if WaffleMod.config.boss_jokers.enabled then
+            key = "b_wafflemod_hunting"
+        else
+            key = "b_wafflemod_hunting_disabled"
+        end
+        return { key = key }
+    end,
+    atlas = "wafflemod_deckAtlas",
+    pos = { x = 3, y = 0 },
+    unlocked = true,
+    apply = function(self, back) -- IK config alone can be used for the voucher & joker but this is for the configuration check functionality
+        if WaffleMod.config.boss_jokers.enabled then
+
+            G.GAME.used_vouchers[self.config.voucher] = true
+            G.GAME.starting_voucher_count = (G.GAME.starting_voucher_count or 0) + 1
+            G.E_MANAGER:add_event(Event({ -- Adding back objects of any type from a deck MUST be done within an event
+                func = function()
+                    Card.apply_to_run(nil, G.P_CENTERS[self.config.extra.voucher])
+                    return true
+                end
+            }))
+
+            delay(0.4)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                SMODS.add_card({key = self.config.extra.joker})
+                return true
+            end
+        }))
+
+        end
+    end
+}
 
 -- Patchwork Deck
 local juryRiggedDebuffedJokerCount = 1 -- Defined here for access in later hook
@@ -124,7 +169,6 @@ SMODS.Back {
 -- Patchwork update hook (this disables the rightmost joker when using the deck)
 local updateRef = Game.update
 function Game:update(dt)
-    
     if WaffleMod.usingBack("b_wafflemod_juryrigged") and G.jokers and G.jokers.cards then
         local jokerCards = G.jokers.cards
 

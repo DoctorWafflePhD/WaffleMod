@@ -21,6 +21,22 @@ return {
                 }
             },
 
+            b_wafflemod_hunting = {
+                name = "Hunting Deck",
+                text = {
+                    "Start with {C:attention,T:v_wafflemod_hunting_license}Hunting License",
+                    "and a Trophy Hunter's Tricorn",
+                }
+            },
+
+            b_wafflemod_hunting_disabled = {
+                name = "Hunting Deck",
+                text = {
+                    "{C:wafflemod_boss}Boss Jokers{} are currently {C:red}disabled{}",
+                    "This deck will have {C:red}no effect{}",
+                }
+            },
+
             b_wafflemod_mirage = {
                 name = "Mirage Deck",
                 text = {
@@ -363,6 +379,25 @@ return {
                     "{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult",
                     "{C:inactive}and {C:white,X:mult}X#4#{C:inactive} Mult)"
                 },
+            },
+
+            j_wafflemod_trophy_hunters_tricorn = {
+                name = "Trophy Hunter's Tricorn",
+                text = { "Sell this card to",
+                    "disable the current",
+                    "{C:attention}Boss Blind{} and spawn",
+                    "its matching {C:wafflemod_boss}Boss Joker{}",
+                }
+            },
+
+            j_wafflemod_trophy_hunters_tricorn_edition = {
+                name = "Trophy Hunter's Tricorn",
+                text = { "Sell this card to",
+                    "disable the current",
+                    "{C:attention}Boss Blind{} and spawn",
+                    "its matching {C:wafflemod_boss}Boss Joker{}",
+                    "{C:inactive}(Copies this card's Edition)"
+                }
             },
 
             j_wafflemod_doctorwaffle_0 = {
@@ -978,6 +1013,7 @@ return {
             k_wafflemod_arcade = "Arcade Cabinet",
             k_wafflemod_copper_seal_eval = "Copper Seals",
             k_wafflemod_copper_seal_eval_singular = "Copper Seal",
+            ph_wafflemod_no_boss_joker = "no matching joker",
             wafflemod_dubious_legendary = "Legendary?",
             wafflemod_arcade_pack = "Arcade Pack"
         },
