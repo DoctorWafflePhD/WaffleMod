@@ -130,7 +130,7 @@ SMODS.Back {
     apply = function(self, back) -- IK config alone can be used for the voucher & joker but this is for the configuration check functionality
         if WaffleMod.config.boss_jokers.enabled then
 
-            G.GAME.used_vouchers[self.config.voucher] = true
+            G.GAME.used_vouchers[self.config.extra.voucher] = true
             G.GAME.starting_voucher_count = (G.GAME.starting_voucher_count or 0) + 1
             G.E_MANAGER:add_event(Event({ -- Adding back objects of any type from a deck MUST be done within an event
                 func = function()

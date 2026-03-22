@@ -760,8 +760,7 @@ SMODS.Joker {
     rarity = 2,
     config = { extra = {
         dollars = 0,
-        dollar_gain = 1,
-        target_suit = "Spades",
+        dollar_gain = 1
     } },
     loc_vars = function(self, info_queue, card)
         local suit = (G.GAME.current_round.wafflemod_pop_art_suit or {}).suit or 'Spades'
@@ -772,7 +771,7 @@ SMODS.Joker {
         if context.before and not context.blueprint then
             local upgradeCount = 0
             for _, scoring_card in pairs(context.scoring_hand) do
-                if scoring_card:is_suit(card.ability.extra.target_suit) then
+                if scoring_card:is_suit((G.GAME.current_round.wafflemod_pop_art_suit or {}).suit or 'Spades') then
                     upgradeCount = upgradeCount + 1
                     G.E_MANAGER:add_event(Event({
                         func = function()
@@ -1457,7 +1456,7 @@ local bossCardDraw = function(self, card, layer)
     end
 end
 
-local suitBossMultGain = 0.025
+local suitBossMultGain = 0.03
 
 -- The Arm
 SMODS.Joker {
@@ -1825,6 +1824,7 @@ SMODS.Joker {
         end
     end
 }
+-- Reset hand size boosts
 local curModCalcRef = SMODS.current_mod.calculate or function() end
 function SMODS.current_mod.calculate(self, context)
     if context.end_of_round and context.main_eval and context.game_over == false and G.GAME.serpent_joker_boost then

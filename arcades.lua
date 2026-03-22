@@ -24,6 +24,8 @@ local function addArcadeHint(info_queue)
     end
 end
 
+-- (Sorted by release date)
+
 -- Asteroids
 
 -- Space Invaders
@@ -221,6 +223,68 @@ SMODS.Consumable {
     end
 }
 
+-- Metro-Cross
+SMODS.Consumable {
+    key = "metro_cross",
+    set = "wafflemod_arcade",
+    atlas = "wafflemod_arcadeAtlas",
+    pos = { x = 4, y = 0 },
+    cost = 4,
+    config = { extra = {
+        create_tag = "tag_double",
+        create_set = "Spectral",
+        use_cost = 5,
+    } },
+    loc_vars = function(self, info_queue, card)
+        addArcadeHint(info_queue)
+        info_queue[#info_queue + 1] = { key = 'tag_double', set = 'Tag' }
+        return { vars = { card.ability.extra.use_cost } }
+    end,
+    keep_on_use = function(self, card)
+        return true
+    end,
+    can_use = function(self, card)
+        return WaffleMod.canAfford(card.ability.extra.use_cost)
+    end,
+    use = function(self, card, area, copier)
+        G.E_MANAGER:add_event(Event({
+            trigger = "after",
+            delay = "0.2",
+            blocking = false,
+            func = function()
+                card:juice_up()
+                add_tag(Tag(card.ability.extra.create_tag))
+                play_sound('generic1', 0.9 + math.random() * 0.1, 0.8)
+                play_sound('holo1', 1.2 + math.random() * 0.1, 0.4)
+                return true
+            end
+        }))
+        ease_dollars(-card.ability.extra.use_cost)
+    end,
+    calculate = function(self, card, context)
+        if context.skip_blind then
+            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                G.E_MANAGER:add_event(Event({
+                    func = (function()
+                        SMODS.add_card {
+                            set = card.ability.extra.create_set,
+                            key_append = 'wafflemod_metro_cross'
+                        }
+                        G.GAME.consumeable_buffer = 0
+                        return true
+                    end)
+                }))
+                return {
+                    message = localize('k_plus_spectral'),
+                    colour = G.C.SECONDARY_SET.Spectral,
+                    remove = true
+                }
+            end
+        end
+    end
+}
+
 -- Polybius
 SMODS.Consumable {
     key = "polybius",
@@ -256,7 +320,8 @@ SMODS.Consumable {
         }))
     end,
     can_use = function(self, card)
-        return G.hand and #G.hand.highlighted == 1 and WaffleMod.canAfford(card.ability.extra.use_cost) and not G.hand.highlighted[1].edition
+        return G.hand and #G.hand.highlighted == 1 and WaffleMod.canAfford(card.ability.extra.use_cost) and
+            not G.hand.highlighted[1].edition
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card.edition and context.other_card.edition.key == "e_negative" then

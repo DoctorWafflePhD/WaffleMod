@@ -25,7 +25,7 @@ return {
                 name = "Hunting Deck",
                 text = {
                     "Start with {C:attention,T:v_wafflemod_hunting_license}Hunting License",
-                    "and a Trophy Hunter's Tricorn",
+                    "and a {C:attention,T:j_wafflemod_trophy_hunters_tricorn}Trophy Hunter's Tricorn",
                 }
             },
 
@@ -931,7 +931,7 @@ return {
                 text = {
                     "When {C:attention}used:{} Spend {C:money}$#1#{} to",
                     "add 2 Ephemeral Diamond cards to hand",
-                    "While held: Cards with Diamond suit",
+                    "While {C:attention}held:{} Cards with Diamond suit",
                     "add their rank to Mult when scored"
                 }
             },
@@ -945,6 +945,17 @@ return {
                     "after every {C:attention}#2#{} {C:inactive}[#3#]{} {C:attention}Stone Cards{} played",
                     "{C:inactive}(Must have room)"
                 },
+            },
+
+            c_wafflemod_metro_cross = {
+                name = "Metro-Cross",
+                text = {
+                    "When {C:attention}used:{} Spend {C:money}$#1#{} to",
+                    "create a {C:attention}Double Tag{}",
+                    "While {C:attention}held:{} Skipping a Blind creates",
+                    "a random {C:spectral}Spectral Card{}",
+                    "{C:inactive}(Must have room){}"
+                }
             },
 
             c_wafflemod_pacman = {
