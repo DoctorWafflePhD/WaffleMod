@@ -237,13 +237,11 @@ SMODS.Consumable {
     pos = { x = 5, y = 0 },
     cost = 4,
     config = { extra = {
-        create_tag = "tag_double",
         create_set = "Spectral",
         use_cost = 3,
     } },
     loc_vars = function(self, info_queue, card)
         addArcadeHint(info_queue)
-        info_queue[#info_queue + 1] = { key = 'tag_double', set = 'Tag' }
         return { vars = { card.ability.extra.use_cost } }
     end,
     keep_on_use = function(self, card)
