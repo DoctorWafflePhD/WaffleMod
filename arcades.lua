@@ -239,7 +239,7 @@ SMODS.Consumable {
     config = { extra = {
         create_tag = "tag_double",
         create_set = "Spectral",
-        use_cost = 5,
+        use_cost = 3,
     } },
     loc_vars = function(self, info_queue, card)
         addArcadeHint(info_queue)
@@ -259,7 +259,7 @@ SMODS.Consumable {
             blocking = false,
             func = function()
                 card:juice_up()
-                add_tag(Tag(card.ability.extra.create_tag))
+                add_tag(Tag(WaffleMod.selectRandomTag()))
                 play_sound('generic1', 0.9 + math.random() * 0.1, 0.8)
                 play_sound('holo1', 1.2 + math.random() * 0.1, 0.4)
                 return true

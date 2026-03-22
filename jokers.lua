@@ -1077,24 +1077,25 @@ SMODS.Joker {
                 }
             }
         end
-        return { main_end = main_end, key = card.edition and "j_wafflemod_trophy_hunters_tricorn_edition" or "j_wafflemod_trophy_hunters_tricorn" }
+        return { main_end = main_end, key = card.edition and "j_wafflemod_trophy_hunters_tricorn_edition" or
+        "j_wafflemod_trophy_hunters_tricorn" }
     end,
     calculate = function(self, card, context)
         if context.selling_self then
             if G.GAME.blind and not G.GAME.blind.disabled and G.GAME.blind.boss then
-
                 local getJokerKeyFromBlind = WaffleMod.bossJokerTable[G.GAME.blind.config.blind.key]
                 if getJokerKeyFromBlind then
-                G.E_MANAGER:add_event(Event({
-                trigger = 'immediate',
-                delay = 0.4,
-                func = function()
-                    play_sound('timpani')
-                    local newJoker = SMODS.add_card({ set = 'Joker', key = getJokerKeyFromBlind, edition = card.edition })
-                    newJoker:juice_up(0.3, 0.5)
-                    return true
-                end
-            }))
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'immediate',
+                        delay = 0.4,
+                        func = function()
+                            play_sound('timpani')
+                            local newJoker = SMODS.add_card({ set = 'Joker', key = getJokerKeyFromBlind, edition = card
+                            .edition })
+                            newJoker:juice_up(0.3, 0.5)
+                            return true
+                        end
+                    }))
                 end
 
                 return {
@@ -1106,7 +1107,7 @@ SMODS.Joker {
             end
         end
     end,
-    in_pool = function ()
+    in_pool = function()
         return WaffleMod.config.boss_jokers.enabled
     end
 }
@@ -1762,6 +1763,30 @@ SMODS.Joker {
     end
 }
 
+-- The Pillar
+SMODS.Joker {
+    key = "pillar",
+    config = { extra = {
+        perma_mult = 2
+    } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.perma_mult} }
+    end,
+    rarity = "wafflemod_Boss",
+    atlas = "wafflemod_jokerAtlas",
+    draw = bossCardDraw,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            context.other_card.ability.perma_mult = (context.other_card.ability.perma_mult or 0) +
+                card.ability.extra.perma_mult
+            return {
+                message = localize('k_upgrade_ex'),
+                colour = G.C.MULT
+            }
+        end
+    end
+}
+
 -- The Psychic
 SMODS.Joker {
     key = "psychic",
@@ -1967,6 +1992,9 @@ SMODS.Joker {
         end
     end
 }
+
+-- Showdown
+------------------------------------------------------------------------------------------------------------------------------------------
 
 -- Amber Acorn
 SMODS.Joker {

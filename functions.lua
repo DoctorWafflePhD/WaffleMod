@@ -236,6 +236,19 @@ function WaffleMod.blightedMakePerishable(card)
     end
 end
 
+function WaffleMod.selectRandomTag()
+    
+local tag_pool = get_current_pool('Tag')
+local selected_tag = pseudorandom_element(tag_pool, 'modprefix_seed')
+local it = 1
+while selected_tag == 'UNAVAILABLE' do
+    it = it + 1
+    selected_tag = pseudorandom_element(tag_pool, 'modprefix_seed_resample'..it)
+end
+return selected_tag
+
+end
+
 WaffleMod.calculateFunctions = {}
 function WaffleMod.bindToModCalculate(func, name)
     if name then

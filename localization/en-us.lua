@@ -535,6 +535,15 @@ return {
                 }
             },
 
+            j_wafflemod_pillar = {
+                name = "The Pillar",
+                text={
+                    "Every played {C:attention}card{}",
+                    "permanently gains",
+                    "{C:mult}+#1#{} Mult when scored",
+                },
+            },
+
             j_wafflemod_psychic = {
                 name = "The Psychic",
                 text = {
@@ -951,7 +960,7 @@ return {
                 name = "Metro-Cross",
                 text = {
                     "When {C:attention}used:{} Spend {C:money}$#1#{} to",
-                    "create a {C:attention}Double Tag{}",
+                    "create a random {C:attention}Tag{}",
                     "While {C:attention}held:{} Skipping a Blind creates",
                     "a random {C:spectral}Spectral Card{}",
                     "{C:inactive}(Must have room){}"
