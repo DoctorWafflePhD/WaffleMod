@@ -158,8 +158,8 @@ SMODS.Consumable {
     config = { extra = {
         target_enhancement = "m_stone",
         use_cost = 3,
-        target_interval = 5,
-        cards_needed = 5
+        target_interval = 4,
+        cards_needed = 4
     } },
     loc_vars = function(self, info_queue, card)
         addArcadeHint(info_queue)
