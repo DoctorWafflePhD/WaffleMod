@@ -15,6 +15,12 @@ SMODS.ConsumableType {
     select_card = "consumeables"
 }
 
+SMODS.UndiscoveredSprite {
+    key = "wafflemod_arcade",
+    atlas = "wafflemod_arcadeAtlas",
+    pos = {x = 0, y = 0}
+}
+
 local function addArcadeHint(info_queue)
     WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.arcade_cabinets.enabled)
     if next(SMODS.find_card("j_perkeo")) then
@@ -33,7 +39,7 @@ SMODS.Consumable {
     key = "space_invaders",
     set = "wafflemod_arcade",
     atlas = "wafflemod_arcadeAtlas",
-    pos = { x = 2, y = 0 },
+    pos = { x = 3, y = 0 },
     cost = 4,
     config = { extra = {
         use_cost = 3,
@@ -82,7 +88,7 @@ SMODS.Consumable {
     key = "pacman",
     set = "wafflemod_arcade",
     atlas = "wafflemod_arcadeAtlas",
-    pos = { x = 0, y = 0 },
+    pos = { x = 1, y = 0 },
     cost = 4,
     config = { extra = {
         conv_enhancement = "m_wild",
@@ -153,7 +159,7 @@ SMODS.Consumable {
     key = "dig_dug",
     set = "wafflemod_arcade",
     atlas = "wafflemod_arcadeAtlas",
-    pos = { x = 1, y = 0 },
+    pos = { x = 2, y = 0 },
     cost = 4,
     config = { extra = {
         target_enhancement = "m_stone",
@@ -228,7 +234,7 @@ SMODS.Consumable {
     key = "metro_cross",
     set = "wafflemod_arcade",
     atlas = "wafflemod_arcadeAtlas",
-    pos = { x = 4, y = 0 },
+    pos = { x = 5, y = 0 },
     cost = 4,
     config = { extra = {
         create_tag = "tag_double",
@@ -290,7 +296,7 @@ SMODS.Consumable {
     key = "polybius",
     set = "Spectral",
     atlas = "wafflemod_arcadeAtlas",
-    pos = { x = 3, y = 0 },
+    pos = { x = 4, y = 0 },
     config = { extra = {
         edition = "e_negative",
         use_cost = 6,
