@@ -1428,6 +1428,7 @@ WaffleMod.bossJokerTable = {
     bl_manacle = "j_wafflemod_manacle",
     bl_needle = "j_wafflemod_needle",
     bl_ox = "j_wafflemod_ox", -- roblox ?!?!
+    bl_pillar = "j_wafflemod_pillar",
     bl_psychic = "j_wafflemod_psychic",
     bl_serpent = "j_wafflemod_serpent",
     bl_wall = "j_wafflemod_wall",
