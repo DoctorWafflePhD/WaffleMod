@@ -181,6 +181,14 @@ return {
                 }
             },
 
+            j_wafflemod_golden_goose_egg = {
+                name = "Golden Goose Egg",
+                text = {
+                    "Gains {C:money}$#1#{} of sell value",
+                    "when a {C:tarot}Tarot{} card is used"
+                }
+            },
+
             j_wafflemod_golfer = {
                 name = "Golfer",
                 text = {
@@ -1020,6 +1028,26 @@ return {
                     "debuffed Joker is sold"
                 }
             },
+            sleeve_wafflemod_hunting = {
+                name = "Hunting Sleeve",
+                text = {
+                    "Start with {C:attention,T:v_wafflemod_hunting_license}Hunting License",
+                }
+            },
+            sleeve_wafflemod_hunting_alt = {
+                name = "Hunting Sleeve",
+                text = {
+                    "Starting {C:attention,T:j_wafflemod_trophy_hunters_tricorn}Trophy Hunter's Tricorn",
+                    "comes with {C:dark_edition,T:e_polychrome}Polychrome{} edition"
+                }
+            },
+            sleeve_wafflemod_hunting_disabled = {
+                name = "Hunting Sleeve",
+                text = {
+                    "{C:wafflemod_boss}Boss Jokers{} are currently {C:red}disabled{}",
+                    "This sleeve will have {C:red}no effect{}",
+                }
+            },
         }
 
     },
@@ -1033,6 +1061,7 @@ return {
             k_wafflemod_arcade = "Arcade Cabinet",
             k_wafflemod_copper_seal_eval = "Copper Seals",
             k_wafflemod_copper_seal_eval_singular = "Copper Seal",
+            k_wafflemod_testing = "testing lalalala",
             ph_wafflemod_no_boss_joker = "no matching joker",
             wafflemod_dubious_legendary = "Legendary?",
             wafflemod_arcade_pack = "Arcade Pack"

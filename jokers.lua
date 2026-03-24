@@ -277,6 +277,34 @@ SMODS.Joker {
     end
 }
 
+-- Golden Goose Egg
+SMODS.Joker {
+    key = "golden_goose_egg",
+    atlas = "wafflemod_jokerAtlas",
+    pos = {x = 3, y = 2},
+    config = {extra = {
+        value_gain = 3
+    }},
+    loc_vars = function (self, info_queue, card)
+        return {vars = {card.ability.extra.value_gain}}
+    end,
+    cost = 5,
+    calculate = function (self, card, context)
+        if context.using_consumeable and context.consumeable.ability.set == "Tarot" then
+            SMODS.scale_card(card, {
+                ref_table = card.ability,
+                ref_value = "extra_value",
+                scalar_table = card.ability.extra,
+                scalar_value = "value_gain",
+                scaling_message = {
+                    message = localize('k_val_up')
+                }
+            })
+            card:set_cost()
+        end
+    end
+}
+
 -- In the Rough
 local function getNumNonDiamondsInFullDeck()
     local numberNonDiamonds = 0
@@ -1432,8 +1460,9 @@ function Blind:defeat(silent)
             G.GAME.probabilities.normal /
             bossJokerDropOdds
         local freeJokerSlot = G.jokers and #G.jokers.cards < G.jokers.config.card_limit
+        local hasThisJokerAlready = SMODS.find_card(getJokerKeyFromBlind, true)
 
-        if freeJokerSlot and (bossJokerRoll or trophyCollected) and getJokerKeyFromBlind then
+        if getJokerKeyFromBlind and freeJokerSlot and (bossJokerRoll or trophyCollected) and (not hasThisJokerAlready or SMODS.showman()) then
             G.E_MANAGER:add_event(Event({
                 trigger = 'immediate',
                 delay = 0.1,
@@ -1775,6 +1804,9 @@ SMODS.Joker {
     rarity = "wafflemod_Boss",
     atlas = "wafflemod_jokerAtlas",
     draw = bossCardDraw,
+    cost = 15,
+    pos = { x = 4, y = 7 },
+    soul_pos = { x = 5, y = 7 },
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             context.other_card.ability.perma_mult = (context.other_card.ability.perma_mult or 0) +

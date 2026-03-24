@@ -249,6 +249,14 @@ return selected_tag
 
 end
 
+function WaffleMod.getJokerToRight(joker)
+    local other_joker
+    for i = 1, #G.jokers.cards do
+        if G.jokers.cards[i] == joker then other_joker = G.jokers.cards[i + 1] end
+    end
+    return other_joker
+end
+
 WaffleMod.calculateFunctions = {}
 function WaffleMod.bindToModCalculate(func, name)
     if name then

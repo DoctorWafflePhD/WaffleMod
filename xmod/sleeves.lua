@@ -89,8 +89,8 @@ CardSleeves.Sleeve {
     calculate = function(self, sleeve, context)
         if context.selling_card and context.card.debuff and context.card.ability.set == "Joker" then
             if WaffleMod.getCurrentBack() == "b_wafflemod_blighted" then
-                G.E_MANAGER:add_event(Event{
-                    func = function ()
+                G.E_MANAGER:add_event(Event {
+                    func = function()
                         ease_dollars(self.config.extra.money)
                         return true
                     end
@@ -119,3 +119,44 @@ function CardArea.emplace(self, card, flipped)
     end
     emplaceRef(self, card, flipped)
 end
+
+-- Hunting Sleeve
+CardSleeves.Sleeve {
+    key = "hunting",
+    atlas = "wafflemod_sleeveAtlas",
+    pos = { x = 2, y = 0 },
+    config = { extra = {
+        voucher = "v_wafflemod_hunting_license",
+        bonus_edition = "e_polychrome"
+    } },
+    loc_vars = function(self, info_queue)
+        local key, vars
+        if self.get_current_deck_key() == "b_wafflemod_hunting" then
+            key = self.key .. "_alt"
+            vars = { localize { key = self.config.extra.voucher, set = "Voucher" }, localize { key = self.config.extra.bonus_edition, set = "Edition" } }
+        else
+            key = self.key
+            vars = { localize { key = self.config.extra.voucher, set = "Voucher" } }
+        end
+        if not WaffleMod.config.boss_jokers.enabled then
+            key = "sleeve_wafflemod_hunting_disabled"
+        end
+        return { key = key, vars = vars }
+    end,
+    apply = function(self, back)
+        if WaffleMod.config.boss_jokers.enabled then
+            if self.get_current_deck_key() == "b_wafflemod_hunting" then
+                print(SMODS.find_card("j_wafflemod_trophy_hunters_tricorn"))
+            else
+                G.GAME.used_vouchers[self.config.extra.voucher] = true
+                G.GAME.starting_voucher_count = (G.GAME.starting_voucher_count or 0) + 1
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        Card.apply_to_run(nil, G.P_CENTERS[self.config.extra.voucher])
+                        return true
+                    end
+                }))
+            end
+        end
+    end
+}
