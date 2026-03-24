@@ -142,7 +142,10 @@ SMODS.Back {
             delay(0.4)
         G.E_MANAGER:add_event(Event({
             func = function()
-                SMODS.add_card({key = self.config.extra.joker})
+                if G.GAME.selected_sleeve ~= "sleeve_wafflemod_hunting" then
+                    local joker = SMODS.add_card({key = self.config.extra.joker})
+                    joker:start_materialize()
+                end
                 return true
             end
         }))

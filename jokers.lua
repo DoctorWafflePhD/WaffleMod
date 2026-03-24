@@ -1072,6 +1072,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "trophy_hunters_tricorn",
     atlas = "wafflemod_jokerAtlas",
+    rarity = 3,
     loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         local main_end = nil
@@ -1960,6 +1961,7 @@ SMODS.Joker {
         }
     end,
     cost = 15,
+    rarity = "wafflemod_Boss",
     pos = { x = 8, y = 6 },
     soul_pos = { x = 9, y = 6 },
     calculate = function(self, card, context)

@@ -114,7 +114,7 @@ CardSleeves.Sleeve {
 }
 local emplaceRef = CardArea.emplace
 function CardArea.emplace(self, card, flipped)
-    if G.GAME and G.GAME.selected_sleeve == "b_wafflemod_blighted" and (self == G.pack_cards or self == G.shop_jokers or (self == G.jokers and not card:is_rarity(4))) then
+    if G.GAME and G.GAME.selected_sleeve == "sleeve_wafflemod_blighted" and (self == G.pack_cards or self == G.shop_jokers or (self == G.jokers and not card:is_rarity(4))) then
         WaffleMod.blightedMakePerishable(card)
     end
     emplaceRef(self, card, flipped)
@@ -126,6 +126,7 @@ CardSleeves.Sleeve {
     atlas = "wafflemod_sleeveAtlas",
     pos = { x = 2, y = 0 },
     config = { extra = {
+        joker = "j_wafflemod_trophy_hunters_tricorn",
         voucher = "v_wafflemod_hunting_license",
         bonus_edition = "e_polychrome"
     } },
@@ -146,7 +147,14 @@ CardSleeves.Sleeve {
     apply = function(self, back)
         if WaffleMod.config.boss_jokers.enabled then
             if self.get_current_deck_key() == "b_wafflemod_hunting" then
-                print(SMODS.find_card("j_wafflemod_trophy_hunters_tricorn"))
+                delay(0.4)
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        local joker = SMODS.add_card({ key = self.config.extra.joker, edition = self.config.extra.bonus_edition })
+                        joker:start_materialize()
+                        return true
+                    end
+                }))
             else
                 G.GAME.used_vouchers[self.config.extra.voucher] = true
                 G.GAME.starting_voucher_count = (G.GAME.starting_voucher_count or 0) + 1
