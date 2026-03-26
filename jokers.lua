@@ -721,8 +721,8 @@ SMODS.Joker {
     atlas = "wafflemod_jokerAtlas",
     pos = { x = 7, y = 1 },
     config = { extra = {
-        discard_requirement = 10,
-        discards_remaining = 10,
+        discard_requirement = 5,
+        discards_remaining = 5,
         is_juicing = false,
         conv_enhancement = "m_steel"
     } },
