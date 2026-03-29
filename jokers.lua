@@ -305,6 +305,37 @@ SMODS.Joker {
     end
 }
 
+-- Golfer
+SMODS.Joker {
+    key = "golfer",
+    atlas = "wafflemod_jokerAtlas",
+    config = {extra = {
+        target_suit = "Clubs",
+        mult = 4
+    }},
+    pos = {x = 4, y = 2},
+    cost = 4,
+    loc_vars = function (self, info_queue, card)
+        local suit = card.ability.extra.target_suit
+        return {
+            vars = {
+                localize(suit, 'suits_singular'),
+                card.ability.extra.mult,
+                colours = { G.C.SUITS[suit] }
+            },
+        }
+    end,
+    calculate = function (self, card, context)
+        if context.individual and context.cardarea == G.hand and not context.end_of_round then
+            if context.other_card:is_suit(card.ability.extra.target_suit) then
+                return {
+                    mult = card.ability.extra.mult
+                }
+            end
+        end
+    end
+}
+
 -- In the Rough
 local function getNumNonDiamondsInFullDeck()
     local numberNonDiamonds = 0

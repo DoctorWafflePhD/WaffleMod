@@ -192,8 +192,8 @@ return {
             j_wafflemod_golfer = {
                 name = "Golfer",
                 text = {
-                    "{C:clubs}Clubs{} held in hand",
-                    "each give {C:mult}+#1#{} Mult"
+                    "{V:1}#1#{} cards held in hand",
+                    "each give {C:mult}+#2#{} Mult"
                 }
             },
 
