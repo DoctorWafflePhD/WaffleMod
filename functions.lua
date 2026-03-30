@@ -249,6 +249,7 @@ return selected_tag
 
 end
 
+-- Gets the joker to the right of a given Joker, or nil if there is none.
 function WaffleMod.getJokerToRight(joker)
     local other_joker
     for i = 1, #G.jokers.cards do

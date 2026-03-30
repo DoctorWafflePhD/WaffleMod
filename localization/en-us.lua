@@ -311,6 +311,16 @@ return {
                 }
             },
 
+            j_wafflemod_martian = {
+                name = "Martian",
+                text = {
+                    "Using a {C:planet}Planet Card{} has",
+                    "has a {C:green}#1# in #2#{} chance to",
+                    "create a {C:spectral}Spectral Card{}",
+                    "{C:inactive}(Must have room)"
+                }
+            },
+
             j_wafflemod_pop_art = {
                 name = "Pop Art",
                 text = {

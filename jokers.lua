@@ -811,6 +811,52 @@ SMODS.Joker {
     end
 }
 
+-- Martian
+SMODS.Joker {
+    key = "martian",
+    atlas = "wafflemod_jokerAtlas",
+    pos = {x = 5, y = 2},
+    config = {extra = {
+        odds = 4,
+        use_set = "Planet",
+        create_set = "Spectral"
+    }},
+    rarity = 2,
+    cost = 6,
+    loc_vars = function (self, info_queue, card)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
+        return {
+            vars = {
+                (G.GAME.probabilities.normal or 1), card.ability.extra.odds
+            }
+        }
+    end,
+    calculate = function (self, card, context)
+        if context.using_consumeable and context.consumeable.ability.set == card.ability.extra.use_set then
+            if SMODS.pseudorandom_probability(card, "wafflemod_martianRng", 1, card.ability.extra.odds) then
+                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                    G.E_MANAGER:add_event(Event({
+                        func = (function()
+                            SMODS.add_card {
+                                set = card.ability.extra.create_set,
+                                key_append = "wafflemod_martian"
+                            }
+                            G.GAME.consumeable_buffer = 0
+                            return true
+                        end)
+                    }))
+                    return {
+                        message = localize('k_plus_spectral'),
+                        colour = G.C.SECONDARY_SET.Spectral,
+                        remove = true
+                    }
+                end
+            end
+        end
+    end
+}
+
 -- Pop Art
 SMODS.Joker {
     key = "pop_art",
