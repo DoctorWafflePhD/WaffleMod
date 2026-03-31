@@ -638,6 +638,15 @@ return {
                 }
             },
 
+            j_wafflemod_violet_vessel = {
+                name = "Violet Vessel",
+                text = {
+                    "{C:white,X:mult}X#1#{} Mult per {C:attention}Ante{}",
+                    "{C:inactive}(Currently {C:white,X:mult}X#2# {C:inactive}Mult,",
+                    "{C:inactive,s:0.85}minimum of {C:white,X:mult,s:0.85}X#3#{C:inactive,s:0.85} Mult)"
+                }
+            }
+
         },
 
         Spectral = {

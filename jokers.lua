@@ -70,7 +70,7 @@ SMODS.Joker {
     config = {
         extra = {
             mult = 0,
-            mult_gain = 3,
+            mult_gain = 2,
             hand = nil
         }
     },
@@ -1512,8 +1512,10 @@ WaffleMod.bossJokerTable = {
     bl_water = "j_wafflemod_water",
     bl_window = "j_wafflemod_window",
 
+    bl_amber_acorn = "j_wafflemod_amber_acorn",
     bl_cerulean_bell = "j_wafflemod_cerulean_bell",
-    bl_crimson_heart = "j_wafflemod_crimson_heart"
+    bl_crimson_heart = "j_wafflemod_crimson_heart",
+    bl_violet_vessel = "j_wafflemod_violet_vessel"
 
 }
 
@@ -2219,6 +2221,35 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
 
+    end
+}
+
+-- Violet Vessel
+SMODS.Joker {
+    key = "violet_vessel",
+    atlas = "wafflemod_jokerAtlas",
+    pos = {x = 6, y = 7},
+    soul_pos = {x = 7, y = 7},
+    config = {extra = {
+        xmult_per_ante = 0.75,
+        minimum_xmult = 1
+    }},
+    rarity = "wafflemod_Showdown",
+    cost = 20,
+    blueprint_compat = true,
+    loc_vars = function (self, info_queue, card)
+        return {vars = {
+            card.ability.extra.xmult_per_ante,
+            math.max(card.ability.extra.xmult_per_ante * G.GAME.round_resets.ante, 1),
+            card.ability.extra.minimum_xmult
+        }}
+    end,
+    calculate = function (self, card, context)
+        if context.joker_main and math.max(card.ability.extra.xmult_per_ante * G.GAME.round_resets.ante, 1) > 1 then
+            return {
+                xmult = math.max(card.ability.extra.xmult_per_ante * G.GAME.round_resets.ante, 1)
+            }
+        end
     end
 }
 
