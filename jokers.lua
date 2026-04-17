@@ -812,7 +812,8 @@ SMODS.Joker {
 }
 
 -- Martian
-SMODS.Joker {
+if false then
+    SMODS.Joker {
     key = "martian",
     atlas = "wafflemod_jokerAtlas",
     pos = {x = 5, y = 2},
@@ -856,6 +857,7 @@ SMODS.Joker {
         end
     end
 }
+end
 
 -- Pop Art
 SMODS.Joker {
