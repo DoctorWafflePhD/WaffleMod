@@ -113,11 +113,11 @@ CardSleeves.Sleeve {
     end
 }
 local emplaceRef = CardArea.emplace
-function CardArea.emplace(self, card, flipped)
+function CardArea.emplace(self, card, ...)
     if G.GAME and G.GAME.selected_sleeve == "sleeve_wafflemod_blighted" and (self == G.pack_cards or self == G.shop_jokers or (self == G.jokers and not card:is_rarity(4))) then
         WaffleMod.blightedMakePerishable(card)
     end
-    emplaceRef(self, card, flipped)
+    emplaceRef(self, card, ...)
 end
 
 -- Hunting Sleeve

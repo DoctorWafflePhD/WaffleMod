@@ -363,9 +363,9 @@ local function attemptToReverseCard(card)
 end
 -- Attempt to reverse tarot cards as they appear in booster packs or shop
 local emplaceRef = CardArea.emplace
-function CardArea.emplace(self, card, flipped)
+function CardArea.emplace(self, card, ...)
     if self == G.pack_cards or self == G.shop_jokers then
         attemptToReverseCard(card)
     end
-    emplaceRef(self, card, flipped)
+    emplaceRef(self, card, ...)
 end
