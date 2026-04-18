@@ -1582,6 +1582,7 @@ SMODS.Joker {
     pos = { x = 8, y = 4 },
     soul_pos = { x = 9, y = 4 },
     loc_vars = function(self, info_queue, card)
+        WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = { G.GAME.probabilities.normal or 1, card.ability.extra.odds } }
     end,
     cost = 15,
@@ -1775,6 +1776,7 @@ SMODS.Joker {
         h_size = 2
     } },
     loc_vars = function(self, info_queue, card)
+        WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = { card.ability.extra.h_size } }
     end,
     add_to_deck = function(self, card, from_debuff)
@@ -1883,6 +1885,7 @@ SMODS.Joker {
         perma_mult = 2
     } },
     loc_vars = function(self, info_queue, card)
+        WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = {card.ability.extra.perma_mult} }
     end,
     rarity = "wafflemod_Boss",
@@ -1910,6 +1913,7 @@ SMODS.Joker {
         xmult = 1.5,
     } },
     loc_vars = function(self, info_queue, card)
+        WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = { card.ability.extra.xmult } }
     end,
     rarity = "wafflemod_Boss",
@@ -1982,6 +1986,7 @@ SMODS.Joker {
         xmult = 3
     } },
     loc_vars = function(self, info_queue, card)
+        WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = { card.ability.extra.xmult } }
     end,
     rarity = "wafflemod_Boss",
@@ -2011,6 +2016,7 @@ SMODS.Joker {
         xmult = 1
     } },
     loc_vars = function(self, info_queue, card)
+        WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return {
             vars = {
                 card.ability.extra.xmult,
@@ -2036,6 +2042,7 @@ SMODS.Joker {
         odds = 4
     } },
     loc_vars = function(self, info_queue, card)
+        WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return {
             vars = {
                 G.GAME.probabilities.normal or 1,
@@ -2125,6 +2132,7 @@ SMODS.Joker {
         xmult = 1.5
     } },
     loc_vars = function(self, info_queue, card)
+        WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = { card.ability.extra.xmult, card.ability.extra.dollars } }
     end,
     calculate = function(self, card, context)
@@ -2160,6 +2168,7 @@ SMODS.Joker {
         sticker = "wafflemod_cerulean"
     } },
     loc_vars = function(self, info_queue, card)
+        WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         info_queue[#info_queue + 1] = { key = 'wafflemod_cerulean', set = 'Other', config = { vars = { 2.5 } } }
     end,
     atlas = "wafflemod_jokerAtlas",
@@ -2212,14 +2221,15 @@ SMODS.Joker {
             slots = 2
         }
     },
+    loc_vars = function(self, info_queue, card)
+    WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
+    return { vars = { card.ability.extra.slots } }
+    end,
     add_to_deck = function(self, card, from_debuff)
         G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
     end,
     remove_from_deck = function(self, card, from_debuff)
         G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
-    end,
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.slots } }
     end,
     calculate = function(self, card, context)
 
@@ -2240,6 +2250,7 @@ SMODS.Joker {
     cost = 20,
     blueprint_compat = true,
     loc_vars = function (self, info_queue, card)
+        WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return {vars = {
             card.ability.extra.xmult_per_ante,
             math.max(card.ability.extra.xmult_per_ante * G.GAME.round_resets.ante, 1),
