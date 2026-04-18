@@ -33,6 +33,16 @@ SMODS.Edition {
             if context.destroy_card and context.cardarea == G.play and card == context.destroy_card then
                 return { remove = true }
             end
+        elseif card.ability.set == "Joker" then
+            if context.round_eval then
+                G.E_MANAGER:add_event(Event({
+                    trigger = "immediate",
+                    func = function()
+                        SMODS.destroy_cards(card)
+                        return true
+                    end
+                }))
+            end
         else
             if WaffleMod.endOfRoundContext(context) then
                 G.E_MANAGER:add_event(Event({
