@@ -638,6 +638,16 @@ return {
                 }
             },
 
+            j_wafflemod_verdant_leaf = {
+                name = "Verdant Leaf",
+                text = {
+                    "Whenever a Joker is {C:attention}sold{}, add",
+                    "{C:attention}#1#%{} of its {C:attention}sell value{} to",
+                    "this Joker as {C:white,X:mult}XMult{}",
+                    "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
+                }
+            },
+
             j_wafflemod_violet_vessel = {
                 name = "Violet Vessel",
                 text = {

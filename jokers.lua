@@ -1517,6 +1517,7 @@ WaffleMod.bossJokerTable = {
     bl_amber_acorn = "j_wafflemod_amber_acorn",
     bl_cerulean_bell = "j_wafflemod_cerulean_bell",
     bl_crimson_heart = "j_wafflemod_crimson_heart",
+    bl_verdant_leaf = "j_wafflemod_verdant_leaf",
     bl_violet_vessel = "j_wafflemod_violet_vessel"
 
 }
@@ -2233,6 +2234,50 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
 
+    end
+}
+
+-- Verdant Leaf
+SMODS.Joker {
+    key = "verdant_leaf",
+    atlas = "wafflemod_jokerAtlas",
+    pos = {x = 8, y = 7},
+    soul_pos = {x = 9, y = 7},
+    config = {extra = {
+        sell_value_percentage = 10,
+        xmult = 1,
+        scalar = nil
+    }},
+    cost = 20,
+    rarity = "wafflemod_Showdown",
+    loc_vars = function (self, info_queue, card)
+        WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
+        return {vars = {
+            card.ability.extra.sell_value_percentage,
+            card.ability.extra.xmult
+        }}
+    end,
+    calculate = function (self, card, context)
+        if context.joker_main then
+            return {
+                xmult = card.ability.extra.xmult
+            }
+        end
+        if context.selling_card and not context.blueprint then
+            if context.card.ability.set == "Joker" and context.card.sell_cost > 0 then
+                local xmultToAdd = (1/card.ability.extra.sell_value_percentage) * context.card.sell_cost
+                card.ability.extra.scalar = xmultToAdd
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "xmult",
+                    scalar_value = "scalar",
+                    scaling_message = {
+                        message = localize { type = 'variable', key = 'a_xmult', vars = { xmultToAdd } },
+                        color = G.C.RED
+                    }
+                })
+            end
+        end
     end
 }
 
