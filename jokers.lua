@@ -281,15 +281,15 @@ SMODS.Joker {
 SMODS.Joker {
     key = "golden_goose_egg",
     atlas = "wafflemod_jokerAtlas",
-    pos = {x = 3, y = 2},
-    config = {extra = {
+    pos = { x = 3, y = 2 },
+    config = { extra = {
         value_gain = 3
-    }},
-    loc_vars = function (self, info_queue, card)
-        return {vars = {card.ability.extra.value_gain}}
+    } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.value_gain } }
     end,
     cost = 5,
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
         if context.using_consumeable and context.consumeable.ability.set == "Tarot" then
             SMODS.scale_card(card, {
                 ref_table = card.ability,
@@ -309,13 +309,13 @@ SMODS.Joker {
 SMODS.Joker {
     key = "golfer",
     atlas = "wafflemod_jokerAtlas",
-    config = {extra = {
+    config = { extra = {
         target_suit = "Clubs",
         mult = 4
-    }},
-    pos = {x = 4, y = 2},
+    } },
+    pos = { x = 4, y = 2 },
     cost = 4,
-    loc_vars = function (self, info_queue, card)
+    loc_vars = function(self, info_queue, card)
         local suit = card.ability.extra.target_suit
         return {
             vars = {
@@ -325,7 +325,7 @@ SMODS.Joker {
             },
         }
     end,
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
         if context.individual and context.cardarea == G.hand and not context.end_of_round then
             if context.other_card:is_suit(card.ability.extra.target_suit) then
                 return {
@@ -814,49 +814,49 @@ SMODS.Joker {
 -- Martian
 if false then
     SMODS.Joker {
-    key = "martian",
-    atlas = "wafflemod_jokerAtlas",
-    pos = {x = 5, y = 2},
-    config = {extra = {
-        odds = 4,
-        use_set = "Planet",
-        create_set = "Spectral"
-    }},
-    rarity = 2,
-    cost = 6,
-    loc_vars = function (self, info_queue, card)
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
-        return {
-            vars = {
-                (G.GAME.probabilities.normal or 1), card.ability.extra.odds
+        key = "martian",
+        atlas = "wafflemod_jokerAtlas",
+        pos = { x = 5, y = 2 },
+        config = { extra = {
+            odds = 4,
+            use_set = "Planet",
+            create_set = "Spectral"
+        } },
+        rarity = 2,
+        cost = 6,
+        loc_vars = function(self, info_queue, card)
+            local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
+            return {
+                vars = {
+                    (G.GAME.probabilities.normal or 1), card.ability.extra.odds
+                }
             }
-        }
-    end,
-    calculate = function (self, card, context)
-        if context.using_consumeable and context.consumeable.ability.set == card.ability.extra.use_set then
-            if SMODS.pseudorandom_probability(card, "wafflemod_martianRng", 1, card.ability.extra.odds) then
-                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                    G.E_MANAGER:add_event(Event({
-                        func = (function()
-                            SMODS.add_card {
-                                set = card.ability.extra.create_set,
-                                key_append = "wafflemod_martian"
-                            }
-                            G.GAME.consumeable_buffer = 0
-                            return true
-                        end)
-                    }))
-                    return {
-                        message = localize('k_plus_spectral'),
-                        colour = G.C.SECONDARY_SET.Spectral,
-                        remove = true
-                    }
+        end,
+        calculate = function(self, card, context)
+            if context.using_consumeable and context.consumeable.ability.set == card.ability.extra.use_set then
+                if SMODS.pseudorandom_probability(card, "wafflemod_martianRng", 1, card.ability.extra.odds) then
+                    if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                        G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                        G.E_MANAGER:add_event(Event({
+                            func = (function()
+                                SMODS.add_card {
+                                    set = card.ability.extra.create_set,
+                                    key_append = "wafflemod_martian"
+                                }
+                                G.GAME.consumeable_buffer = 0
+                                return true
+                            end)
+                        }))
+                        return {
+                            message = localize('k_plus_spectral'),
+                            colour = G.C.SECONDARY_SET.Spectral,
+                            remove = true
+                        }
+                    end
                 end
             end
         end
-    end
-}
+    }
 end
 
 -- Pop Art
@@ -922,6 +922,68 @@ local function reset_pop_art_suit()
         end
     end
 end
+
+-- Scene Joker
+SMODS.Joker {
+    key = "scene",
+    atlas = "wafflemod_jokerAtlas",
+    rarity = 2,
+    cost = 6,
+    config = { extra = {
+        avoid_suit = "Hearts",
+        xmult = 2,
+        active = true
+    } },
+    pos = {x = 5, y = 2},
+    loc_vars = function(self, info_queue, card)
+        local main_end = nil
+        local suit = card.ability.extra.avoid_suit
+        main_end = {
+            {
+                n = G.UIT.C,
+                config = { align = "bm", minh = 0.4 },
+                nodes = {
+                    {
+                        n = G.UIT.C,
+                        config = { ref_table = card, align = "m", colour = card.ability.extra.active and G.C.GREEN or G.C.RED, r = 0.05, padding = 0.06 },
+                        nodes = {
+                            { n = G.UIT.T, config = { text = ' ' .. localize((card.ability.extra.active and 'k_active') or 'k_wafflemod_inactive') .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.9 } },
+                        }
+                    }
+                }
+            }
+        }
+        return {
+            vars = { card.ability.extra.xmult, localize(suit, 'suits_singular'), colours = { G.C.SUITS[suit] } },
+            main_end = main_end,
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.before then
+            for _, played_card in pairs(context.full_hand) do
+                if played_card:is_suit(card.ability.extra.avoid_suit) then
+                    card.ability.extra.active = false
+                    return {
+                        message = localize('k_wafflemod_deactived_ex'),
+                        colour = G.C.FILTER
+                    }
+                end
+            end
+        end
+        if context.joker_main and card.ability.extra.active then
+            return {
+                xmult = card.ability.extra.xmult
+            }
+        end
+        if context.round_eval and card.ability.extra.active == false then
+            card.ability.extra.active = true
+            return {
+                message = localize('k_active_ex'),
+                colour = G.C.FILTER
+            }
+        end
+    end,
+}
 
 -- Snowman
 SMODS.Joker {
@@ -1186,8 +1248,11 @@ SMODS.Joker {
                 }
             }
         end
-        return { main_end = main_end, key = card.edition and "j_wafflemod_trophy_hunters_tricorn_edition" or
-        "j_wafflemod_trophy_hunters_tricorn" }
+        return {
+            main_end = main_end,
+            key = card.edition and "j_wafflemod_trophy_hunters_tricorn_edition" or
+                "j_wafflemod_trophy_hunters_tricorn"
+        }
     end,
     calculate = function(self, card, context)
         if context.selling_self then
@@ -1199,8 +1264,12 @@ SMODS.Joker {
                         delay = 0.4,
                         func = function()
                             play_sound('timpani')
-                            local newJoker = SMODS.add_card({ set = 'Joker', key = getJokerKeyFromBlind, edition = card
-                            .edition })
+                            local newJoker = SMODS.add_card({
+                                set = 'Joker',
+                                key = getJokerKeyFromBlind,
+                                edition = card
+                                    .edition
+                            })
                             newJoker:juice_up(0.3, 0.5)
                             return true
                         end
@@ -1887,7 +1956,7 @@ SMODS.Joker {
     } },
     loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
-        return { vars = {card.ability.extra.perma_mult} }
+        return { vars = { card.ability.extra.perma_mult } }
     end,
     rarity = "wafflemod_Boss",
     atlas = "wafflemod_jokerAtlas",
@@ -2223,8 +2292,8 @@ SMODS.Joker {
         }
     },
     loc_vars = function(self, info_queue, card)
-    WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
-    return { vars = { card.ability.extra.slots } }
+        WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
+        return { vars = { card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
         G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
@@ -2241,23 +2310,25 @@ SMODS.Joker {
 SMODS.Joker {
     key = "verdant_leaf",
     atlas = "wafflemod_jokerAtlas",
-    pos = {x = 8, y = 7},
-    soul_pos = {x = 9, y = 7},
-    config = {extra = {
+    pos = { x = 8, y = 7 },
+    soul_pos = { x = 9, y = 7 },
+    config = { extra = {
         sell_value_percentage = 10,
         xmult = 1,
         scalar = nil
-    }},
+    } },
     cost = 20,
     rarity = "wafflemod_Showdown",
-    loc_vars = function (self, info_queue, card)
+    loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
-        return {vars = {
-            card.ability.extra.sell_value_percentage,
-            card.ability.extra.xmult
-        }}
+        return {
+            vars = {
+                card.ability.extra.sell_value_percentage,
+                card.ability.extra.xmult
+            }
+        }
     end,
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
         if context.joker_main then
             return {
                 xmult = card.ability.extra.xmult
@@ -2265,7 +2336,7 @@ SMODS.Joker {
         end
         if context.selling_card and not context.blueprint then
             if context.card.ability.set == "Joker" and context.card.sell_cost > 0 then
-                local xmultToAdd = (1/card.ability.extra.sell_value_percentage) * context.card.sell_cost
+                local xmultToAdd = (1 / card.ability.extra.sell_value_percentage) * context.card.sell_cost
                 card.ability.extra.scalar = xmultToAdd
                 SMODS.scale_card(card, {
                     ref_table = card.ability.extra,
@@ -2285,24 +2356,26 @@ SMODS.Joker {
 SMODS.Joker {
     key = "violet_vessel",
     atlas = "wafflemod_jokerAtlas",
-    pos = {x = 6, y = 7},
-    soul_pos = {x = 7, y = 7},
-    config = {extra = {
+    pos = { x = 6, y = 7 },
+    soul_pos = { x = 7, y = 7 },
+    config = { extra = {
         xmult_per_ante = 0.75,
         minimum_xmult = 1
-    }},
+    } },
     rarity = "wafflemod_Showdown",
     cost = 20,
     blueprint_compat = true,
-    loc_vars = function (self, info_queue, card)
+    loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
-        return {vars = {
-            card.ability.extra.xmult_per_ante,
-            math.max(card.ability.extra.xmult_per_ante * G.GAME.round_resets.ante, 1),
-            card.ability.extra.minimum_xmult
-        }}
+        return {
+            vars = {
+                card.ability.extra.xmult_per_ante,
+                math.max(card.ability.extra.xmult_per_ante * G.GAME.round_resets.ante, 1),
+                card.ability.extra.minimum_xmult
+            }
+        }
     end,
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
         if context.joker_main and math.max(card.ability.extra.xmult_per_ante * G.GAME.round_resets.ante, 1) > 1 then
             return {
                 xmult = math.max(card.ability.extra.xmult_per_ante * G.GAME.round_resets.ante, 1)

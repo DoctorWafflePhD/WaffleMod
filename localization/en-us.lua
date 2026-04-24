@@ -330,6 +330,15 @@ return {
                 }
             },
 
+            j_wafflemod_scene = {
+                name = "Scene Joker",
+                text = {
+                    "{C:white,X:mult}X#1#{} Mult if {C:attention}no cards{}",
+                    "with {V:1}#2#{} suit have",
+                    "been {C:attention}played{} this round"
+                }
+            },
+
             j_wafflemod_snowman = {
                 name = "Snowman",
                 text = {
@@ -1091,6 +1100,8 @@ return {
             k_wafflemod_copper_seal_eval = "Copper Seals",
             k_wafflemod_copper_seal_eval_singular = "Copper Seal",
             k_wafflemod_testing = "testing lalalala",
+            k_wafflemod_deactived_ex = "Deactivated!",
+            k_wafflemod_inactive = "inactive",
             ph_wafflemod_no_boss_joker = "no matching joker",
             wafflemod_dubious_legendary = "Legendary?",
             wafflemod_arcade_pack = "Arcade Pack"
