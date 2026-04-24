@@ -1597,11 +1597,11 @@ WaffleMod.bossJokerTable = {
     bl_water = "j_wafflemod_water",
     bl_window = "j_wafflemod_window",
 
-    bl_amber_acorn = "j_wafflemod_amber_acorn",
-    bl_cerulean_bell = "j_wafflemod_cerulean_bell",
-    bl_crimson_heart = "j_wafflemod_crimson_heart",
-    bl_verdant_leaf = "j_wafflemod_verdant_leaf",
-    bl_violet_vessel = "j_wafflemod_violet_vessel"
+    bl_final_acorn = "j_wafflemod_amber_acorn",
+    bl_final_bell = "j_wafflemod_cerulean_bell",
+    bl_final_heart = "j_wafflemod_crimson_heart",
+    bl_final_leaf = "j_wafflemod_verdant_leaf",
+    bl_final_vessel = "j_wafflemod_violet_vessel"
 
 }
 
