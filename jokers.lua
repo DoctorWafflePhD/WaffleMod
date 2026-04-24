@@ -302,7 +302,8 @@ SMODS.Joker {
             })
             card:set_cost()
         end
-    end
+    end,
+    attribtues = {"reference"}
 }
 
 -- Golfer
@@ -707,7 +708,8 @@ SMODS.Joker {
     end,
     in_pool = function(self, args)
         return WaffleMod.isEnhancementInDeck("m_stone")
-    end
+    end,
+    attribtues = {"reference"}
 }
 
 -- Jok
@@ -808,7 +810,8 @@ SMODS.Joker {
                 }
             end
         end
-    end
+    end,
+    attribtues = {"reference"}
 }
 
 -- Martian
@@ -1047,7 +1050,8 @@ SMODS.Joker {
 
             return nil, true
         end
-    end
+    end,
+    attribtues = {"reference"}
 }
 
 -- Rare
@@ -1062,6 +1066,7 @@ SMODS.Joker {
         xmult = 0.2
     } },
     rarity = 3,
+    cost = 7,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.xmult } }
     end,
@@ -1077,7 +1082,8 @@ SMODS.Joker {
                 xmult = xmultToGive
             }
         end
-    end
+    end,
+    attribtues = {"reference"}
 }
 
 -- Bring Me Your Love
@@ -1096,7 +1102,8 @@ SMODS.Joker {
             key = next(SMODS.find_card("j_vampire")) and "j_wafflemod_bring_me_your_love_vampire" or nil,
             vars = { localize(card.ability.extra.suit, 'suits_singular') }
         }
-    end
+    end,
+    attribtues = {"reference"}
 }
 local shuffle_ref = CardArea.shuffle
 function CardArea:shuffle(_seed)
@@ -1206,7 +1213,8 @@ SMODS.Joker {
                 Xmult = card.ability.extra.currentMercuryScale
             }
         end
-    end
+    end,
+    attribtues = {"reference"}
 }
 
 -- Trophy Hunter's Tricorn
@@ -1215,6 +1223,8 @@ SMODS.Joker {
     atlas = "wafflemod_jokerAtlas",
     rarity = 3,
     cost = 9,
+    pos = {x=6,y=2},
+    soul_pos = {x=7,y=2},
     loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         local main_end = nil
@@ -1287,7 +1297,8 @@ SMODS.Joker {
     end,
     in_pool = function()
         return WaffleMod.config.boss_jokers.enabled
-    end
+    end,
+    attribtues = {"reference"}
 }
 
 -- Legendary
@@ -1432,7 +1443,8 @@ SMODS.Joker {
                 xmult = card.ability.extra.xmult
             }
         end
-    end
+    end,
+    attribtues = {"reference"}
 }
 
 -- Mr. Do!
@@ -1530,7 +1542,8 @@ SMODS.Joker {
             end
             checkUpgrade()
         end
-    end
+    end,
+    attribtues = {"reference"}
 }
 
 -- Pomni
@@ -1558,7 +1571,8 @@ SMODS.Joker {
             G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante or G.GAME.round_resets.ante
             G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante - reduction
         end
-    end
+    end,
+    attribtues = {"reference"}
 }
 
 -- Boss
