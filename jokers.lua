@@ -61,7 +61,8 @@ SMODS.Joker {
                 end
             end
         end
-    end
+    end,
+    attributes = {"mult", "food", "scaling"}
 }
 
 -- Broken Record
@@ -116,7 +117,8 @@ SMODS.Joker {
         if context.after then
             card.ability.extra.hand = context.scoring_name
         end
-    end
+    end,
+    attributes = {"mult", "scaling", "reset", "hand_type"}
 }
 
 -- Dreamsicle
@@ -173,7 +175,8 @@ SMODS.Joker {
                 }
             end
         end
-    end
+    end,
+    attributes = {"food", "economy", "scaling"}
 }
 
 -- Fickle Joker
@@ -228,7 +231,8 @@ SMODS.Joker {
                 end
             end
         end
-    end
+    end,
+    attributes = {"chips", "scaling", "suit"}
 }
 local function reset_fickle_suit()
     G.GAME.current_round.wafflemod_fickle_suit = G.GAME.current_round.wafflemod_fickle_suit or { suit = 'Spades' }
@@ -274,7 +278,8 @@ SMODS.Joker {
                 end
             }
         end
-    end
+    end,
+    attributes = {"economy", "chance", "rank"}
 }
 
 -- Golden Goose Egg
@@ -303,7 +308,7 @@ SMODS.Joker {
             card:set_cost()
         end
     end,
-    attributes = { "reference" }
+    attributes = { "reference", "economy", "sell_value", "tarot"}
 }
 
 -- Golfer
@@ -334,7 +339,8 @@ SMODS.Joker {
                 }
             end
         end
-    end
+    end,
+    attributes = { "suit", "clubs", "mult"}
 }
 
 -- In the Rough
@@ -389,7 +395,8 @@ SMODS.Joker {
                 }
             end
         end
-    end
+    end,
+    attributes = { "suit", "diamonds", "xmult", "full_deck"}
 }
 
 -- Instant Mac & Cheese
@@ -437,7 +444,8 @@ SMODS.Joker {
                 message = localize('k_eaten_ex')
             }
         end
-    end
+    end,
+    attributes = { "food", "hand_type"}
 }
 
 -- Miner
@@ -481,7 +489,8 @@ SMODS.Joker {
     end,
     in_pool = function(self, args)
         return WaffleMod.isEnhancementInDeck("m_stone")
-    end
+    end,
+    attributes = { "seals", "enhancements"}
 }
 
 -- Motley Joker
@@ -516,7 +525,8 @@ SMODS.Joker {
             end
             return returnTable
         end
-    end
+    end,
+    attributes = { "suits", "hearts", "spades", "clubs", "diamonds", "mult", "chips"}
 }
 
 -- Mystery Gift
@@ -564,7 +574,8 @@ SMODS.Joker {
                 })
             end
         end
-    end
+    end,
+    attributes = {"tag", "generation", "chance"}
 }
 
 -- Purple Joker
@@ -611,7 +622,8 @@ SMODS.Joker {
                 colour = G.C.BLUE
             }
         end
-    end
+    end,
+    attributes = { "chips", "scaling", "reset", "discard" }
 }
 
 -- Uncommon
@@ -676,7 +688,8 @@ SMODS.Joker {
     end,
     calc_dollar_bonus = function(self, card)
         return card.ability.extra.dollars
-    end
+    end,
+    attributes = { "chance", "economy", "destroy_card" }
 }
 
 -- Fortune III
@@ -709,7 +722,7 @@ SMODS.Joker {
     in_pool = function(self, args)
         return WaffleMod.isEnhancementInDeck("m_stone")
     end,
-    attributes = { "reference" }
+    attributes = { "reference", "enhancements", "retrigger", "chance" }
 }
 
 -- Fuzzy Pickle
@@ -732,7 +745,7 @@ SMODS.Joker {
             }
         end
     end,
-    attributes = { "reference" }
+    attributes = { "reference", "xmult", "food", "joker" }
 }
 
 -- Jok
@@ -768,7 +781,8 @@ SMODS.Joker {
                 Xmult = card.ability.extra.Xmult
             }
         end
-    end
+    end,
+    attributes = { "tarot", "scaling", "xmult"}
 }
 
 -- Jokerton
@@ -834,7 +848,7 @@ SMODS.Joker {
             end
         end
     end,
-    attributes = { "reference" }
+    attributes = { "reference", "enhancements", "suit", "discard", "hearts" }
 }
 
 -- Martian
@@ -932,7 +946,8 @@ SMODS.Joker {
             card.ability.extra.dollars = 0
             return dollarsGiven
         end
-    end
+    end,
+    attributes = { "economy", "suit", "reset" }
 }
 local function reset_pop_art_suit()
     G.GAME.current_round.wafflemod_pop_art_suit = G.GAME.current_round.wafflemod_pop_art_suit or { suit = 'Spades' }
@@ -1009,6 +1024,7 @@ SMODS.Joker {
             }
         end
     end,
+    attributes = { "xmult", "suit", "hearts" }
 }
 
 -- Snowman
@@ -1017,7 +1033,7 @@ SMODS.Joker {
     atlas = "wafflemod_jokerAtlas",
     pos = { x = 6, y = 0 },
     config = { extra = {
-        dollars = 2,
+        dollars = 1,
         dollar_gain = 2
     } },
     loc_vars = function(self, info_queue, card)
@@ -1037,7 +1053,8 @@ SMODS.Joker {
     end,
     calc_dollar_bonus = function(self, card)
         return card.ability.extra.dollars
-    end
+    end,
+    attributes = { "economy", "scaling" }
 }
 
 -- Stage Magician
