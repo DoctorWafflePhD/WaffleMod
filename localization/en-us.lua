@@ -149,6 +149,8 @@ return {
 
         Joker = {
 
+            -- Common ----------------------------------------------------------------------------------------------------------------
+
             j_wafflemod_blueberry_jam = {
                 name = "Blueberry Jam",
                 text = {
@@ -274,6 +276,18 @@ return {
                 }
             },
 
+            -- Uncommon --------------------------------------------------------------------------------------------------------------
+
+            j_wafflemod_buried_treasure_map = {
+                name = "Buried Treasure Map",
+                text = {
+                    "After scoring {C:attention}#1#{} cards",
+                    "with {V:1}#2#{} suit, {C:attention}destroy{}",
+                    "this card and create a",
+                    "random {C:rare}Rare Joker{}",
+                }
+            },
+
             j_wafflemod_damocles = {
                 name = "Damocles",
                 text = {
@@ -357,6 +371,8 @@ return {
                 }
             },
 
+            -- Rare ------------------------------------------------------------------------------------------------------------------
+
             j_wafflemod_aaaaaa = {
                 name = "AAAAAA",
                 text = {
@@ -435,6 +451,8 @@ return {
                 }
             },
 
+            -- Legendary -------------------------------------------------------------------------------------------------------------
+
             j_wafflemod_doctorwaffle_0 = {
                 name = "DoctorWaffle",
                 text = {
@@ -489,6 +507,8 @@ return {
                     "{C:inactive}(Currently {C:white,X:mult}X#1#{C:inactive} Mult)"
                 }
             },
+
+            -- Boss ------------------------------------------------------------------------------------------------------------------
 
             j_wafflemod_arm = {
                 name = "The Arm",
@@ -632,6 +652,8 @@ return {
                 }
             },
 
+            -- Showdown --------------------------------------------------------------------------------------------------------------
+            
             j_wafflemod_amber_acorn = {
                 name = "Amber Acorn",
                 text = {
@@ -1222,6 +1244,7 @@ return {
             k_wafflemod_testing = "testing lalalala",
             k_wafflemod_deactived_ex = "Deactivated!",
             k_wafflemod_inactive = "inactive",
+            k_wafflemod_treasure_ex = "Treasure!",
             ph_wafflemod_no_boss_joker = "no matching joker",
             wafflemod_dubious_legendary = "Legendary?",
             wafflemod_arcade_pack = "Arcade Pack"

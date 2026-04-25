@@ -7,6 +7,10 @@ SMODS.Atlas {
     py = 95,
 }
 
+WaffleMod.Joker = SMODS.Joker:extend {
+    atlas = "wafflemod_jokerAtlas"
+}
+
 -- Common
 ------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -628,6 +632,60 @@ SMODS.Joker {
 
 -- Uncommon
 ------------------------------------------------------------------------------------------------------------------------------------------
+
+-- Buried Treasure Map
+SMODS.Joker {
+    key = "buried_treasure_map",
+    atlas = "wafflemod_jokerAtlas",
+    cost = 7,
+    config = { extra = {
+        counter = 15,
+        target_suit = "Spades",
+        create_rarity = "Rare"
+    } },
+    loc_vars = function(self, info_queue, card)
+        local suit = card.ability.extra.target_suit
+        return { vars = { card.ability.extra.counter, localize(suit, "suits_singular"), colours = { G.C.SUITS[suit] } } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and context.other_card:is_suit(card.ability.extra.target_suit) then
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "counter",
+                operation = function(ref_table, ref_value, initial, change)
+                    ref_table[ref_value] = initial - 1
+                end,
+                no_message = true
+            })
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    card:juice_up()
+                    return true
+                end
+            }))
+            if card.ability.extra.counter <= 0 then
+                card.ability.extra.counter = 0
+            end
+        end
+        if context.after and card.ability.extra.counter <= 0 then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    SMODS.calculate_effect({
+                        message = localize('k_wafflemod_treasure_ex'),
+                        card = card
+                    })
+                    SMODS.destroy_cards(card, nil, nil, true)
+                    play_sound("timpani")
+                    SMODS.add_card({
+                        set = "Joker",
+                        rarity = card.ability.extra.create_rarity
+                    })
+                    return true
+                end
+            }))
+        end
+    end
+}
 
 -- Damocles
 SMODS.Joker {
@@ -2044,7 +2102,7 @@ SMODS.Joker {
             }
         end
     end,
-    attributes = {"modify_card", "perma_bonus", "mult", "boss"}
+    attributes = { "modify_card", "perma_bonus", "mult", "boss" }
 }
 
 -- The Psychic
