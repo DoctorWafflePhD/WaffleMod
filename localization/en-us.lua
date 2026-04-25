@@ -974,7 +974,8 @@ return {
                 }
             },
 
-            -- References (Fuzzy Pickle)
+            -- References (Fuzzy Pickle) ---------------------------
+
             r_generic = {
                 name = "Reference",
                 text = {
