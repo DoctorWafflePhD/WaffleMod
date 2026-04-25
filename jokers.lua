@@ -62,7 +62,7 @@ SMODS.Joker {
             end
         end
     end,
-    attributes = {"mult", "food", "scaling"}
+    attributes = { "mult", "food", "scaling" }
 }
 
 -- Broken Record
@@ -118,7 +118,7 @@ SMODS.Joker {
             card.ability.extra.hand = context.scoring_name
         end
     end,
-    attributes = {"mult", "scaling", "reset", "hand_type"}
+    attributes = { "mult", "scaling", "reset", "hand_type" }
 }
 
 -- Dreamsicle
@@ -176,7 +176,7 @@ SMODS.Joker {
             end
         end
     end,
-    attributes = {"food", "economy", "scaling"}
+    attributes = { "food", "economy", "scaling" }
 }
 
 -- Fickle Joker
@@ -232,7 +232,7 @@ SMODS.Joker {
             end
         end
     end,
-    attributes = {"chips", "scaling", "suit"}
+    attributes = { "chips", "scaling", "suit" }
 }
 local function reset_fickle_suit()
     G.GAME.current_round.wafflemod_fickle_suit = G.GAME.current_round.wafflemod_fickle_suit or { suit = 'Spades' }
@@ -279,7 +279,7 @@ SMODS.Joker {
             }
         end
     end,
-    attributes = {"economy", "chance", "rank"}
+    attributes = { "economy", "chance", "rank" }
 }
 
 -- Golden Goose Egg
@@ -308,7 +308,7 @@ SMODS.Joker {
             card:set_cost()
         end
     end,
-    attributes = { "reference", "economy", "sell_value", "tarot"}
+    attributes = { "reference", "economy", "sell_value", "tarot" }
 }
 
 -- Golfer
@@ -340,7 +340,7 @@ SMODS.Joker {
             end
         end
     end,
-    attributes = { "suit", "clubs", "mult"}
+    attributes = { "suit", "clubs", "mult" }
 }
 
 -- In the Rough
@@ -396,7 +396,7 @@ SMODS.Joker {
             end
         end
     end,
-    attributes = { "suit", "diamonds", "xmult", "full_deck"}
+    attributes = { "suit", "diamonds", "xmult", "full_deck" }
 }
 
 -- Instant Mac & Cheese
@@ -445,7 +445,7 @@ SMODS.Joker {
             }
         end
     end,
-    attributes = { "food", "hand_type"}
+    attributes = { "food", "hand_type" }
 }
 
 -- Miner
@@ -490,7 +490,7 @@ SMODS.Joker {
     in_pool = function(self, args)
         return WaffleMod.isEnhancementInDeck("m_stone")
     end,
-    attributes = { "seals", "enhancements"}
+    attributes = { "seals", "enhancements" }
 }
 
 -- Motley Joker
@@ -526,7 +526,7 @@ SMODS.Joker {
             return returnTable
         end
     end,
-    attributes = { "suits", "hearts", "spades", "clubs", "diamonds", "mult", "chips"}
+    attributes = { "suits", "hearts", "spades", "clubs", "diamonds", "mult", "chips" }
 }
 
 -- Mystery Gift
@@ -575,7 +575,7 @@ SMODS.Joker {
             end
         end
     end,
-    attributes = {"tag", "generation", "chance"}
+    attributes = { "tag", "generation", "chance" }
 }
 
 -- Purple Joker
@@ -782,7 +782,7 @@ SMODS.Joker {
             }
         end
     end,
-    attributes = { "tarot", "scaling", "xmult"}
+    attributes = { "tarot", "scaling", "xmult" }
 }
 
 -- Jokerton
@@ -1091,7 +1091,7 @@ SMODS.Joker {
             return nil, true
         end
     end,
-    attributes = { "reference" }
+    attributes = { "reference", "generation", "editions" }
 }
 
 -- Rare
@@ -1123,7 +1123,7 @@ SMODS.Joker {
             }
         end
     end,
-    attributes = { "reference" }
+    attributes = { "reference", "rank", "ace", "xmult" }
 }
 
 -- Bring Me Your Love
@@ -1143,7 +1143,7 @@ SMODS.Joker {
             vars = { localize(card.ability.extra.suit, 'suits_singular') }
         }
     end,
-    attributes = { "reference" }
+    attributes = { "reference", "passive", "suit", "hearts" }
 }
 local shuffle_ref = CardArea.shuffle
 function CardArea:shuffle(_seed)
@@ -1162,6 +1162,9 @@ function CardArea:shuffle(_seed)
     end
 end
 
+WaffleMod.darkroomBannedSets = {
+    "wafflemod_arcade"
+}
 -- Darkroom
 SMODS.Joker {
     key = "darkroom",
@@ -1179,17 +1182,19 @@ SMODS.Joker {
     pos = { x = 0, y = 1 },
     cost = 8,
     calculate = function(self, card, context)
-        if context.using_consumeable and pseudorandom('darkroomRng') < G.GAME.probabilities.normal / card.ability.extra.odds then
-            local isNegative = context.consumeable.edition and context.consumeable.edition.key == "e_negative"
-            if not isNegative then
-                local copy = copy_card(context.consumeable)
-
-                copy:set_edition("e_negative", true)
-                copy:add_to_deck()
-                G.consumeables:emplace(copy)
+        if not table.find(WaffleMod.darkroomBannedSets, context.consumeable) then
+            if context.using_consumeable and pseudorandom('darkroomRng') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                local isNegative = context.consumeable.edition and context.consumeable.edition.key == "e_negative"
+                if not isNegative then
+                    local copy = copy_card(context.consumeable)
+                    copy:set_edition("e_negative", true)
+                    copy:add_to_deck()
+                    G.consumeables:emplace(copy)
+                end
             end
         end
-    end
+    end,
+    attributes = { "generation", "editions", "tarot", "planet", "spectral" }
 }
 
 -- Freddie Mercury
@@ -1254,7 +1259,7 @@ SMODS.Joker {
             }
         end
     end,
-    attributes = { "reference" }
+    attributes = { "reference", "scaling", "mult", "xmult", "rank", "queen", "planet" }
 }
 
 -- Trophy Hunter's Tricorn
@@ -1338,7 +1343,7 @@ SMODS.Joker {
     in_pool = function()
         return WaffleMod.config.boss_jokers.enabled
     end,
-    attributes = { "reference" }
+    attributes = { "reference", "boss_blind", "on_sell", "joker", "generation" }
 }
 
 -- Legendary
@@ -1409,7 +1414,8 @@ SMODS.Joker {
                 end
             }))
         end
-    end
+    end,
+    attributes = { "on_sell", "joker", "generation" }
 }
 
 -- Ice Juggler Cookie
@@ -1484,7 +1490,7 @@ SMODS.Joker {
             }
         end
     end,
-    attributes = { "reference" }
+    attributes = { "reference", "hand_size", "xmult", "scaling", "suit", "spades", "hearts", "clubs", "diamonds" }
 }
 
 -- Mr. Do!
@@ -1583,7 +1589,7 @@ SMODS.Joker {
             checkUpgrade()
         end
     end,
-    attributes = { "reference" }
+    attributes = { "reference", "xmult", "scaling", "rank", "ace", "king", "queen", "jack" }
 }
 
 -- Pomni
@@ -1614,7 +1620,7 @@ SMODS.Joker {
             G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante - reduction
         end
     end,
-    attributes = { "reference" }
+    attributes = { "reference", "on_sell" }
 }
 
 -- Boss
@@ -1721,7 +1727,8 @@ SMODS.Joker {
             }
         end
     end,
-    draw = bossCardDraw
+    draw = bossCardDraw,
+    attributes = { "hand_type", "chance", "boss" }
 }
 
 -- The Club
@@ -1765,7 +1772,8 @@ SMODS.Joker {
                 message_card = card
             }
         end
-    end
+    end,
+    attributes = { "scaling", "xmult", "suit", "clubs", "boss" }
 }
 
 -- The Goad
@@ -1809,7 +1817,8 @@ SMODS.Joker {
                 message_card = card
             }
         end
-    end
+    end,
+    attributes = { "scaling", "xmult", "suit", "spades", "boss" }
 }
 
 -- The Head
@@ -1853,7 +1862,8 @@ SMODS.Joker {
                 message_card = card
             }
         end
-    end
+    end,
+    attributes = { "scaling", "xmult", "suit", "clubs", "boss" }
 }
 
 -- The Hook
@@ -1886,7 +1896,8 @@ SMODS.Joker {
                 end
             }
         end
-    end
+    end,
+    attributes = { "economy", "boss" }
 }
 
 -- The Manacle
@@ -1910,7 +1921,8 @@ SMODS.Joker {
     end,
     remove_from_deck = function(self, card, from_debuff)
         G.hand:change_size(-card.ability.extra.h_size)
-    end
+    end,
+    attributes = { "hand_size", "boss" }
 }
 
 -- The Needle
@@ -1952,7 +1964,8 @@ SMODS.Joker {
             }))
             return nil, true
         end
-    end
+    end,
+    attributes = { "hands", "scaling", "xmult", "boss" }
 }
 
 -- The Ox
@@ -2001,7 +2014,8 @@ SMODS.Joker {
         if context.individual and context.cardarea == G.play and context.scoring_name == WaffleMod.getMostPlayedHand() then
             return dosh()
         end
-    end
+    end,
+    attributes = { "economy", "hand_type", "boss" }
 }
 
 -- The Pillar
@@ -2029,7 +2043,8 @@ SMODS.Joker {
                 colour = G.C.MULT
             }
         end
-    end
+    end,
+    attributes = {"modify_card", "perma_bonus", "mult", "boss"}
 }
 
 -- The Psychic
@@ -2072,7 +2087,8 @@ SMODS.Joker {
                 end
             end
         end
-    end
+    end,
+    attributes = { "boss", "xmult" }
 }
 
 -- The Serpent
@@ -2099,7 +2115,8 @@ SMODS.Joker {
                 message = localize { type = 'variable', key = 'a_handsize', vars = { card.ability.extra.h_size } }
             }
         end
-    end
+    end,
+    attributes = { "boss", "hand_size", "discard", "hands" }
 }
 -- Reset hand size boosts
 local curModCalcRef = SMODS.current_mod.calculate or function() end
@@ -2133,7 +2150,8 @@ SMODS.Joker {
         end
     end,
     cost = 15,
-    draw = bossCardDraw
+    draw = bossCardDraw,
+    attributes = { "boss", "xmult" }
 }
 
 -- The Water
@@ -2163,7 +2181,8 @@ SMODS.Joker {
             }
         end
     end,
-    draw = bossCardDraw
+    draw = bossCardDraw,
+    attributes = { "boss", "discard", "xmult" }
 }
 
 -- The Wheel
@@ -2202,7 +2221,8 @@ SMODS.Joker {
             end
         end
     end,
-    draw = bossCardDraw
+    draw = bossCardDraw,
+    attributes = { "boss", "editions", "chance", "modify_card" }
 }
 
 -- The Window
@@ -2246,7 +2266,8 @@ SMODS.Joker {
                 message_card = card
             }
         end
-    end
+    end,
+    attributes = { "scaling", "xmult", "suit", "diamonds" }
 }
 
 -- Showdown
@@ -2289,7 +2310,8 @@ SMODS.Joker {
             }))
             SMODS.calculate_effect(calcEffect, card)
         end
-    end
+    end,
+    attributes = { "boss", "economy", "xmult", "joker" }
 }
 
 -- Cerulean Bell
@@ -2308,7 +2330,8 @@ SMODS.Joker {
     pos = { x = 8, y = 5 },
     soul_pos = { x = 9, y = 5 },
     blueprint_compat = false,
-    cost = 20
+    cost = 20,
+    attributes = { "boss", "xmult", "modify_card" }
 }
 WaffleMod.bindToModCalculate(function(context)
     if context.hand_drawn then
@@ -2365,7 +2388,8 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
 
-    end
+    end,
+    attributes = { "boss", "joker_slot" }
 }
 
 -- Verdant Leaf
@@ -2411,7 +2435,8 @@ SMODS.Joker {
                 })
             end
         end
-    end
+    end,
+    attributes = { "boss", "xmult", "scaling" }
 }
 
 -- Violet Vessel
@@ -2443,7 +2468,8 @@ SMODS.Joker {
                 xmult = math.max(card.ability.extra.xmult_per_ante * G.GAME.round_resets.ante, 1)
             }
         end
-    end
+    end,
+    attributes = { "boss", "xmult", "scaling" }
 }
 
 -- Reset game globals (Change suits for random-suit Jokers)
