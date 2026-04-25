@@ -860,89 +860,6 @@ return {
                 },
             },
 
-            r_j_hit_the_road = {
-                name = "Reference",
-                text = {"Ray Charles"}
-            },
-
-            r_j_seeing_double = {
-                name = "Reference",
-                text = {"S Club 7"}
-            },
-
-            r_j_wafflemod_fuzzy_pickle = {
-                name = "Reference",
-                text = {"Earthbound"}
-            },
-
-            r_generic = {
-                name = "Reference",
-                text = {
-                    "This card counts as a",
-                    "{C:attention}pop culture{} reference"
-                }
-            },
-
-            r_cookie_run = {
-                name = "Reference",
-                text = { "Cookie Run" }
-            },
-
-            r_deadlock = {
-                name = "Reference",
-                text = { "Deadlock" }
-            },
-
-            r_earthbound = {
-                name = "Reference",
-                text = { "Earthbound" }
-            },
-
-            r_mcr = {
-                name = "Reference",
-                text = { 
-                    "My Chemical",
-                    "Romance" }
-            },
-
-            r_minecraft = {
-                name = "Reference",
-                text = { "Minecraft" }
-            },
-
-            r_mrdo = {
-                name = "Reference",
-                text = { "Mr. Do!" }
-            },
-
-            r_queen = {
-                name = "Reference",
-                text = { "Queen" }
-            },
-
-            r_ror = {
-                name = "Reference",
-                text = { "Risk of Rain" }
-            },
-
-            r_tadc = {
-                name = "Reference",
-                text = { 
-                    "The Amazing",
-                    "Digital Circus" 
-                }
-            },
-
-            r_weezer = {
-                name = "Reference",
-                text = { "Weezer" }
-            },
-
-            r_yume_nikki = {
-                name = "Reference",
-                text = { "Yume Nikki" }
-            },
-
             wafflemod_copper_seal = {
                 name = "Copper Seal",
                 text = {
@@ -1055,7 +972,91 @@ return {
                     "{C:inactive,s:0.85}(Sticker removed",
                     "{C:inactive,s:0.85}after Play or Discard)"
                 }
-            }
+            },
+
+            -- References (Fuzzy Pickle)
+            r_generic = {
+                name = "Reference",
+                text = {
+                    "This card counts as a",
+                    "{C:attention}pop culture{} reference"
+                }
+            },
+
+            r_j_hit_the_road = {
+                name = "Reference",
+                text = {"Ray Charles"}
+            },
+
+            r_j_seeing_double = {
+                name = "Reference",
+                text = {"S Club 7"}
+            },
+
+            r_j_wafflemod_fuzzy_pickle = {
+                name = "Reference",
+                text = {"Earthbound"}
+            },
+
+            r_j_wafflemod_ice_juggler_cookie = {
+                name = "Reference",
+                text = { "Cookie Run" }
+            },
+
+            r_j_wafflemod_golden_goose_egg = {
+                name = "Reference",
+                text = { "Deadlock" }
+            },
+
+            r_j_wafflemod_stage_magician = {
+                name = "Reference",
+                text = { "Deadlock" }
+            },
+
+            r_j_wafflemod_bring_me_your_love = {
+                name = "Reference",
+                text = { 
+                    "My Chemical",
+                    "Romance" }
+            },
+
+            r_j_wafflemod_fortune_iii = {
+                name = "Reference",
+                text = { "Minecraft" }
+            },
+
+            r_j_wafflemod_mrdo = {
+                name = "Reference",
+                text = { "Mr. Do!" }
+            },
+
+            r_j_wafflemod_freddie_mercury = {
+                name = "Reference",
+                text = { "Queen" }
+            },
+
+            r_j_wafflemod_trophy_hunters_tricorn = {
+                name = "Reference",
+                text = { "Risk of Rain" }
+            },
+
+            r_j_wafflemod_pomni = {
+                name = "Reference",
+                text = { 
+                    "The Amazing",
+                    "Digital Circus" 
+                }
+            },
+
+            r_j_wafflemod_jokerton = {
+                name = "Reference",
+                text = { "Weezer" }
+            },
+
+            r_j_wafflemod_aaaaaa = {
+                name = "Reference",
+                text = { "Yume Nikki" }
+            },
 
         },
 

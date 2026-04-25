@@ -286,7 +286,6 @@ SMODS.Joker {
         value_gain = 3
     } },
     loc_vars = function(self, info_queue, card)
-        WaffleMod.addReferenceTooltip(info_queue, "r_deadlock")
         return { vars = { card.ability.extra.value_gain } }
     end,
     cost = 5,
@@ -692,7 +691,6 @@ SMODS.Joker {
     } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.target_enhancement]
-        WaffleMod.addReferenceTooltip(info_queue, "r_minecraft")
         return { vars = { G.GAME.probabilities.normal or 1, card.ability.extra.odds } }
     end,
     rarity = 2,
@@ -763,7 +761,6 @@ SMODS.Joker {
     } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.conv_enhancement]
-        WaffleMod.addReferenceTooltip(info_queue, "r_weezer")
         return {
             vars = {
                 card.ability.extra.discard_requirement,
@@ -1032,7 +1029,6 @@ SMODS.Joker {
     } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = { key = 'e_wafflemod_ephemeral_playing_card', set = 'Edition', config = {} }
-        WaffleMod.addReferenceTooltip(info_queue, "r_deadlock")
         return { vars = { card.ability.extra.cards_added } }
     end,
     calculate = function(self, card, context)
@@ -1072,7 +1068,6 @@ SMODS.Joker {
     rarity = 3,
     cost = 7,
     loc_vars = function(self, info_queue, card)
-        WaffleMod.addReferenceTooltip(info_queue, "r_yume_nikki")
         return { vars = { card.ability.extra.xmult } }
     end,
     calculate = function(self, card, context)
@@ -1103,7 +1098,6 @@ SMODS.Joker {
     } },
     blueprint_compat = false,
     loc_vars = function(self, info_queue, card)
-        WaffleMod.addReferenceTooltip(info_queue, "r_mcr")
         return {
             key = next(SMODS.find_card("j_vampire")) and "j_wafflemod_bring_me_your_love_vampire" or nil,
             vars = { localize(card.ability.extra.suit, 'suits_singular') }
@@ -1171,7 +1165,6 @@ SMODS.Joker {
     },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.c_mercury
-        WaffleMod.addReferenceTooltip(info_queue, "r_queen")
         info_queue[#info_queue + 1] = { key = "wafflemod_art_credit_jac", set = "Other", config = {} }
         return {
             vars = {
@@ -1235,7 +1228,6 @@ SMODS.Joker {
     atlas = "wafflemod_jokerAtlas",
     pos = { x = 8, y = 2 },
     loc_vars = function (self, info_queue, card)
-        WaffleMod.addReferenceTooltip(info_queue, "r_earthbound")
         return {vars = {card.ability.extra.xmult}}
     end,
     calculate = function (self, card, context)
@@ -1244,12 +1236,8 @@ SMODS.Joker {
                 xmult = card.ability.extra.xmult
             }
         end
-        if context.joker_main then -- context.other_joker does not account for itself, so we return xmult here as well
-            return {
-                xmult = card.ability.extra.xmult
-            }
-        end
-    end
+    end,
+    attributes = {"reference"}
 }
 
 -- Trophy Hunter's Tricorn
@@ -1261,7 +1249,6 @@ SMODS.Joker {
     pos = { x = 6, y = 2 },
     soul_pos = { x = 7, y = 2 },
     loc_vars = function(self, info_queue, card)
-        WaffleMod.addReferenceTooltip(info_queue, "r_ror")
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         local main_end = nil
         if card.area and (card.area == G.jokers) then
@@ -1417,7 +1404,6 @@ SMODS.Joker {
         xmult_gain = 0.25,
     } },
     loc_vars = function(self, info_queue, card)
-        WaffleMod.addReferenceTooltip(info_queue, "r_cookie_run")
         return { vars = { card.ability.extra.h_size, card.ability.extra.xmult_gain, card.ability.extra.xmult } }
     end,
     atlas = "wafflemod_jokerAtlas",
@@ -1498,7 +1484,6 @@ SMODS.Joker {
         }
     },
     loc_vars = function(self, info_queue, card)
-        WaffleMod.addReferenceTooltip(info_queue, "r_mrdo")
         return {
             vars = {
                 card.ability.extra.Xmult,
@@ -1596,7 +1581,6 @@ SMODS.Joker {
         }
     },
     loc_vars = function (self, info_queue, card)
-        WaffleMod.addReferenceTooltip(info_queue, "r_tadc")
     end,
     rarity = 4,
     atlas = "wafflemod_jokerAtlas",
