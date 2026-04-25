@@ -229,6 +229,7 @@ function WaffleMod.endOfRoundContext(context)
     return context.end_of_round and context.main_eval and context.game_over == false
 end
 
+-- Makes a joker perishable. Used for Blighted Deck's effect
 function WaffleMod.blightedMakePerishable(card)
     if card.ability.set == "Joker" then
         card.ability.eternal = false
@@ -247,6 +248,13 @@ while selected_tag == 'UNAVAILABLE' do
 end
 return selected_tag
 
+end
+
+-- Adds a tooltip to a card that appears if the player has Fuzzy Pickle, localized in the wafflemod_reference set.
+function WaffleMod.addReferenceTooltip(info_queue, key)
+    if SMODS.find_card("j_wafflemod_fuzzy_pickle", true) then
+        info_queue[#info_queue+1] = {key = key, set = "wafflemod_reference"}
+    end
 end
 
 -- Gets the joker to the right of a given Joker, or nil if there is none.

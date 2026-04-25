@@ -408,6 +408,14 @@ return {
                 },
             },
 
+            j_wafflemod_fuzzy_pickle = {
+                name = "Fuzzy Pickle",
+                text = {
+                    "{C:attention}Jokers{} that reference",
+                    "{C:attention}pop culture{} give {C:white,X:mult}X#1#{} Mult",
+                }
+            },
+
             j_wafflemod_trophy_hunters_tricorn = {
                 name = "Trophy Hunter's Tricorn",
                 text = { "Sell this card to",
@@ -1032,6 +1040,66 @@ return {
                     "upgrades a random {C:attention}poker hand{}"
                 }
             },
+
+        },
+
+        -- For Fuzzy Pickle references
+        wafflemod_reference = {
+
+            r_cookie_run = {
+                name = "Reference",
+                text = {"Cookie Run"}
+            },
+
+            r_deadlock = {
+                name = "Reference",
+                text = {"Deadlock"}
+            },
+
+            r_earthbound = {
+                name = "Reference",
+                text = {"Earthbound"}
+            },
+
+            r_mcr = {
+                name = "Reference",
+                text = {"My Chemical Romance"}
+            },
+
+            r_minecraft = {
+                name = "Reference",
+                text = {"Minecraft"}
+            },
+
+            r_mrdo = {
+                name = "Reference",
+                text = {"Mr. Do!"}
+            },
+
+            r_queen = {
+                name = "Reference",
+                text = {"Queen"}
+            },
+
+            r_ror = {
+                name = "Reference",
+                text = {"Risk of Rain"}
+            },
+
+            r_tadc = {
+                name = "Reference",
+                text = {"The Amazing Digital Circus"}
+            },
+
+            r_weezer = {
+                name = "Reference",
+                text = {"Weezer"}
+            },
+
+            r_yume_nikki = {
+                name = "Reference",
+                text = {"Yume Nikki"}
+            }
 
         },
 
