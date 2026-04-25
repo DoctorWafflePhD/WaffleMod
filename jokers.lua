@@ -722,17 +722,17 @@ SMODS.Joker {
     rarity = 2,
     atlas = "wafflemod_jokerAtlas",
     pos = { x = 8, y = 2 },
-    loc_vars = function (self, info_queue, card)
-        return {vars = {card.ability.extra.xmult}}
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.xmult } }
     end,
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
         if context.other_joker and context.other_joker:has_attribute("reference") then
             return {
                 xmult = card.ability.extra.xmult
             }
         end
     end,
-    attributes = {"reference"}
+    attributes = { "reference" }
 }
 
 -- Jok
@@ -1580,7 +1580,7 @@ SMODS.Joker {
             "set {C:attention}Ante{} to {C:attention}1{}"
         }
     },
-    loc_vars = function (self, info_queue, card)
+    loc_vars = function(self, info_queue, card)
     end,
     rarity = 4,
     atlas = "wafflemod_jokerAtlas",
@@ -2033,6 +2033,12 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.joker_main then
             for _, scoredCard in pairs(context.scoring_hand) do
+                G.E_MANAGER:add_event(Event {
+                    func = function()
+                        scoredCard:juice_up()
+                        return true
+                    end
+                })
                 if scoredCard.debuff then
                     SMODS.calculate_effect(
                         {
