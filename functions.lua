@@ -252,8 +252,8 @@ end
 
 -- Adds a tooltip to a card that appears if the player has Fuzzy Pickle, localized in the wafflemod_reference set.
 function WaffleMod.addReferenceTooltip(info_queue, key)
-    if SMODS.find_card("j_wafflemod_fuzzy_pickle", true) then
-        info_queue[#info_queue+1] = {key = key, set = "wafflemod_reference"}
+    if next(SMODS.find_card("j_wafflemod_fuzzy_pickle", true)) then
+        info_queue[#info_queue+1] = {key = key, set = "Other"}
     end
 end
 

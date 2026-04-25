@@ -1,0 +1,28 @@
+[manifest]
+version = "0.1.0"
+priority = 0 # Priority for loading the file
+
+[[patches]]
+[patches.pattern]
+match_indent = true
+pattern = "for _, v in ipairs(info_queue) do"
+position = 'before'
+target = 'functions/common_events.lua'
+payload = '''
+    if next(SMODS.find_card('j_wafflemod_fuzzy_pickle')) and card_type ~= 'Locked' and card_type ~= 'Undiscovered' then
+
+        -- if _c:has_attribute("reference") then
+            -- info_queue[#info_queue + 1] = {key = "r_" .. _c.key, set = "Other"}
+        -- end
+
+        -- I would really rather just run has_attribute then use the joker's key in a localize if it has the attribute, but I don't think I can actually get the card here
+        -- Oh well, time to bust out the inner Yandev
+        if _c.key == "j_hit_the_road" then
+            info_queue[#info_queue + 1] = {key = "r_" .. _c.key, set = "Other"}
+        elseif _c.key == "j_seeing_double" then
+            info_queue[#info_queue + 1] = {key = "r_" .. _c.key, set = "Other"}
+        end
+
+    end
+'''
+# big mcthankies to borb43 for providing this solution

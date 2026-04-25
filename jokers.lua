@@ -304,7 +304,7 @@ SMODS.Joker {
             card:set_cost()
         end
     end,
-    attribtues = { "reference" }
+    attributes = { "reference" }
 }
 
 -- Golfer
@@ -711,7 +711,7 @@ SMODS.Joker {
     in_pool = function(self, args)
         return WaffleMod.isEnhancementInDeck("m_stone")
     end,
-    attribtues = { "reference" }
+    attributes = { "reference" }
 }
 
 -- Jok
@@ -814,7 +814,7 @@ SMODS.Joker {
             end
         end
     end,
-    attribtues = { "reference" }
+    attributes = { "reference" }
 }
 
 -- Martian
@@ -1055,7 +1055,7 @@ SMODS.Joker {
             return nil, true
         end
     end,
-    attribtues = { "reference" }
+    attributes = { "reference" }
 }
 
 -- Rare
@@ -1088,7 +1088,7 @@ SMODS.Joker {
             }
         end
     end,
-    attribtues = { "reference" }
+    attributes = { "reference" }
 }
 
 -- Bring Me Your Love
@@ -1109,7 +1109,7 @@ SMODS.Joker {
             vars = { localize(card.ability.extra.suit, 'suits_singular') }
         }
     end,
-    attribtues = { "reference" }
+    attributes = { "reference" }
 }
 local shuffle_ref = CardArea.shuffle
 function CardArea:shuffle(_seed)
@@ -1221,7 +1221,7 @@ SMODS.Joker {
             }
         end
     end,
-    attribtues = { "reference" }
+    attributes = { "reference" }
 }
 
 -- Fuzzy Pickle
@@ -1232,12 +1232,19 @@ SMODS.Joker {
     } },
     cost = 8,
     rarity = 3,
+    atlas = "wafflemod_jokerAtlas",
+    pos = { x = 8, y = 2 },
     loc_vars = function (self, info_queue, card)
         WaffleMod.addReferenceTooltip(info_queue, "r_earthbound")
         return {vars = {card.ability.extra.xmult}}
     end,
     calculate = function (self, card, context)
         if context.other_joker and context.other_joker:has_attribute("reference") then
+            return {
+                xmult = card.ability.extra.xmult
+            }
+        end
+        if context.joker_main then -- context.other_joker does not account for itself, so we return xmult here as well
             return {
                 xmult = card.ability.extra.xmult
             }
@@ -1327,7 +1334,7 @@ SMODS.Joker {
     in_pool = function()
         return WaffleMod.config.boss_jokers.enabled
     end,
-    attribtues = { "reference" }
+    attributes = { "reference" }
 }
 
 -- Legendary
@@ -1474,7 +1481,7 @@ SMODS.Joker {
             }
         end
     end,
-    attribtues = { "reference" }
+    attributes = { "reference" }
 }
 
 -- Mr. Do!
@@ -1574,7 +1581,7 @@ SMODS.Joker {
             checkUpgrade()
         end
     end,
-    attribtues = { "reference" }
+    attributes = { "reference" }
 }
 
 -- Pomni
@@ -1606,7 +1613,7 @@ SMODS.Joker {
             G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante - reduction
         end
     end,
-    attribtues = { "reference" }
+    attributes = { "reference" }
 }
 
 -- Boss

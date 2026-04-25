@@ -572,7 +572,7 @@ return {
 
             j_wafflemod_pillar = {
                 name = "The Pillar",
-                text={
+                text = {
                     "Every played {C:attention}card{}",
                     "permanently gains",
                     "{C:mult}+#1#{} Mult when scored",
@@ -860,6 +860,89 @@ return {
                 },
             },
 
+            r_j_hit_the_road = {
+                name = "Reference",
+                text = {"Ray Charles"}
+            },
+
+            r_j_seeing_double = {
+                name = "Reference",
+                text = {"S Club 7"}
+            },
+
+            r_j_wafflemod_fuzzy_pickle = {
+                name = "Reference",
+                text = {"Earthbound"}
+            },
+
+            r_generic = {
+                name = "Reference",
+                text = {
+                    "This card counts as a",
+                    "{C:attention}pop culture{} reference"
+                }
+            },
+
+            r_cookie_run = {
+                name = "Reference",
+                text = { "Cookie Run" }
+            },
+
+            r_deadlock = {
+                name = "Reference",
+                text = { "Deadlock" }
+            },
+
+            r_earthbound = {
+                name = "Reference",
+                text = { "Earthbound" }
+            },
+
+            r_mcr = {
+                name = "Reference",
+                text = { 
+                    "My Chemical",
+                    "Romance" }
+            },
+
+            r_minecraft = {
+                name = "Reference",
+                text = { "Minecraft" }
+            },
+
+            r_mrdo = {
+                name = "Reference",
+                text = { "Mr. Do!" }
+            },
+
+            r_queen = {
+                name = "Reference",
+                text = { "Queen" }
+            },
+
+            r_ror = {
+                name = "Reference",
+                text = { "Risk of Rain" }
+            },
+
+            r_tadc = {
+                name = "Reference",
+                text = { 
+                    "The Amazing",
+                    "Digital Circus" 
+                }
+            },
+
+            r_weezer = {
+                name = "Reference",
+                text = { "Weezer" }
+            },
+
+            r_yume_nikki = {
+                name = "Reference",
+                text = { "Yume Nikki" }
+            },
+
             wafflemod_copper_seal = {
                 name = "Copper Seal",
                 text = {
@@ -1040,66 +1123,6 @@ return {
                     "upgrades a random {C:attention}poker hand{}"
                 }
             },
-
-        },
-
-        -- For Fuzzy Pickle references
-        wafflemod_reference = {
-
-            r_cookie_run = {
-                name = "Reference",
-                text = {"Cookie Run"}
-            },
-
-            r_deadlock = {
-                name = "Reference",
-                text = {"Deadlock"}
-            },
-
-            r_earthbound = {
-                name = "Reference",
-                text = {"Earthbound"}
-            },
-
-            r_mcr = {
-                name = "Reference",
-                text = {"My Chemical Romance"}
-            },
-
-            r_minecraft = {
-                name = "Reference",
-                text = {"Minecraft"}
-            },
-
-            r_mrdo = {
-                name = "Reference",
-                text = {"Mr. Do!"}
-            },
-
-            r_queen = {
-                name = "Reference",
-                text = {"Queen"}
-            },
-
-            r_ror = {
-                name = "Reference",
-                text = {"Risk of Rain"}
-            },
-
-            r_tadc = {
-                name = "Reference",
-                text = {"The Amazing Digital Circus"}
-            },
-
-            r_weezer = {
-                name = "Reference",
-                text = {"Weezer"}
-            },
-
-            r_yume_nikki = {
-                name = "Reference",
-                text = {"Yume Nikki"}
-            }
 
         },
 
