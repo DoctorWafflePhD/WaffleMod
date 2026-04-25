@@ -92,5 +92,5 @@ end
 -- "reference" attribute for media references
 SMODS.Attribute {
     key = "reference",
-    keys = {"j_hit_the_road", "j_seeing_double"}
+    keys = {"j_hit_the_road", "j_seeing_double", "j_mail", "j_mr_bones", "j_egg"}
 }

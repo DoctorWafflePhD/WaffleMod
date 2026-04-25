@@ -712,6 +712,29 @@ SMODS.Joker {
     attributes = { "reference" }
 }
 
+-- Fuzzy Pickle
+SMODS.Joker {
+    key = "fuzzy_pickle",
+    config = { extra = {
+        xmult = 1.5
+    } },
+    cost = 6,
+    rarity = 2,
+    atlas = "wafflemod_jokerAtlas",
+    pos = { x = 8, y = 2 },
+    loc_vars = function (self, info_queue, card)
+        return {vars = {card.ability.extra.xmult}}
+    end,
+    calculate = function (self, card, context)
+        if context.other_joker and context.other_joker:has_attribute("reference") then
+            return {
+                xmult = card.ability.extra.xmult
+            }
+        end
+    end,
+    attributes = {"reference"}
+}
+
 -- Jok
 SMODS.Joker {
     key = "jok",
@@ -1215,29 +1238,6 @@ SMODS.Joker {
         end
     end,
     attributes = { "reference" }
-}
-
--- Fuzzy Pickle
-SMODS.Joker {
-    key = "fuzzy_pickle",
-    config = { extra = {
-        xmult = 1.5
-    } },
-    cost = 8,
-    rarity = 3,
-    atlas = "wafflemod_jokerAtlas",
-    pos = { x = 8, y = 2 },
-    loc_vars = function (self, info_queue, card)
-        return {vars = {card.ability.extra.xmult}}
-    end,
-    calculate = function (self, card, context)
-        if context.other_joker and context.other_joker:has_attribute("reference") then
-            return {
-                xmult = card.ability.extra.xmult
-            }
-        end
-    end,
-    attributes = {"reference"}
 }
 
 -- Trophy Hunter's Tricorn

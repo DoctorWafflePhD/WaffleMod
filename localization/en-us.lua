@@ -984,19 +984,36 @@ return {
                 }
             },
 
+            r_j_egg = {
+                name = "Reference",
+                text = { "Northernlion" }
+            },
+
+            r_j_mail = {
+                name = "Reference",
+                text = { "Seinfeld" }
+            },
+
             r_j_hit_the_road = {
                 name = "Reference",
-                text = {"Ray Charles"}
+                text = { "Ray Charles" }
+            },
+
+            r_j_mr_bones = {
+                name = "Reference",
+                text = { "Roller Coaster",
+                    "Tycoon 2"
+                }
             },
 
             r_j_seeing_double = {
                 name = "Reference",
-                text = {"S Club 7"}
+                text = { "S Club 7" }
             },
 
             r_j_wafflemod_fuzzy_pickle = {
                 name = "Reference",
-                text = {"Earthbound"}
+                text = { "Earthbound" }
             },
 
             r_j_wafflemod_ice_juggler_cookie = {
@@ -1016,7 +1033,7 @@ return {
 
             r_j_wafflemod_bring_me_your_love = {
                 name = "Reference",
-                text = { 
+                text = {
                     "My Chemical",
                     "Romance" }
             },
@@ -1043,9 +1060,9 @@ return {
 
             r_j_wafflemod_pomni = {
                 name = "Reference",
-                text = { 
+                text = {
                     "The Amazing",
-                    "Digital Circus" 
+                    "Digital Circus"
                 }
             },
 
