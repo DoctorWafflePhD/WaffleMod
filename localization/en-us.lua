@@ -1006,6 +1006,16 @@ return {
                 }
             },
 
+            r_j_yorick = {
+                name = "Reference",
+                text = { "Hamlet" }
+            },
+
+            r_j_caino = {
+                name = "Reference",
+                text = { "Pagliacci" }
+            },
+
             r_j_seeing_double = {
                 name = "Reference",
                 text = { "S Club 7" }
