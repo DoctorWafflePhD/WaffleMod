@@ -11,7 +11,7 @@ target = 'functions/common_events.lua'
 payload = '''
     if next(SMODS.find_card('j_wafflemod_fuzzy_pickle')) and card_type ~= 'Locked' and card_type ~= 'Undiscovered' then
 
-        if card and card:has_attribute("reference") then
+        if card and card.has_attribute and card:has_attribute("reference") then
             if G.localization.descriptions.Other["r_" .. _c.key] ~= nil then
                 info_queue[#info_queue + 1] = {key = "r_" .. _c.key, set = "Other"}
             else

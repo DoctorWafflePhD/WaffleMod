@@ -444,7 +444,7 @@ return {
                 name = "Trophy Hunter's Tricorn",
                 text = { "Sell this card to",
                     "disable the current",
-                    "{C:attention}Boss Blind{} and spawn",
+                    "{C:attention}Boss Blind{} and create",
                     "its matching {C:wafflemod_boss}Boss Joker{}",
                 }
             },
@@ -453,7 +453,7 @@ return {
                 name = "Trophy Hunter's Tricorn",
                 text = { "Sell this card to",
                     "disable the current",
-                    "{C:attention}Boss Blind{} and spawn",
+                    "{C:attention}Boss Blind{} and create",
                     "its matching {C:wafflemod_boss}Boss Joker{}",
                     "{C:inactive}(Copies this card's Edition)"
                 }

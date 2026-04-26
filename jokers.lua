@@ -1758,11 +1758,14 @@ function Blind:defeat(silent)
     local bossJokersEnabled = WaffleMod.config.boss_jokers.enabled -- TODO: config
     local bossJokerDropOdds = WaffleMod.config.boss_jokers.chance
     if self.boss and bossJokersEnabled then
+
+        -- print("boss jokers are enabled")
         local getJokerKeyFromBlind = bossJokerTable[self.config.blind.key]
         local bossJokerDropNumerator = G.GAME.probabilities.normal or 1
 
         -- Doubled odds of dropping if hunting license voucher is owned
         if WaffleMod.hasVoucher("v_wafflemod_hunting_license") then
+            -- print("voucher found")
             bossJokerDropNumerator = bossJokerDropNumerator * 2
         end
 
@@ -1772,9 +1775,16 @@ function Blind:defeat(silent)
             G.GAME.probabilities.normal /
             bossJokerDropOdds
         local freeJokerSlot = G.jokers and #G.jokers.cards < G.jokers.config.card_limit
-        local hasThisJokerAlready = SMODS.find_card(getJokerKeyFromBlind, true)
+        local hasThisJokerAlready = next(SMODS.find_card(getJokerKeyFromBlind, true))
+
+        -- print("found joker key:", getJokerKeyFromBlind ~= nil)
+        -- print("drop numerator:", bossJokerDropNumerator)
+        -- print("has joker slot open:", freeJokerSlot)
+        -- print("has this joker already?:", hasThisJokerAlready)
+        -- print("roll succeeded:", bossJokerRoll)
 
         if getJokerKeyFromBlind and freeJokerSlot and (bossJokerRoll or trophyCollected) and (not hasThisJokerAlready or SMODS.showman()) then
+            -- print("create the joker")
             G.E_MANAGER:add_event(Event({
                 trigger = 'immediate',
                 delay = 0.1,
