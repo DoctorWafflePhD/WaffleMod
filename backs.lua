@@ -172,7 +172,7 @@ SMODS.Back {
 -- Patchwork update hook (this disables the rightmost joker when using the deck)
 local updateRef = Game.update
 function Game:update(dt)
-    if WaffleMod.usingBack("b_wafflemod_juryrigged") and G.jokers and G.jokers.cards then
+    if WaffleMod.usingBack("b_wafflemod_patchwork") and G.jokers and G.jokers.cards then
         local jokerCards = G.jokers.cards
 
         for i = 1, #jokerCards do
