@@ -717,6 +717,15 @@ return {
                 },
             },
 
+            c_wafflemod_mammon = {
+                name = "Mammon",
+                text = {
+                    "Add a {C:wafflemod_copper}Copper Seal{}",
+                    "to {C:attention}1{} selected",
+                    "card in your hand",
+                }
+            },
+
             c_wafflemod_psychopomp = {
                 name = "Psychopomp",
                 text = {
@@ -732,6 +741,15 @@ return {
                     "{C:green}#1# in #2#{} chance to add",
                     "a random {C:enhanced}Enhancement{} to",
                     "each card in hand"
+                },
+            },
+
+            c_wafflemod_syzygy = {
+                name = "Syzygy",
+                text = {
+                    "Add a {C:wafflemod_viridian}Viridian Seal{}",
+                    "to {C:attention}1{} selected",
+                    "card in your hand",
                 },
             },
 
@@ -1247,8 +1265,8 @@ return {
             k_wafflemod_tarot_rx = "Tarot?",
             k_wafflemod_steel = "Steel",
             k_wafflemod_arcade = "Arcade Cabinet",
-            k_wafflemod_copper_seal_eval = "Copper Seals",
-            k_wafflemod_copper_seal_eval_singular = "Copper Seal",
+            k_wafflemod_copper_seal_eval = " Copper Seals",
+            k_wafflemod_copper_seal_eval_singular = " Copper Seal",
             k_wafflemod_testing = "testing lalalala",
             k_wafflemod_deactived_ex = "Deactivated!",
             k_wafflemod_inactive = "inactive",
