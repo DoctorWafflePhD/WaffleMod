@@ -347,6 +347,34 @@ SMODS.Joker {
     attributes = { "suit", "clubs", "mult" }
 }
 
+-- Historical Bust
+SMODS.Joker {
+    key = "historical_bust",
+    atlas = "wafflemod_jokerAtlas",
+    config = {extra = {
+        bust_at = 21,
+        mult = 17,
+    }},
+    loc_vars = function (self, info_queue, card)
+        return {vars = {card.ability.extra.mult, card.ability.extra.bust_at}}
+    end,
+    calculate = function (self, card, context)
+        if context.joker_main then
+            local rankSum = 0
+            for _, scoring_card in pairs(context.scoring_hand) do
+                if not SMODS.has_no_rank(scoring_card) then
+                    rankSum = rankSum + scoring_card.base.nominal
+                end
+            end
+            if rankSum > card.ability.extra.bust_at then
+                return {
+                    mult = card.ability.extra.mult
+                }
+            end
+        end
+    end
+}
+
 -- In the Rough
 local function getNumNonDiamondsInFullDeck()
     local numberNonDiamonds = 0
@@ -637,12 +665,14 @@ SMODS.Joker {
 SMODS.Joker {
     key = "buried_treasure_map",
     atlas = "wafflemod_jokerAtlas",
+    rarity = 2,
     cost = 7,
     config = { extra = {
         counter = 15,
         target_suit = "Spades",
         create_rarity = "Rare"
     } },
+    pos = {x = 9, y = 2},
     loc_vars = function(self, info_queue, card)
         local suit = card.ability.extra.target_suit
         return { vars = { card.ability.extra.counter, localize(suit, "suits_singular"), colours = { G.C.SUITS[suit] } } }
@@ -684,7 +714,8 @@ SMODS.Joker {
                 end
             }))
         end
-    end
+    end,
+    attributes = { "suit", "spades", "generation", "joker" }
 }
 
 -- Damocles

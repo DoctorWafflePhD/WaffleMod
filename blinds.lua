@@ -3,7 +3,8 @@ SMODS.Atlas {
     path = "blind_chips.png",
     px = 34,
     py = 34,
-    atlas_table = "ANIMATION_ATLAS"
+    atlas_table = "ANIMATION_ATLAS",
+    frames = 21
 }
 
 -- The Axe

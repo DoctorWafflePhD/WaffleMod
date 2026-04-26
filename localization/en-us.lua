@@ -171,6 +171,14 @@ return {
                 },
             },
 
+            j_wafflemod_dreamsicle = {
+                name = "Dreamsicle",
+                text = {
+                    "Earn {C:money}$#1#{} on your next",
+                    "{C:attention}#2#{} card purchases"
+                }
+            },
+
             j_wafflemod_fickle = {
                 name = "Fickle Joker",
                 text = {
@@ -180,6 +188,15 @@ return {
                     "other suits are scored",
                     "{C:inactive}(Currently {C:chips}+#4#{C:inactive} Chips){}",
                     "{C:inactive}(Suit changes at end of round){}"
+                }
+            },
+
+            j_wafflemod_fountain = {
+                name = "Fountain",
+                text = {
+                    "Played cards have a",
+                    "{C:green}#1# in (rank){} chance to",
+                    "earn {C:money}$#2#{} when {C:attention}scored{}"
                 }
             },
 
@@ -199,20 +216,11 @@ return {
                 }
             },
 
-            j_wafflemod_dreamsicle = {
-                name = "Dreamsicle",
+            j_wafflemod_historical_bust = {
+                name = "Historical Bust",
                 text = {
-                    "Earn {C:money}$#1#{} on your next",
-                    "{C:attention}#2#{} card purchases"
-                }
-            },
-
-            j_wafflemod_fountain = {
-                name = "Fountain",
-                text = {
-                    "Played cards have a",
-                    "{C:green}#1# in (rank){} chance to",
-                    "earn {C:money}$#2#{} when {C:attention}scored{}"
+                    "{C:mult}+#1#{} Mult if {C:attention}total rank{} of",
+                    "scoring cards {C:attention}exceeds #2#"
                 }
             },
 
