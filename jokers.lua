@@ -86,7 +86,7 @@ SMODS.Joker {
         return { vars = { card.ability.extra.mult_gain, card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        if context.before then
+        if context.before and not context.blueprint then
             --print(context.scoring_name, card.ability.extra.hand)
 
             if context.scoring_name == card.ability.extra.hand or card.ability.extra.hand == nil then
@@ -118,7 +118,7 @@ SMODS.Joker {
             }
         end
 
-        if context.after then
+        if context.after and not context.blueprint then
             card.ability.extra.hand = context.scoring_name
         end
     end,
@@ -144,13 +144,16 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.buying_card and not context.buying_self and card.ability.set ~= "Voucher" and context.card ~= card then
             G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
-            SMODS.scale_card(card, {
-                ref_table = card.ability.extra,
-                ref_value = "purchases",
-                scalar_value = "scalar",
-                no_message = true
-            })
-            if card.ability.extra.purchases <= 0 then
+            if not context.blueprint then
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "purchases",
+                    scalar_value = "scalar",
+                    no_message = true
+                })
+            end
+
+            if card.ability.extra.purchases <= 0 and not context.blueprint then
                 SMODS.destroy_cards(card, nil, nil, true)
                 return {
                     dollars = card.ability.extra.dollars,
@@ -298,8 +301,9 @@ SMODS.Joker {
         return { vars = { card.ability.extra.value_gain } }
     end,
     cost = 5,
+    blueprint_compat = false,
     calculate = function(self, card, context)
-        if context.using_consumeable and context.consumeable.ability.set == "Tarot" then
+        if context.using_consumeable and context.consumeable.ability.set == "Tarot" and not context.blueprint then
             SMODS.scale_card(card, {
                 ref_table = card.ability,
                 ref_value = "extra_value",
@@ -355,6 +359,7 @@ SMODS.Joker {
         bust_at = 21,
         mult = 17,
     }},
+    cost = 5,
     loc_vars = function (self, info_queue, card)
         return {vars = {card.ability.extra.mult, card.ability.extra.bust_at}}
     end,
@@ -647,7 +652,7 @@ SMODS.Joker {
         end
 
         -- Reset after each hand
-        if context.after and card.ability.extra.chips > 0 then
+        if context.after and card.ability.extra.chips > 0 and not context.blueprint then
             card.ability.extra.chips = 0
             return {
                 message = localize('k_reset'),
@@ -677,8 +682,9 @@ SMODS.Joker {
         local suit = card.ability.extra.target_suit
         return { vars = { card.ability.extra.counter, localize(suit, "suits_singular"), colours = { G.C.SUITS[suit] } } }
     end,
+    blueprint_compat = false,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and context.other_card:is_suit(card.ability.extra.target_suit) then
+        if not context.blueprint and context.individual and context.cardarea == G.play and context.other_card:is_suit(card.ability.extra.target_suit) then
             SMODS.scale_card(card, {
                 ref_table = card.ability.extra,
                 ref_value = "counter",
@@ -697,7 +703,7 @@ SMODS.Joker {
                 card.ability.extra.counter = 0
             end
         end
-        if context.after and card.ability.extra.counter <= 0 then
+        if not context.blueprint and context.after and card.ability.extra.counter <= 0 then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     SMODS.calculate_effect({
@@ -899,7 +905,7 @@ SMODS.Joker {
     cost = 5,
     calculate = function(self, card, context)
         local extra = card.ability.extra
-        if context.discard and context.other_card:is_suit("Hearts") then
+        if context.discard and context.other_card:is_suit("Hearts") and not context.blueprint then
             extra.discards_remaining = math.max(extra.discards_remaining - 1, 0)
             if extra.discards_remaining == 0 and not extra.is_juicing then
                 G.E_MANAGER:add_event(Event({
@@ -918,7 +924,7 @@ SMODS.Joker {
                 }))
             end
         end
-        if extra.is_juicing and context.before then
+        if extra.is_juicing and context.before and not context.blueprint then
             if context.scoring_hand and context.scoring_hand[1] then
                 G.E_MANAGER:add_event(Event({
                     func = function()
@@ -1089,7 +1095,7 @@ SMODS.Joker {
         }
     end,
     calculate = function(self, card, context)
-        if context.before then
+        if context.before and card.ability.extra.active and not context.blueprint then
             for _, played_card in pairs(context.full_hand) do
                 if played_card:is_suit(card.ability.extra.avoid_suit) then
                     card.ability.extra.active = false
@@ -1105,7 +1111,7 @@ SMODS.Joker {
                 xmult = card.ability.extra.xmult
             }
         end
-        if context.round_eval and card.ability.extra.active == false then
+        if context.round_eval and card.ability.extra.active == false and not context.blueprint then
             card.ability.extra.active = true
             return {
                 message = localize('k_active_ex'),
@@ -1132,7 +1138,7 @@ SMODS.Joker {
     cost = 6,
     blueprint_compat = false,
     calculate = function(self, card, context)
-        if WaffleMod.endOfRoundContext(context) and (G.GAME.current_round.hands_played <= 1) then
+        if WaffleMod.endOfRoundContext(context) and (G.GAME.current_round.hands_played <= 1) and not context.blueprint then
             SMODS.scale_card(card, {
                 ref_table = card.ability.extra,
                 ref_value = "dollars",
@@ -1271,7 +1277,7 @@ SMODS.Joker {
     pos = { x = 0, y = 1 },
     cost = 8,
     calculate = function(self, card, context)
-        if not table.find(WaffleMod.darkroomBannedSets, context.consumeable) then
+        if not table.find(WaffleMod.darkroomBannedSets, context.consumeable.ability.set) then
             if context.using_consumeable and pseudorandom('darkroomRng') < G.GAME.probabilities.normal / card.ability.extra.odds then
                 local isNegative = context.consumeable.edition and context.consumeable.edition.key == "e_negative"
                 if not isNegative then
@@ -1478,6 +1484,7 @@ SMODS.Joker {
     pos = { x = 4, y = 3 },
     soul_pos = { x = 5, y = 3 },
     cost = 20,
+    blueprint_compat = false,
     calculate = function(self, card, context)
         if context.end_of_round and context.main_eval and context.game_over == false and not context.blueprint then
             card.ability.extra.rounds_cleared = card.ability.extra.rounds_cleared + 1
@@ -1998,6 +2005,7 @@ SMODS.Joker {
     draw = bossCardDraw,
     rarity = "wafflemod_Boss",
     cost = 15,
+    blueprint_compat = false,
     config = { extra = {
         h_size = 2
     } },
