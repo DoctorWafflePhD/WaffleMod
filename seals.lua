@@ -6,12 +6,12 @@ SMODS.Atlas {
 }
 
 local shinySealDraw = function(self, card, layer)
-        if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
-            G.shared_seals[card.seal].role.draw_major = card
-            G.shared_seals[card.seal]:draw_shader('dissolve', nil, nil, nil, card.children.center)
-            G.shared_seals[card.seal]:draw_shader('voucher', nil, card.ARGS.send_to_shader, nil, card.children.center)
-        end
+    if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
+        G.shared_seals[card.seal].role.draw_major = card
+        G.shared_seals[card.seal]:draw_shader('dissolve', nil, nil, nil, card.children.center)
+        G.shared_seals[card.seal]:draw_shader('voucher', nil, card.ARGS.send_to_shader, nil, card.children.center)
     end
+end
 
 -- Copper Seal
 local dollarsPerCopperSeal = 1
@@ -31,18 +31,18 @@ local function getNumCopperSealsInFullDeck()
 end
 SMODS.Seal {
     key = "copper",
-    pos = {x = 4, y = 0},
-    config = {extra = {
+    pos = { x = 4, y = 0 },
+    config = { extra = {
         dollars = dollarsPerCopperSeal
-    }},
-    loc_vars = function (self, info_queue, card)
-        return {vars = {self.config.extra.dollars, getNumCopperSealsInFullDeck()}}
+    } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { self.config.extra.dollars, getNumCopperSealsInFullDeck() } }
     end,
     atlas = "wafflemod_sealAtlas",
     badge_colour = HEX('E08043'),
     draw = shinySealDraw
 }
-WaffleMod.bindToModCalculate(function (context)
+WaffleMod.bindToModCalculate(function(context)
     if context.round_eval and getNumCopperSealsInFullDeck() > 0 then
         local localizeKey = 'k_wafflemod_copper_seal_eval'
         if getNumCopperSealsInFullDeck() == 1 then
@@ -106,68 +106,59 @@ SMODS.Seal {
         return { vars = { G.GAME.probabilities.normal * self.config.extra.odds_numerator, self.config.extra.odds_denominator } }
     end,
     calculate = function(self, card, context)
+        if context.remove_playing_cards and context.removed then
+            if table.find(context.removed, card) then
+                print("ivory seal destroyed")
+                local eligibleCards = {}
+                for _, card in pairs(G.deck.cards) do
+                    if not card.seal then
+                        table.insert(eligibleCards, card)
+                    end
+                end
+                if (not ivorySealUsesChance) or SMODS.pseudorandom_probability(self, "wafflemod_ivorySealSpreadRoll", 2, 3) then
+                    if #eligibleCards > 0 then
+                        local chosenCarrier = pseudorandom_element(eligibleCards, "wafflemod_ivorySealInheritance")
+                        chosenCarrier:set_seal("wafflemod_ivory", true, true)
+                    else
+                        -- print("no eligible cards!")
+                    end
+                end
+
+                -- Create spectral card if we have room
+                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                    G.E_MANAGER:add_event(Event({
+                        func = (function()
+                            SMODS.add_card {
+                                set = 'Spectral',
+                                key_append = 'wafflemod_ivory_seal'
+                            }
+                            G.GAME.consumeable_buffer = 0
+                            return true
+                        end)
+                    }))
+                end
+            end
+        end
     end,
     draw = shinySealDraw,
 }
-local removeRef = Card.start_dissolve
-function Card.start_dissolve(self)
-    -- This is unrelated to the seal
-    if self.config.center.key == "j_wafflemod_doctorwaffle" then
-        play_sound("wafflemod_scream")
-    end
-
-    if self.seal == "wafflemod_ivory" then
-        -- Go through cards in deck, add ivory seal to random card
-
-        local eligibleCards = {}
-        for _, card in pairs(G.deck.cards) do
-            if not card.seal then
-                table.insert(eligibleCards, card)
-            end
-        end
-        if (not ivorySealUsesChance) or SMODS.pseudorandom_probability(self, "wafflemod_ivorySealSpreadRoll", 2, 3) then
-            if #eligibleCards > 0 then
-                local chosenCarrier = pseudorandom_element(eligibleCards, "wafflemod_ivorySealInheritance")
-                chosenCarrier:set_seal("wafflemod_ivory", true, true)
-            else
-                -- print("no eligible cards!")
-            end
-        end
-
-        -- Create spectral card if we have room
-        if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-            G.E_MANAGER:add_event(Event({
-                func = (function()
-                    SMODS.add_card {
-                        set = 'Spectral',
-                        key_append = 'wafflemod_ivory_seal'
-                    }
-                    G.GAME.consumeable_buffer = 0
-                    return true
-                end)
-            }))
-        end
-    end
-
-    return removeRef(self, card, from_debuff)
-end
 
 -- Viridian Seal
 WaffleMod.addLocColor("wafflemod_viridian", HEX('42B374'))
 SMODS.Seal {
     key = "viridian",
-    pos = {x = 3, y = 0},
+    pos = { x = 3, y = 0 },
     atlas = "wafflemod_sealAtlas",
     badge_colour = G.C.GREEN,
-        config = { extra = {
+    config = { extra = {
         odds_numerator = 1,
         odds_denominator = 2,
     } },
     loc_vars = function(self, info_queue)
         return { vars = { G.GAME.probabilities.normal * self.config.extra.odds_numerator, self.config.extra.odds_denominator } }
     end,
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
         if context.before then
             for _, v in pairs(context.scoring_hand) do
                 if v == card then

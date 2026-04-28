@@ -94,3 +94,13 @@ SMODS.Attribute {
     key = "reference",
     keys = {"j_hit_the_road", "j_seeing_double", "j_mail", "j_mr_bones", "j_egg", "j_yorick", "j_caino"}
 }
+
+-- funny scream
+local removeRef = Card.start_dissolve
+function Card.start_dissolve(self)
+    -- This is unrelated to the seal
+    if self.config.center.key == "j_wafflemod_doctorwaffle" then
+        play_sound("wafflemod_scream")
+    end
+    return removeRef(self, card, from_debuff)
+end
