@@ -19,7 +19,7 @@ WaffleMod.addLocColor("wafflemod_copper", HEX('E08043'))
 local function getNumCopperSealsInFullDeck()
     local numCopperSeals = 0
     if not G.playing_cards then -- For cases where there is no G.playing_cards, i.e. viewing in collection
-        return 1
+        return dollarsPerCopperSeal
     else
         for _, v in pairs(G.playing_cards) do
             if v.seal == "wafflemod_copper" then
