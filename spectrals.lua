@@ -275,6 +275,7 @@ WaffleMod.SealSpectral {
     key = "syzygy",
     set = "Spectral",
     atlas = "wafflemod_spectralAtlas",
+    pos = { x = 4, y = 0 },
     config = {
         max_highlighted = 1,
         extra = {
