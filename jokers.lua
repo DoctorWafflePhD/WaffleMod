@@ -125,6 +125,36 @@ SMODS.Joker {
     attributes = { "mult", "scaling", "reset", "hand_type" }
 }
 
+-- Classical Bust
+SMODS.Joker {
+    key = "classical_bust",
+    atlas = "wafflemod_jokerAtlas",
+    pos = {x=0, y=8},
+    config = {extra = {
+        bust_at = 21,
+        mult = 17,
+    }},
+    cost = 5,
+    loc_vars = function (self, info_queue, card)
+        return {vars = {card.ability.extra.mult, card.ability.extra.bust_at}}
+    end,
+    calculate = function (self, card, context)
+        if context.joker_main then
+            local rankSum = 0
+            for _, scoring_card in pairs(context.scoring_hand) do
+                if not SMODS.has_no_rank(scoring_card) then
+                    rankSum = rankSum + scoring_card.base.nominal
+                end
+            end
+            if rankSum > card.ability.extra.bust_at then
+                return {
+                    mult = card.ability.extra.mult
+                }
+            end
+        end
+    end
+}
+
 -- Dreamsicle
 SMODS.Joker {
     key = "dreamsicle",
@@ -349,36 +379,6 @@ SMODS.Joker {
         end
     end,
     attributes = { "suit", "clubs", "mult" }
-}
-
--- Historical Bust
-SMODS.Joker {
-    key = "historical_bust",
-    atlas = "wafflemod_jokerAtlas",
-    pos = {x=0, y=8},
-    config = {extra = {
-        bust_at = 21,
-        mult = 17,
-    }},
-    cost = 5,
-    loc_vars = function (self, info_queue, card)
-        return {vars = {card.ability.extra.mult, card.ability.extra.bust_at}}
-    end,
-    calculate = function (self, card, context)
-        if context.joker_main then
-            local rankSum = 0
-            for _, scoring_card in pairs(context.scoring_hand) do
-                if not SMODS.has_no_rank(scoring_card) then
-                    rankSum = rankSum + scoring_card.base.nominal
-                end
-            end
-            if rankSum > card.ability.extra.bust_at then
-                return {
-                    mult = card.ability.extra.mult
-                }
-            end
-        end
-    end
 }
 
 -- In the Rough

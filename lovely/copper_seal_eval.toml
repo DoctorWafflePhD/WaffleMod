@@ -1,0 +1,29 @@
+[manifest]
+version = "0.1.0"
+priority = 0 # Priority for loading the file
+
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua' # The file you want to patch.
+pattern = "add_round_eval_row({name = 'bottom', dollars = dollars})"
+position = "before"
+payload = '''
+        local numCopperSeals = WaffleMod.getNumCopperSealsInFullDeck()
+        if numCopperSeals > 0 then
+            local localizeKey = 'k_wafflemod_copper_seal_eval'
+            if numCopperSeals == 1 then
+                localizeKey = 'k_wafflemod_copper_seal_eval_singular'
+            end
+            add_round_eval_row({
+                name = "custom",
+                text = localize(localizeKey),
+                number = numCopperSeals,
+                number_colour = G.C.wafflemod_copper,
+                dollars = numCopperSeals,
+                pitch = pitch or 1,
+                bonus = true
+            })
+            dollars = dollars + numCopperSeals
+        end
+'''
+match_indent = true

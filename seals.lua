@@ -29,6 +29,7 @@ local function getNumCopperSealsInFullDeck()
     end
     return numCopperSeals
 end
+WaffleMod.getNumCopperSealsInFullDeck = getNumCopperSealsInFullDeck
 SMODS.Seal {
     key = "copper",
     pos = { x = 4, y = 0 },
@@ -42,23 +43,29 @@ SMODS.Seal {
     badge_colour = HEX('E08043'),
     draw = shinySealDraw
 }
-WaffleMod.bindToModCalculate(function(context)
-    if context.round_eval and getNumCopperSealsInFullDeck() > 0 then
-        local localizeKey = 'k_wafflemod_copper_seal_eval'
-        if getNumCopperSealsInFullDeck() == 1 then
-            localizeKey = 'k_wafflemod_copper_seal_eval_singular'
-        end
-        add_round_eval_row({
-            name = "custom",
-            text = localize(localizeKey),
-            number = getNumCopperSealsInFullDeck(),
-            number_colour = G.C.wafflemod_copper,
-            dollars = getNumCopperSealsInFullDeck(),
-            --card = G.deck,
-            pitch = 1
-        })
-    end
-end, "copperSealEvalDollars")
+
+-- This doesn't actually work, apparently
+-- Until the modify_final_cashout context is added to SMODS, this will be handled in lovely patch copper_seal_eval.toml
+
+-- WaffleMod.bindToModCalculate(function(context)
+--     local copperSeals = getNumCopperSealsInFullDeck()
+--     if context.round_eval and copperSeals > 0 then
+--         local localizeKey = 'k_wafflemod_copper_seal_eval'
+--         if copperSeals == 1 then
+--             localizeKey = 'k_wafflemod_copper_seal_eval_singular'
+--         end
+--         add_round_eval_row({
+--             name = "custom",
+--             text = localize(localizeKey),
+--             number = copperSeals,
+--             number_colour = G.C.wafflemod_copper,
+--             dollars = copperSeals,
+--             bonus = true,
+--             --card = G.deck,
+--             pitch = SMODS.cashout_pitch or 1
+--         })
+--     end
+-- end, "copperSealEvalDollars")
 
 -- Ebony Seal
 local handSizePerSealDiscarded = 1

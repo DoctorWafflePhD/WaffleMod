@@ -216,8 +216,8 @@ return {
                 }
             },
 
-            j_wafflemod_historical_bust = {
-                name = "Historical Bust",
+            j_wafflemod_classical_bust = {
+                name = "Classical Bust",
                 text = {
                     "{C:mult}+#1#{} Mult if {C:attention}total rank{} of",
                     "scoring cards {C:attention}exceeds #2#"
