@@ -355,6 +355,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "historical_bust",
     atlas = "wafflemod_jokerAtlas",
+    pos = {x=0, y=8},
     config = {extra = {
         bust_at = 21,
         mult = 17,
