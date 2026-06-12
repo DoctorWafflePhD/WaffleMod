@@ -115,7 +115,7 @@ SMODS.Seal {
     calculate = function(self, card, context)
         if context.remove_playing_cards and context.removed then
             if table.find(context.removed, card) then
-                print("ivory seal destroyed")
+                --print("ivory seal destroyed")
                 local eligibleCards = {}
                 for _, card in pairs(G.deck.cards) do
                     if not card.seal then

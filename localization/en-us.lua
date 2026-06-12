@@ -106,6 +106,7 @@ return {
                 name = "Ephemeral",
                 text = {
                     "{C:attention}+1{} area slot",
+                    "No sell value",
                     "{C:red,E:2}Self destructs{} at",
                     "end of round"
                 }
@@ -114,6 +115,7 @@ return {
                 name = "Ephemeral",
                 text = {
                     "{C:attention}+1{} consumable slot",
+                    "No sell value",
                     "{C:red,E:2}Self destructs{} at",
                     "end of round"
                 }
@@ -122,6 +124,7 @@ return {
                 name = "Ephemeral",
                 text = {
                     "{C:attention}+1{} Joker slot",
+                    "No sell value",
                     "{C:red,E:2}Self destructs{} at",
                     "end of round"
                 }
