@@ -95,6 +95,7 @@ WaffleMod.SealSpectral {
     key = "mammon",
     set = "Spectral",
     atlas = "wafflemod_spectralAtlas",
+    pos = { x = 5, y = 0 },
     config = {
         max_highlighted = 1,
         extra = {

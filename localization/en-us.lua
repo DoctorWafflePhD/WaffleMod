@@ -1265,8 +1265,6 @@ return {
             k_wafflemod_tarot_rx = "Tarot?",
             k_wafflemod_steel = "Steel",
             k_wafflemod_arcade = "Arcade Cabinet",
-            k_wafflemod_copper_seal_eval = " Copper Seals",
-            k_wafflemod_copper_seal_eval_singular = " Copper Seal",
             k_wafflemod_testing = "testing lalalala",
             k_wafflemod_deactived_ex = "Deactivated!",
             k_wafflemod_inactive = "inactive",
@@ -1289,6 +1287,8 @@ return {
         v_dictionary = {
             a_chips_scale = "+#1# Chips",
             a_chips_scale_minus = "-#1# Chips",
+            k_wafflemod_copper_seal_eval = " Copper Seals ($#1# each)",
+            k_wafflemod_copper_seal_eval_singular = " Copper Seal ($#1# each)",
         }
 
     }

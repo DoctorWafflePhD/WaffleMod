@@ -14,12 +14,12 @@ local shinySealDraw = function(self, card, layer)
 end
 
 -- Copper Seal
-local dollarsPerCopperSeal = 1
+WaffleMod.dollarsPerCopperSeal = 1
 WaffleMod.addLocColor("wafflemod_copper", HEX('E08043'))
 local function getNumCopperSealsInFullDeck()
     local numCopperSeals = 0
-    if not G.playing_cards then -- For cases where there is no G.playing_cards, i.e. viewing in collection
-        return dollarsPerCopperSeal
+    if not G.playing_cards then -- For cases where there is no G.playing_cards, i.e. viewing in collection on main menu
+        return WaffleMod.dollarsPerCopperSeal
     else
         for _, v in pairs(G.playing_cards) do
             if v.seal == "wafflemod_copper" then
@@ -34,7 +34,7 @@ SMODS.Seal {
     key = "copper",
     pos = { x = 4, y = 0 },
     config = { extra = {
-        dollars = dollarsPerCopperSeal
+        dollars = WaffleMod.dollarsPerCopperSeal
     } },
     loc_vars = function(self, info_queue, card)
         return { vars = { self.config.extra.dollars, getNumCopperSealsInFullDeck() } }
