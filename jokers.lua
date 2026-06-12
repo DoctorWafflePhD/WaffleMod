@@ -152,7 +152,8 @@ SMODS.Joker {
                 }
             end
         end
-    end
+    end,
+    attributes = { "mult", "rank"}
 }
 
 -- Dreamsicle
