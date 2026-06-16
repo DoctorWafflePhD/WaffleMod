@@ -129,16 +129,16 @@ SMODS.Joker {
 SMODS.Joker {
     key = "classical_bust",
     atlas = "wafflemod_jokerAtlas",
-    pos = {x=0, y=8},
-    config = {extra = {
+    pos = { x = 0, y = 8 },
+    config = { extra = {
         bust_at = 21,
         mult = 17,
-    }},
+    } },
     cost = 5,
-    loc_vars = function (self, info_queue, card)
-        return {vars = {card.ability.extra.mult, card.ability.extra.bust_at}}
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult, card.ability.extra.bust_at } }
     end,
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
         if context.joker_main then
             local rankSum = 0
             for _, scoring_card in pairs(context.scoring_hand) do
@@ -153,7 +153,7 @@ SMODS.Joker {
             end
         end
     end,
-    attributes = { "mult", "rank"}
+    attributes = { "mult", "rank" }
 }
 
 -- Dreamsicle
@@ -679,7 +679,7 @@ SMODS.Joker {
         target_suit = "Spades",
         create_rarity = "Rare"
     } },
-    pos = {x = 9, y = 2},
+    pos = { x = 9, y = 2 },
     loc_vars = function(self, info_queue, card)
         local suit = card.ability.extra.target_suit
         return { vars = { card.ability.extra.counter, localize(suit, "suits_singular"), colours = { G.C.SUITS[suit] } } }
@@ -787,6 +787,50 @@ SMODS.Joker {
         return card.ability.extra.dollars
     end,
     attributes = { "chance", "economy", "destroy_card" }
+}
+
+-- Dragonfruit
+SMODS.Joker {
+    key = "dragonfruit",
+    atlas = "wafflemod_jokerAtlas",
+    pos = { x = 1, y = 8 },
+    config = {
+        extra = {
+            xmult = 2.5,
+            xmult_decay = 0.25
+        }
+    },
+    rarity = 2,
+    cost = 6,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.xmult, card.ability.extra.xmult_decay } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return { xmult = card.ability.extra.xmult }
+        end
+        if context.after and SMODS.last_hand_oneshot then
+            if card.ability.extra.xmult - card.ability.extra.xmult_decay <= 1 then
+                SMODS.destroy_cards(card, nil, nil, true)
+                return {
+                    message = localize('k_eaten_ex'),
+                    colour = G.C.FILTER
+                }
+            else
+                SMODS.scale_card(card, {
+                    scalar_table = card.ability.extra,
+                    ref_value = "xmult",
+                    scalar_value = "xmult_decay",
+                    operation = "-",
+                    scaling_message = {
+                        message = localize { type = 'variable', key = 'a_xmult_minus', vars = { card.ability.extra.xmult_decay } },
+                        colour = G.C.RED
+                    }
+                })
+            end
+        end
+    end,
+    attributes = { "xmult", "food", "scaling" },
 }
 
 -- Fortune III
@@ -1760,7 +1804,6 @@ function Blind:defeat(silent)
     local bossJokersEnabled = WaffleMod.config.boss_jokers.enabled -- TODO: config
     local bossJokerDropOdds = WaffleMod.config.boss_jokers.chance
     if self.boss and bossJokersEnabled then
-
         -- print("boss jokers are enabled")
         local getJokerKeyFromBlind = bossJokerTable[self.config.blind.key]
         local bossJokerDropNumerator = G.GAME.probabilities.normal or 1

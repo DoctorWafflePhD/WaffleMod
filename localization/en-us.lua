@@ -174,6 +174,15 @@ return {
                 },
             },
 
+            j_wafflemod_dragonfruit = {
+                name = "Dragonfruit",
+                text = {
+                    "{C:white,X:mult}X#1#{} Mult,",
+                    "loses {C:white,X:mult}X#2#{} Mult if",
+                    "score {C:attention}catches fire{}",
+                }
+            },
+
             j_wafflemod_dreamsicle = {
                 name = "Dreamsicle",
                 text = {
