@@ -809,7 +809,7 @@ SMODS.Joker {
         if context.joker_main then
             return { xmult = card.ability.extra.xmult }
         end
-        if context.after and SMODS.last_hand_oneshot then
+        if context.after and SMODS.last_hand_oneshot and not context.blueprint then
             if card.ability.extra.xmult - card.ability.extra.xmult_decay <= 1 then
                 SMODS.destroy_cards(card, nil, nil, true)
                 return {

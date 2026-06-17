@@ -141,6 +141,14 @@ return {
         },
 
         Enhanced = {
+            m_wafflemod_monochrome = {
+                name = "Monochrome",
+                text = {"Retrigger this",
+                    "card {C:attention}#1#{} time",
+                    "Has no suit"
+                }
+            },
+
             m_wafflemod_scribbled = {
                 name = "Scribbled Card",
                 text = {

@@ -5,13 +5,27 @@ SMODS.Atlas {
     py = 95,
 }
 
--- Ripple (NYI)
+-- Monochrome
 if false then
     SMODS.Enhancement {
-    key = "ripple",
-    atlas = "wafflemod_enhancementAtlas",
-    pos = {x=1,y=0}
-}
+        key = "monochrome",
+        atlas = "wafflemod_enhancementAtlas",
+        pos = { x = 1, y = 0 },
+        no_suit = true,
+        config = { extra = {
+            retriggers = 1
+        } },
+        loc_vars = function(self, info_queue, card)
+            return { vars = { card.ability.extra.retriggers } }
+        end,
+        calculate = function(self, card, context)
+            if context.repetition then
+                return {
+                    repetitions = card.ability.extra.retriggers,
+                }
+            end
+        end,
+    }
 end
 
 -- Scribbled
