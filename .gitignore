@@ -2,3 +2,5 @@
 vscode/
 .vscode/
 lsp_def/
+totalattributes_noboss.txt
+attributecheck.lua
