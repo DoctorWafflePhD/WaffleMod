@@ -668,6 +668,36 @@ SMODS.Joker {
 -- Uncommon
 ------------------------------------------------------------------------------------------------------------------------------------------
 
+-- 3D Glasses
+SMODS.Joker {
+    key = "3d_glasses",
+    atlas = "wafflemod_jokerAtlas",
+    rarity = 2,
+    cost = 5,
+    config = { extra = {
+        edition = "e_wafflemod_ephemeral",
+        odds = 2
+    } },
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = { key = "e_wafflemod_ephemeral_playing_card", set = 'Edition', config = {} }
+        return { vars = { (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
+    end,
+    calculate = function(self, card, context)
+        if context.before then
+            for _, played_card in pairs(context.full_hand) do
+                if SMODS.pseudorandom_probability(card, "wafflemod_3d_glasses_roll", 1, card.ability.extra.odds) then
+                    local copy = copy_card(played_card)
+                    copy:set_edition(card.ability.extra.edition, nil, true)
+                    copy:add_to_deck()
+                    copy:start_materialize()
+                    G.hand:emplace(copy)
+                    G.hand:sort()
+                end
+            end
+        end
+    end
+}
+
 -- Buried Treasure Map
 SMODS.Joker {
     key = "buried_treasure_map",

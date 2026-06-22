@@ -306,6 +306,15 @@ return {
 
             -- Uncommon --------------------------------------------------------------------------------------------------------------
 
+            j_wafflemod_3d_glasses = {
+                name = "3D Glasses",
+                text = {
+                    "{C:green}#1# in #2#{} chance for each card",
+                    "played to create an {C:dark_edition}Ephemeral{} copy",
+                    "and draw it to hand"
+                }
+            },
+
             j_wafflemod_buried_treasure_map = {
                 name = "Buried Treasure Map",
                 text = {
@@ -787,6 +796,15 @@ return {
         },
 
         Tag = {
+
+            tag_wafflemod_cutter = {
+                name = "Cutter Tag",
+                text = {
+                    "{C:attention}Destroy{} each card in",
+                    "next discarded hand"
+                }
+            },
+
             tag_wafflemod_photocopy = {
                 name = "Photocopy Tag",
                 text = {
@@ -794,7 +812,16 @@ return {
                     "in Shop immediately puts",
                     "a copy of it on sale"
                 }
+            },
+
+            tag_wafflemod_stamper = {
+                name = "Stamper Tag",
+                text = {
+                    "Apply a random {C:attention}Seal{} to each",
+                    "card in next played hand"
+                }
             }
+
         },
 
         Tarot = {

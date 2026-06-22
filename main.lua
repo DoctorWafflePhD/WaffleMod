@@ -19,6 +19,7 @@ assert(SMODS.load_file("editions.lua"))()
 assert(SMODS.load_file("arcades.lua"))()
 assert(SMODS.load_file("boosters.lua"))()
 assert(SMODS.load_file("stickers.lua"))()
+assert(SMODS.load_file("tags.lua"))()
 
 if next(SMODS.find_mod("CardSleeves")) then
     assert(SMODS.load_file("xmod/sleeves.lua"))()
@@ -98,7 +99,6 @@ SMODS.Attribute {
 -- funny scream
 local removeRef = Card.start_dissolve
 function Card.start_dissolve(self)
-    -- This is unrelated to the seal
     if self.config.center.key == "j_wafflemod_doctorwaffle" then
         play_sound("wafflemod_scream")
     end
