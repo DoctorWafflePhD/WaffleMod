@@ -687,10 +687,11 @@ SMODS.Joker {
             for _, played_card in pairs(context.full_hand) do
                 if SMODS.pseudorandom_probability(card, "wafflemod_3d_glasses_roll", 1, card.ability.extra.odds) then
                     local copy = copy_card(played_card)
-                    copy:set_edition(card.ability.extra.edition, nil, true)
+                    copy:set_edition(card.ability.extra.edition, true, true)
                     copy:add_to_deck()
                     copy:start_materialize()
                     G.hand:emplace(copy)
+                    SMODS.calculate_context({ playing_card_added = true, cards = { _card } })
                     G.hand:sort()
                 end
             end

@@ -60,9 +60,14 @@ SMODS.Edition {
 -- destroy ephemeral cards in deck at end of round
 WaffleMod.bindToModCalculate(function(context)
     if WaffleMod.endOfRoundContext(context) then
+        for _, v in pairs(G.hand.cards) do
+            if v.edition and ((v.edition.key == "e_wafflemod_ephemeral") or v.edition.wafflemod_ephemeral) then
+                SMODS.destroy_cards(v, {immediate = true})
+            end
+        end
         for _, v in pairs(G.playing_cards) do
             if v.edition and ((v.edition.key == "e_wafflemod_ephemeral") or v.edition.wafflemod_ephemeral) then
-                SMODS.destroy_cards(v, nil, true)
+                SMODS.destroy_cards(v, {immediate = true})
             end
         end
     end
