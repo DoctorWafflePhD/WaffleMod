@@ -678,6 +678,7 @@ SMODS.Joker {
         edition = "e_wafflemod_ephemeral",
         odds = 2
     } },
+    pos = { x = 2, y = 8 },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = { key = "e_wafflemod_ephemeral_playing_card", set = 'Edition', config = {} }
         return { vars = { (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
@@ -688,7 +689,7 @@ SMODS.Joker {
                 if SMODS.pseudorandom_probability(card, "wafflemod_3d_glasses_roll", 1, card.ability.extra.odds) then
                     local copy = copy_card(played_card)
                     copy:set_edition(card.ability.extra.edition, true, true)
-                    copy:add_to_deck()
+                    --copy:add_to_deck()
                     copy:start_materialize()
                     G.hand:emplace(copy)
                     SMODS.calculate_context({ playing_card_added = true, cards = { _card } })

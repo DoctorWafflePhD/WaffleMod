@@ -805,12 +805,20 @@ return {
                 }
             },
 
+            tag_wafflemod_extension = {
+                name = "Extension Tag",
+                text = {
+                    "Next shop has",
+                    "{C:attention}#1#{} extra card slot#2#"
+                }
+            },
+
             tag_wafflemod_photocopy = {
                 name = "Photocopy Tag",
                 text = {
-                    "Next Joker purchased",
-                    "in Shop immediately puts",
-                    "a copy of it on sale"
+                    "Next {C:attention}Joker{} purchased",
+                    "in shop immediately puts",
+                    "a {C:attention}copy{} of it on sale"
                 }
             },
 

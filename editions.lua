@@ -15,7 +15,7 @@ SMODS.Edition {
             info_queue[#info_queue] = { key = 'e_wafflemod_ephemeral_joker', set = 'Edition', config = {} }
         elseif card.config and (card.config.center.pools or {}).Consumeables then
             info_queue[#info_queue] = { key = 'e_wafflemod_ephemeral_consumable', set = 'Edition', config = {} }
-        elseif card.ability and card.ability.set == "Default" then
+        elseif card.ability and (card.ability.set == "Default" or card.ability.set == "Enhanced") then
             info_queue[#info_queue] = { key = 'e_wafflemod_ephemeral_playing_card', set = 'Edition', config = {} }
         else
             info_queue[#info_queue] = { key = 'e_wafflemod_ephemeral', set = 'Edition', config = {} }
@@ -62,11 +62,13 @@ WaffleMod.bindToModCalculate(function(context)
     if WaffleMod.endOfRoundContext(context) then
         for _, v in pairs(G.hand.cards) do
             if v.edition and ((v.edition.key == "e_wafflemod_ephemeral") or v.edition.wafflemod_ephemeral) then
+                v:remove_from_deck() -- looks redundant but i'm pretty sure prevents ghost cards from causing weird deck miscounts
                 SMODS.destroy_cards(v, {immediate = true})
             end
         end
         for _, v in pairs(G.playing_cards) do
             if v.edition and ((v.edition.key == "e_wafflemod_ephemeral") or v.edition.wafflemod_ephemeral) then
+                v:remove_from_deck()
                 SMODS.destroy_cards(v, {immediate = true})
             end
         end
