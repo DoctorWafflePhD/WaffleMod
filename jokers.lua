@@ -440,7 +440,7 @@ SMODS.Joker {
 local function getNumNonDiamondsInFullDeck()
     local numberNonDiamonds = 0
     if not G.playing_cards then -- For cases where there is no G.playing_cards, i.e. viewing in collection
-        return 52 - 13
+        return 52 - 13 -- Amount of non-diamonds in a standard 52 card deck
     else
         for _, v in pairs(G.playing_cards) do
             if not v:is_suit("Diamonds") then
