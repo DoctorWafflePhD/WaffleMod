@@ -16,6 +16,7 @@ local function findEternalJoker()
 end
 
 -- The Well
+G.ARGS.LOC_COLOURS.eternal = G.C.ETERNAL -- For eternal tooltip
 SMODS.Consumable {
     key = "well",
     set = "Tarot",

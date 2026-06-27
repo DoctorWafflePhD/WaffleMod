@@ -889,7 +889,7 @@ return {
                 text = {
                     "Create an {C:dark_edition}Ephemeral{} copy",
                     "of {C:attention}1{} selected Joker",
-                    "{C:inactive}(Removes {C:attention}Eternal {C:inactive}from copy)"
+                    "{C:inactive}(Removes {C:eternal}Eternal {C:inactive}from copy)"
                 }
             },
 
