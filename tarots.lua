@@ -5,6 +5,16 @@ SMODS.Atlas {
     py = 95,
 }
 
+local function findEternalJoker()
+    if G.jokers and G.jokers.cards then
+            for _, v in pairs(G.jokers.cards) do
+            if v.ability.eternal then
+                return true
+            end
+        end
+    end
+end
+
 -- The Well
 SMODS.Consumable {
     key = "well",
@@ -16,7 +26,9 @@ SMODS.Consumable {
     } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = { key = 'e_wafflemod_ephemeral_joker', set = 'Edition', config = {} }
-        return { vars = { card.ability.extra.clone_edition, card.ability.max_highlighted } }
+        return { 
+            key = findEternalJoker() and "c_wafflemod_well_eternal" or nil,
+            vars = { card.ability.extra.clone_edition, card.ability.max_highlighted } }
     end,
     can_use = function()
         return G.jokers and #G.jokers.highlighted == 1
@@ -26,6 +38,7 @@ SMODS.Consumable {
         clone:set_edition(card.ability.extra.clone_edition)
         clone:start_materialize()
         clone:add_to_deck()
+        clone:remove_sticker('eternal')
         G.jokers:emplace(clone)
     end
 }

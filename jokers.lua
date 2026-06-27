@@ -125,6 +125,62 @@ SMODS.Joker {
     attributes = { "mult", "scaling", "reset", "hand_type" }
 }
 
+-- Card House
+SMODS.Joker {
+    key = "card_house",
+    config = { extra = {
+        chips = 0,
+        chips_per_card = 1,
+        special_hand = "Full House",
+        special_per_card = 2,
+    }},
+    atlas = "wafflemod_jokerAtlas",
+    cost = 5,
+    pos = {x = 3, y = 8},
+    loc_vars = function (self, info_queue, card)
+        return {vars = {
+            card.ability.extra.chips_per_card,
+            card.ability.extra.special_per_card,
+            localize(card.ability.extra.special_hand, 'poker_hands'),
+            card.ability.extra.chips
+        }}
+    end,
+    calculate = function (self, card, context)
+        
+        if context.before then
+            local amtToScale = 0
+            for _, v in pairs(context.scoring_hand) do
+                
+                if next(context.poker_hands[card.ability.extra.special_hand]) then
+                    amtToScale = amtToScale + card.ability.extra.special_per_card
+                else
+                    amtToScale = amtToScale + card.ability.extra.chips_per_card
+                end
+
+            end
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "chips",
+                operation = function (ref_table, ref_value, initial, change)
+                    ref_table[ref_value] = initial + amtToScale
+                end,
+                scaling_message = {
+                    message = localize { type = 'variable', key = 'a_chips_scale', vars = { amtToScale } },
+                    colour = G.C.CHIPS
+                }
+            })
+        end
+
+        if context.joker_main then
+            return {
+                chips = card.ability.extra.chips
+            }
+        end
+
+    end,
+    attributes = {"chips", "scaling", "hand_type"}
+}
+
 -- Classical Bust
 SMODS.Joker {
     key = "classical_bust",
@@ -716,6 +772,7 @@ SMODS.Joker {
         local suit = card.ability.extra.target_suit
         return { vars = { card.ability.extra.counter, localize(suit, "suits_singular"), colours = { G.C.SUITS[suit] } } }
     end,
+    eternal_compat = false,
     blueprint_compat = false,
     calculate = function(self, card, context)
         if not context.blueprint and context.individual and context.cardarea == G.play and context.other_card:is_suit(card.ability.extra.target_suit) then
@@ -834,6 +891,7 @@ SMODS.Joker {
     },
     rarity = 2,
     cost = 6,
+    eternal_compat = false,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.xmult, card.ability.extra.xmult_decay } }
     end,
@@ -1769,14 +1827,6 @@ SMODS.Joker {
 -- Pomni
 SMODS.Joker {
     key = "pomni",
-    loc_txt = {
-        name = "Pomni",
-        text = {
-            "Sell this card while",
-            "in the shop to",
-            "set {C:attention}Ante{} to {C:attention}1{}"
-        }
-    },
     loc_vars = function(self, info_queue, card)
     end,
     rarity = 4,
@@ -1784,17 +1834,40 @@ SMODS.Joker {
     pos = { x = 2, y = 3 },
     soul_pos = { x = 3, y = 3 },
     cost = 20,
+    eternal_compat = false, -- I don't quite know if this will do anything considering this is a Legendary but better safe than sorry
     calculate = function(self, card, context)
-        if context.selling_self and G.STATE == G.STATES.SHOP then
+
+        -- New effect
+        if context.end_of_round and context.game_over and context.main_eval then
             local reduction = G.GAME.round_resets.ante - 1
-
-            ease_ante(-reduction)
-
-            G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante or G.GAME.round_resets.ante
-            G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante - reduction
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.hand_text_area.blind_chips:juice_up()
+                    G.hand_text_area.game_chips:juice_up()
+                    play_sound('tarot1')
+                    ease_ante(-reduction)
+                    SMODS.destroy_cards(card, nil, true)
+                    return true
+                end
+            }))
+            return {
+                message = localize('k_saved_ex'),
+                saved = "ph_wafflemod_saved_pomni",
+                colour = G.C.FILTER
+            }
         end
+
+        -- Old effect
+        -- if context.selling_self and G.STATE == G.STATES.SHOP then
+        --     local reduction = G.GAME.round_resets.ante - 1
+
+        --     ease_ante(-reduction)
+
+        --     G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante or G.GAME.round_resets.ante
+        --     G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante - reduction
+        -- end
     end,
-    attributes = { "reference", "on_sell" }
+    attributes = { "reference", "prevents_death", "ante" }
 }
 
 -- Boss
@@ -1823,7 +1896,9 @@ WaffleMod.bossJokerTable = {
     bl_final_bell = "j_wafflemod_cerulean_bell",
     bl_final_heart = "j_wafflemod_crimson_heart",
     bl_final_leaf = "j_wafflemod_verdant_leaf",
-    bl_final_vessel = "j_wafflemod_violet_vessel"
+    bl_final_vessel = "j_wafflemod_violet_vessel",
+
+    bl_wafflemod_gate = "j_wafflemod_gate"
 
 }
 
@@ -1884,6 +1959,13 @@ local bossCardDraw = function(self, card, layer)
         card.children.center:draw_shader('voucher', nil, card.ARGS.send_to_shader)
     end
 end
+
+WaffleMod.BossJoker = SMODS.Joker:extend {
+    rarity = "wafflemod_Boss",
+    atlas = "wafflemod_jokerAtlas",
+    cost = 15,
+    draw = bossCardDraw
+}
 
 local suitBossMultGain = 0.03
 
@@ -1957,6 +2039,27 @@ SMODS.Joker {
         end
     end,
     attributes = { "scaling", "xmult", "suit", "clubs", "boss" }
+}
+
+-- The Gate
+WaffleMod.BossJoker {
+    key = "gate",
+    config = {extra = {
+        retriggers = 1
+    }},
+    pos = {x=4, y =8},
+    soul_pos = {x=5, y =8},
+    loc_vars = function (self, info_queue, card)
+        return {vars = {card.ability.extra.retriggers, card.ability.extra.retriggers ~=1 and "s" or ""}}
+    end,
+    calculate = function (self, card, context)
+        if context.repetition and next(SMODS.get_enhancements(context.other_card)) then
+            return {
+                repetitions = card.ability.extra.retriggers
+            }
+        end
+    end,
+    attributes = { "retrigger", "enhancements", "boss"}
 }
 
 -- The Goad

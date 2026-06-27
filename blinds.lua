@@ -77,7 +77,7 @@ SMODS.Blind {
 
                 if blind.triggered then
                     WaffleMod.juiceBlindWithSound()
-                    -- delay(0.4)
+                    delay(1)
                 end
             end
         end

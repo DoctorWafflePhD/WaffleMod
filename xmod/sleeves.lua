@@ -103,7 +103,16 @@ CardSleeves.Sleeve {
                         if G.deck and G.deck.cards and G.deck.cards[1] then
                             return {
                                 message_card = G.deck.cards[1],
-                                message = localize('k_upgrade_ex')
+                                message = localize('k_upgrade_ex'),
+                                func = function()
+                                    G.E_MANAGER:add_event(Event({
+                                        func = function()
+                                            play_sound('highlight2', 0.685, 0.2)
+                                            play_sound('generic1')
+                                            return true
+                                        end
+                                    }))
+                                end
                             }
                         end
                     end
@@ -113,12 +122,12 @@ CardSleeves.Sleeve {
     end
 }
 local emplaceRef = CardArea.emplace
-function CardArea.emplace(self, card, ...)
-    if G.GAME and G.GAME.selected_sleeve == "sleeve_wafflemod_blighted" and (self == G.pack_cards or self == G.shop_jokers or (self == G.jokers and not card:is_rarity(4))) then
-        WaffleMod.blightedMakePerishable(card)
-    end
-    emplaceRef(self, card, ...)
-end
+-- function CardArea.emplace(self, card, ...)
+--     if G.GAME and G.GAME.selected_sleeve == "sleeve_wafflemod_blighted" and (self == G.pack_cards or self == G.shop_jokers or (self == G.jokers and not card:is_rarity(4))) then
+--         WaffleMod.blightedMakePerishable(card)
+--     end
+--     emplaceRef(self, card, ...)
+-- end
 
 -- Hunting Sleeve
 CardSleeves.Sleeve {
@@ -150,7 +159,8 @@ CardSleeves.Sleeve {
                 delay(0.4)
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        local joker = SMODS.add_card({ key = self.config.extra.joker, edition = self.config.extra.bonus_edition })
+                        local joker = SMODS.add_card({ key = self.config.extra.joker, edition = self.config.extra
+                        .bonus_edition })
                         joker:start_materialize()
                         return true
                     end

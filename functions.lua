@@ -233,7 +233,9 @@ end
 function WaffleMod.blightedMakePerishable(card)
     if card.ability.set == "Joker" then
         card.ability.eternal = false
-        card:add_sticker("perishable", true)
+        if not card.ability.perishable then
+            card:add_sticker("perishable", true)
+        end
     end
 end
 

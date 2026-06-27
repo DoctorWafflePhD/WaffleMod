@@ -14,6 +14,7 @@ SMODS.Back {
     atlas = "wafflemod_deckAtlas",
     pos = { x = 0, y = 0 },
     unlocked = true,
+    discovered = true,
     config = {
         extra = {
             odds = 5
@@ -51,6 +52,7 @@ SMODS.Back {
     key = "blighted",
     atlas = "wafflemod_deckAtlas",
     pos = { x = 2, y = 0 },
+    discovered = true,
     config = {
         vouchers = { "v_clearance_sale" },
         extra = {
@@ -89,7 +91,16 @@ SMODS.Back {
                         if G.deck and G.deck.cards and G.deck.cards[1] then
                             return {
                                 message_card = G.deck.cards[1],
-                                message = localize('k_upgrade_ex')
+                                message = localize('k_upgrade_ex'),
+                                func = function()
+                                    G.E_MANAGER:add_event(Event({
+                                        func = function()
+                                            play_sound('highlight2', 0.685, 0.2)
+                                            play_sound('generic1')
+                                            return true
+                                        end
+                                    }))
+                                end
                             }
                         end
                     end
@@ -100,7 +111,7 @@ SMODS.Back {
 }
 local emplaceRef = CardArea.emplace
 function CardArea.emplace(self, card, ...)
-    if G.GAME and WaffleMod.getCurrentBack() == "b_wafflemod_blighted" and (self == G.pack_cards or self == G.shop_jokers or (self == G.jokers and not card:is_rarity(4))) then
+    if G.GAME and (WaffleMod.getCurrentBack() == "b_wafflemod_blighted" or G.GAME.selected_sleeve == "sleeve_wafflemod_blighted") and (self == G.pack_cards or self == G.shop_jokers or (self == G.jokers and not card:is_rarity(4))) then
         WaffleMod.blightedMakePerishable(card)
     end
     emplaceRef(self, card, ...)
@@ -115,6 +126,7 @@ SMODS.Back {
             joker = "j_wafflemod_trophy_hunters_tricorn"
         },
     },
+    discovered = true,
     loc_vars = function(self, info_queue)
         local key
         if WaffleMod.config.boss_jokers.enabled then
@@ -129,7 +141,6 @@ SMODS.Back {
     unlocked = true,
     apply = function(self, back) -- IK config alone can be used for the voucher & joker but this is for the configuration check functionality
         if WaffleMod.config.boss_jokers.enabled then
-
             G.GAME.used_vouchers[self.config.extra.voucher] = true
             G.GAME.starting_voucher_count = (G.GAME.starting_voucher_count or 0) + 1
             G.E_MANAGER:add_event(Event({ -- Adding back objects of any type from a deck MUST be done within an event
@@ -140,16 +151,15 @@ SMODS.Back {
             }))
 
             delay(0.4)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                if G.GAME.selected_sleeve ~= "sleeve_wafflemod_hunting" then -- THT creation if matching sleeve is used is handled in sleeves.lua
-                    local joker = SMODS.add_card({key = self.config.extra.joker, no_edition = true})
-                    joker:start_materialize()
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    if G.GAME.selected_sleeve ~= "sleeve_wafflemod_hunting" then -- THT creation if matching sleeve is used is handled in sleeves.lua
+                        local joker = SMODS.add_card({ key = self.config.extra.joker, no_edition = true })
+                        joker:start_materialize()
+                    end
+                    return true
                 end
-                return true
-            end
-        }))
-
+            }))
         end
     end
 }
@@ -165,6 +175,7 @@ SMODS.Back {
         debuffed_slots = juryRiggedDebuffedJokerCount
     },
     unlocked = true,
+    discovered = true,
     loc_vars = function(self, info_queue)
         return { vars = { self.config.joker_slot, self.config.debuffed_slots } }
     end

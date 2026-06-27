@@ -143,7 +143,7 @@ return {
         Enhanced = {
             m_wafflemod_monochrome = {
                 name = "Monochrome",
-                text = {"Retrigger this",
+                text = { "Retrigger this",
                     "card {C:attention}#1#{} time",
                     "Has no suit"
                 }
@@ -170,6 +170,16 @@ return {
                     "card held in hand",
                     "after hand played"
                 },
+            },
+
+            j_wafflemod_card_house = {
+              name = "Card House",
+              text = {
+                "This Joker gains {C:chips}+#1#{} Chip per",
+                "card in {C:attention}poker hand{}, {C:chips}+#2#{} Chips per",
+                "card if hand contains a {C:attention}#3#{}",
+                "{C:inactive}(Currently {C:chips}+#4#{C:inactive} Chips)"
+              }
             },
 
             j_wafflemod_broken_record = {
@@ -545,6 +555,20 @@ return {
                 }
             },
 
+            j_wafflemod_pomni = {
+                name = "Pomni",
+                text = {
+
+                    "Prevents death, sets {C:attention}Ante{}",
+                    "to {C:attention}1{}, then {C:red}self destructs{}"
+
+                    -- Old effect
+                    -- "Sell this card while",
+                    -- "in the shop to",
+                    -- "set {C:attention}Ante{} to {C:attention}1{}"
+                }
+            },
+
             -- Boss ------------------------------------------------------------------------------------------------------------------
 
             j_wafflemod_arm = {
@@ -564,6 +588,14 @@ return {
                     "card with {C:clubs}#2#{}",
                     "suit is scored",
                     "{C:inactive}(Currently {C:white,X:mult}X#3#{C:inactive} Mult)"
+                }
+            },
+
+            j_wafflemod_gate = {
+                name = "The Gate",
+                text = {
+                    "{C:attention}Retrigger{} cards with",
+                    "{C:enhanced}Enhancements{} {C:attention}#1#{} time#2#"
                 }
             },
 
@@ -690,7 +722,7 @@ return {
             },
 
             -- Showdown --------------------------------------------------------------------------------------------------------------
-            
+
             j_wafflemod_amber_acorn = {
                 name = "Amber Acorn",
                 text = {
@@ -839,6 +871,15 @@ return {
                 text = {
                     "Create an {C:dark_edition}Ephemeral{} copy",
                     "of {C:attention}1{} selected Joker"
+                }
+            },
+
+            c_wafflemod_well_eternal = {
+                name = "The Well",
+                text = {
+                    "Create an {C:dark_edition}Ephemeral{} copy",
+                    "of {C:attention}1{} selected Joker",
+                    "{C:inactive}(Removes {C:attention}Eternal {C:inactive}from copy)"
                 }
             },
 
@@ -1325,6 +1366,7 @@ return {
             k_wafflemod_inactive = "inactive",
             k_wafflemod_treasure_ex = "Treasure!",
             ph_wafflemod_no_boss_joker = "no matching joker",
+            ph_wafflemod_saved_pomni = "Saved by Pomni",
             wafflemod_dubious_legendary = "Legendary?",
             wafflemod_arcade_pack = "Arcade Pack"
         },
