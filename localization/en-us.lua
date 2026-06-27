@@ -382,6 +382,16 @@ return {
                 }
             },
 
+            j_wafflemod_missing_sock = {
+                name = "Missing Sock",
+                text = {
+                    "If played hand is a {C:attention}#1#{},",
+                    "{C:attention}destroy{} rightmost scoring card and",
+                    "add its {C:attention}rank{} to this Joker as {C:chips}Chips{}",
+                    "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"
+                }
+            },
+
             j_wafflemod_pop_art = {
                 name = "Pop Art",
                 text = {

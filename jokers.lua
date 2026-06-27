@@ -133,35 +133,34 @@ SMODS.Joker {
         chips_per_card = 1,
         special_hand = "Full House",
         special_per_card = 2,
-    }},
+    } },
     atlas = "wafflemod_jokerAtlas",
     cost = 5,
-    pos = {x = 3, y = 8},
-    loc_vars = function (self, info_queue, card)
-        return {vars = {
-            card.ability.extra.chips_per_card,
-            card.ability.extra.special_per_card,
-            localize(card.ability.extra.special_hand, 'poker_hands'),
-            card.ability.extra.chips
-        }}
+    pos = { x = 3, y = 8 },
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.chips_per_card,
+                card.ability.extra.special_per_card,
+                localize(card.ability.extra.special_hand, 'poker_hands'),
+                card.ability.extra.chips
+            }
+        }
     end,
-    calculate = function (self, card, context)
-        
-        if context.before then
+    calculate = function(self, card, context)
+        if context.before and not context.blueprint then
             local amtToScale = 0
             for _, v in pairs(context.scoring_hand) do
-                
                 if next(context.poker_hands[card.ability.extra.special_hand]) then
                     amtToScale = amtToScale + card.ability.extra.special_per_card
                 else
                     amtToScale = amtToScale + card.ability.extra.chips_per_card
                 end
-
             end
             SMODS.scale_card(card, {
                 ref_table = card.ability.extra,
                 ref_value = "chips",
-                operation = function (ref_table, ref_value, initial, change)
+                operation = function(ref_table, ref_value, initial, change)
                     ref_table[ref_value] = initial + amtToScale
                 end,
                 scaling_message = {
@@ -176,9 +175,8 @@ SMODS.Joker {
                 chips = card.ability.extra.chips
             }
         end
-
     end,
-    attributes = {"chips", "scaling", "hand_type"}
+    attributes = { "chips", "scaling", "hand_type" }
 }
 
 -- Classical Bust
@@ -1130,6 +1128,57 @@ if false then
     }
 end
 
+-- Missing Sock
+SMODS.Joker {
+    key = "missing_sock",
+    atlas = "wafflemod_jokerAtlas",
+    config = { extra = {
+        chips = 0,
+        hand = "Pair"
+    } },
+    rarity = 2,
+    cost = 7,
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.hand,
+                card.ability.extra.chips
+            }
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.before and not context.blueprint and next(context.poker_hands[card.ability.extra.hand]) then
+            local last_card = context.scoring_hand[#context.scoring_hand]
+            if not SMODS.has_no_rank(last_card) then
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "chips",
+                    operation = function(ref_table, ref_value, initial, change)
+                        ref_table[ref_value] = initial + last_card.base.nominal
+                    end,
+                    scaling_message = {
+                        message = localize('k_upgrade_ex'),
+                        colour = G.C.CHIPS
+                    }
+                })
+            end
+        end
+        if context.destroy_card and not context.blueprint and next(context.poker_hands[card.ability.extra.hand]) then
+            if context.destroying_card == context.scoring_hand[#context.scoring_hand] then
+                return {
+                    remove = true
+                }
+            end
+        end
+        if context.joker_main then
+            return {
+                chips = card.ability.extra.chips
+            }
+        end
+    end,
+    attributes = { "chips", "scaling", "hand_type", "destroy_card" }
+}
+
 -- Pop Art
 SMODS.Joker {
     key = "pop_art",
@@ -1836,7 +1885,6 @@ SMODS.Joker {
     cost = 20,
     eternal_compat = false, -- I don't quite know if this will do anything considering this is a Legendary but better safe than sorry
     calculate = function(self, card, context)
-
         -- New effect
         if context.end_of_round and context.game_over and context.main_eval then
             local reduction = G.GAME.round_resets.ante - 1
@@ -2044,22 +2092,22 @@ SMODS.Joker {
 -- The Gate
 WaffleMod.BossJoker {
     key = "gate",
-    config = {extra = {
+    config = { extra = {
         retriggers = 1
-    }},
-    pos = {x=4, y =8},
-    soul_pos = {x=5, y =8},
-    loc_vars = function (self, info_queue, card)
-        return {vars = {card.ability.extra.retriggers, card.ability.extra.retriggers ~=1 and "s" or ""}}
+    } },
+    pos = { x = 4, y = 8 },
+    soul_pos = { x = 5, y = 8 },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.retriggers, card.ability.extra.retriggers ~= 1 and "s" or "" } }
     end,
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
         if context.repetition and next(SMODS.get_enhancements(context.other_card)) then
             return {
                 repetitions = card.ability.extra.retriggers
             }
         end
     end,
-    attributes = { "retrigger", "enhancements", "boss"}
+    attributes = { "retrigger", "enhancements", "boss" }
 }
 
 -- The Goad
