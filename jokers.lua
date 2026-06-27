@@ -1138,6 +1138,7 @@ SMODS.Joker {
     } },
     rarity = 2,
     cost = 7,
+    pos = { x = 6, y = 8 },
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -1147,27 +1148,29 @@ SMODS.Joker {
         }
     end,
     calculate = function(self, card, context)
-        if context.before and not context.blueprint and next(context.poker_hands[card.ability.extra.hand]) then
-            local last_card = context.scoring_hand[#context.scoring_hand]
-            if not SMODS.has_no_rank(last_card) then
-                SMODS.scale_card(card, {
-                    ref_table = card.ability.extra,
-                    ref_value = "chips",
-                    operation = function(ref_table, ref_value, initial, change)
-                        ref_table[ref_value] = initial + last_card.base.nominal
-                    end,
-                    scaling_message = {
-                        message = localize('k_upgrade_ex'),
-                        colour = G.C.CHIPS
-                    }
-                })
+        if (context.before or context.destroy_card) and not context.blueprint and context.scoring_name == card.ability.extra.hand and G.GAME.current_round.hands_played == 0 then
+            if context.before then
+                local last_card = context.scoring_hand[#context.scoring_hand]
+                if not SMODS.has_no_rank(last_card) then
+                    SMODS.scale_card(card, {
+                        ref_table = card.ability.extra,
+                        ref_value = "chips",
+                        operation = function(ref_table, ref_value, initial, change)
+                            ref_table[ref_value] = initial + last_card.base.nominal
+                        end,
+                        scaling_message = {
+                            message = localize('k_upgrade_ex'),
+                            colour = G.C.CHIPS
+                        }
+                    })
+                end
             end
-        end
-        if context.destroy_card and not context.blueprint and next(context.poker_hands[card.ability.extra.hand]) then
-            if context.destroying_card == context.scoring_hand[#context.scoring_hand] then
-                return {
-                    remove = true
-                }
+            if context.destroy_card then
+                if context.destroying_card == context.scoring_hand[#context.scoring_hand] then
+                    return {
+                        remove = true
+                    }
+                end
             end
         end
         if context.joker_main then
@@ -1176,7 +1179,7 @@ SMODS.Joker {
             }
         end
     end,
-    attributes = { "chips", "scaling", "hand_type", "destroy_card" }
+    attributes = { "chips", "scaling", "hand_type", "destroy_card", "rank" }
 }
 
 -- Pop Art
