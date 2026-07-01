@@ -1930,6 +1930,7 @@ WaffleMod.bossJokerTable = {
 
     bl_arm = "j_wafflemod_arm",
     bl_club = "j_wafflemod_club",
+    bl_eye = "j_wafflemod_eye",
     bl_goad = "j_wafflemod_goad",
     bl_head = "j_wafflemod_head",
     bl_hook = "j_wafflemod_hook",
@@ -2090,6 +2091,29 @@ SMODS.Joker {
         end
     end,
     attributes = { "scaling", "xmult", "suit", "clubs", "boss" }
+}
+
+-- The Eye
+WaffleMod.BossJoker {
+    key = "eye",
+    config = {extra = {
+        xmult_per_play = 0.1
+    }},
+    pos = {x = 8, y = 8},
+    soul_pos = {x = 9, y = 8},
+    loc_vars = function (self, info_queue, card)
+        return {vars = {card.ability.extra.xmult_per_play}}
+    end,
+    calculate = function (self, card, context)
+        if context.joker_main then
+            local timesPlayed = G.GAME.hands[context.scoring_name].played
+            local xmultToGive = 1 + timesPlayed * card.ability.extra.xmult_per_play
+            return {
+                xmult = xmultToGive
+            }
+        end
+    end,
+    attributes = {"xmult", "boss"}
 }
 
 -- The Gate

@@ -570,7 +570,7 @@ return {
                 text = {
 
                     "Prevents death, sets {C:attention}Ante{}",
-                    "to {C:attention}1{}, then {C:red}self destructs{}"
+                    "to {C:attention}1{}, then {C:red, E:2}self destructs{}"
 
                     -- Old effect
                     -- "Sell this card while",
@@ -598,6 +598,15 @@ return {
                     "card with {C:clubs}#2#{}",
                     "suit is scored",
                     "{C:inactive}(Currently {C:white,X:mult}X#3#{C:inactive} Mult)"
+                }
+            },
+
+            j_wafflemod_eye = {
+                name = "The Eye",
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult per number ",
+                    "of times {C:attention}poker hand{} has", 
+                    "been played this run"
                 }
             },
 
