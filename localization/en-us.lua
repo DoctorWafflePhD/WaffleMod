@@ -185,10 +185,10 @@ return {
             j_wafflemod_broken_record = {
                 name = "Broken Record",
                 text = {
-                    "This Joker gains {C:mult}+#1#{} Mult",
+                    "This Joker gains {C:chips}+#1#{} Chips",
                     "per {C:attention}consecutive{} play",
                     "of the same {C:attention}poker hand",
-                    "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)",
+                    "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)",
                 },
             },
 
@@ -649,6 +649,14 @@ return {
                 }
             },
 
+            j_wafflemod_house = {
+                name = "The House",
+                text = {
+                    "All {C:attention}cards{} in first hand drawn",
+                    "permanently gain {C:mult}+#1#{} Mult"
+                },
+            },
+
             j_wafflemod_manacle = {
                 name = "The Manacle",
                 text = {
@@ -1076,6 +1084,21 @@ return {
                 }
             },
 
+            wafflemod_joker_locked_boss = {
+                name="Locked",
+                text={
+                    "Find this Joker by defeating",
+                    "its respective {C:attention}Boss Blind",
+                },
+            },
+
+            wafflemod_joker_locked_showdown = {
+                name="Locked",
+                text={
+                    "Find this Joker by defeating",
+                    "its respective {C:attention}Showdown Blind",
+                },
+            },
 
             wafflemod_sharktale = {
                 name = "SharkTale",
