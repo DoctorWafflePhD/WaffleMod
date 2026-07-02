@@ -610,6 +610,15 @@ return {
                 }
             },
 
+            j_wafflemod_fish = {
+                name = "The Fish",
+                text = {
+                    "Cards drawn after",
+                    "playing a hand",
+                    "permanently gain {C:mult}+#1#{} Mult"
+                }
+            },
+
             j_wafflemod_gate = {
                 name = "The Gate",
                 text = {

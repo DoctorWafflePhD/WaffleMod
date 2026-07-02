@@ -1931,9 +1931,11 @@ WaffleMod.bossJokerTable = {
     bl_arm = "j_wafflemod_arm",
     bl_club = "j_wafflemod_club",
     bl_eye = "j_wafflemod_eye",
+    bl_fish = "j_wafflemod_fish",
     bl_goad = "j_wafflemod_goad",
     bl_head = "j_wafflemod_head",
     bl_hook = "j_wafflemod_hook",
+    bl_house = "j_wafflemod_house",
     bl_manacle = "j_wafflemod_manacle",
     bl_needle = "j_wafflemod_needle",
     bl_ox = "j_wafflemod_ox", -- roblox ?!?!
@@ -2116,6 +2118,44 @@ WaffleMod.BossJoker {
     attributes = {"xmult", "boss"}
 }
 
+-- The Fish
+WaffleMod.BossJoker {
+    key = "fish",
+    config = {extra = {
+        mult = 4,
+        prepped = nil
+    }},
+    loc_vars = function (self, info_queue, card)
+        return {vars = {card.ability.extra.mult}}
+    end,
+    calculate = function (self, card, context)
+
+        if context.stay_flipped and context.to_area == G.hand and card.ability.extra.prepped then
+            context.other_card.ability.perma_mult = (context.other_card.ability.perma_mult or 0) + card.ability.extra.mult
+            G.E_MANAGER:add_event(Event({
+                func = function ()
+                    card:juice_up()
+                    return true
+                end
+            }))
+            return {
+                message = localize('k_upgrade_ex'),
+                message_card = context.other_card,
+                colour = G.C.MULT,
+            }
+        end
+
+        if context.setting_blind or context.hand_drawn then
+            card.ability.extra.prepped = nil
+        end
+
+        if context.press_play then
+            card.ability.extra.prepped = true
+        end
+
+    end
+}
+
 -- The Gate
 WaffleMod.BossJoker {
     key = "gate",
@@ -2277,7 +2317,7 @@ WaffleMod.BossJoker {
             end
             return{
                 message = localize("k_upgrade_ex"),
-                message_colour = G.C.MULT
+                colour = G.C.MULT
             }
         end
     end,
