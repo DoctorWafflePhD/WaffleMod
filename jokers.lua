@@ -2556,6 +2556,9 @@ SMODS.Joker {
     } },
     loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
+        info_queue[#info_queue+1] = G.P_CENTERS.e_foil
+        info_queue[#info_queue+1] = G.P_CENTERS.e_holo
+        info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome
         return {
             vars = {
                 G.GAME.probabilities.normal or 1,
@@ -2579,6 +2582,7 @@ SMODS.Joker {
                             return true
                         end
                     }))
+                    delay(0.25)
                 end
             end
         end
