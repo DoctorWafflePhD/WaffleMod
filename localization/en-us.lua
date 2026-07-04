@@ -153,7 +153,7 @@ return {
                 name = "Scribbled Card",
                 text = {
                     "Counts as",
-                    "a {C:attention}face card{}"
+                    "a {C:attention}face{} card"
                 },
             },
         },
@@ -670,6 +670,14 @@ return {
                 name = "The Manacle",
                 text = {
                     "{C:attention}+#1#{} hand size"
+                }
+            },
+
+            j_wafflemod_mark = {
+                name = "The Mark",
+                text = {
+                    "Earn {C:money}$#1#{} when a {C:attention}face{} card",
+                    "is drawn from deck"
                 }
             },
 

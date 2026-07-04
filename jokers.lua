@@ -623,7 +623,7 @@ SMODS.Joker {
 }
 
 -- Mystery Gift
-WaffleMod.mysteryGiftTags = { -- Other mods should be able to add to these tables if they have edition tags of their own
+WaffleMod.mysteryGiftTags = { -- Other mods should be able to add to this table if they have edition tags of their own
     { name = "e_tag_foil",       weight = 0.5 },
     { name = "e_tag_holo",       weight = 0.35 },
     { name = "e_tag_polychrome", weight = 0.15 },
@@ -631,6 +631,7 @@ WaffleMod.mysteryGiftTags = { -- Other mods should be able to add to these table
 local function removeEditionFromString(str)
     return string.sub(str, 3)
 end
+
 SMODS.Joker {
     key = "mystery_gift",
     atlas = "wafflemod_jokerAtlas",
@@ -1937,6 +1938,7 @@ WaffleMod.bossJokerTable = {
     bl_hook = "j_wafflemod_hook",
     bl_house = "j_wafflemod_house",
     bl_manacle = "j_wafflemod_manacle",
+    bl_mark = "j_wafflemod_mark",
     bl_needle = "j_wafflemod_needle",
     bl_ox = "j_wafflemod_ox", -- roblox ?!?!
     bl_pillar = "j_wafflemod_pillar",
@@ -2128,6 +2130,8 @@ WaffleMod.BossJoker {
     loc_vars = function (self, info_queue, card)
         return {vars = {card.ability.extra.mult}}
     end,
+    pos = {x = 4, y = 9},
+    soul_pos = {x = 5, y = 9},
     calculate = function (self, card, context)
 
         if context.stay_flipped and context.to_area == G.hand and card.ability.extra.prepped then
@@ -2145,7 +2149,7 @@ WaffleMod.BossJoker {
             }
         end
 
-        if context.setting_blind or context.hand_drawn then
+        if context.setting_blind or context.hand_drawn or context.open_booster then
             card.ability.extra.prepped = nil
         end
 
@@ -2346,6 +2350,32 @@ WaffleMod.BossJoker {
     attributes = { "hand_size", "boss" }
 }
 
+-- Oh, hi Mark
+WaffleMod.BossJoker {
+    key = "mark",
+    config = {extra = {
+        dollars = 3
+    }},
+    pos = {x = 2, y = 9},
+    soul_pos = {x = 3, y = 9},
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.dollars}}
+    end,
+    calculate = function(self, card, context)
+        if context.stay_flipped and context.to_area == G.hand and context.other_card:is_face() then
+            G.E_MANAGER:add_event(Event({
+                func = function ()
+                    context.other_card:juice_up()
+                    return true
+                end
+            }))
+            return {
+                dollars = card.ability.extra.dollars
+            }
+        end
+    end
+}
+
 -- The Needle
 WaffleMod.BossJoker {
     key = "needle",
@@ -2468,7 +2498,6 @@ WaffleMod.BossJoker {
     end,
     pos = { x = 4, y = 5 },
     soul_pos = { x = 5, y = 5 },
-    draw = bossCardDraw,
     calculate = function(self, card, context)
         if context.joker_main then
             for _, scoredCard in pairs(context.scoring_hand) do
