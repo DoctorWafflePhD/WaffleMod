@@ -570,7 +570,8 @@ return {
                 text = {
 
                     "Prevents death, sets {C:attention}Ante{}",
-                    "to {C:attention}1{}, then {C:red, E:2}self destructs{}"
+                    "to {C:attention}1{}, then all",
+                    "Pomnis {C:red, E:2}self destruct{}"
 
                     -- Old effect
                     -- "Sell this card while",

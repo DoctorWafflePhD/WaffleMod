@@ -1898,7 +1898,13 @@ SMODS.Joker {
                     G.hand_text_area.game_chips:juice_up()
                     play_sound('tarot1')
                     ease_ante(-reduction)
-                    SMODS.destroy_cards(card, nil, true)
+                    local getPomnis = {}
+                    for _, joker in pairs(G.jokers.cards) do
+                        if joker.config.center.key == "j_wafflemod_pomni" then
+                            getPomnis[#getPomnis+1] = joker
+                        end
+                    end
+                    SMODS.destroy_cards(getPomnis, nil, true)
                     return true
                 end
             }))
