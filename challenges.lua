@@ -21,3 +21,9 @@ SMODS.Challenge {
         }
     }
 }
+
+-- Claustrophobia
+SMODS.Challenge {
+    key = "claustrophobia_1",
+    
+}

@@ -2079,7 +2079,7 @@ WaffleMod.BossJoker {
             end
         end
     end,
-    attributes = { "hand_type", "chance", "boss" }
+    attributes = { "hand_type", "boss" }
 }
 
 -- The Club
@@ -2151,7 +2151,7 @@ WaffleMod.BossJoker {
             }
         end
     end,
-    attributes = { "xmult", "boss",}
+    attributes = { "xmult", "boss", "hand_type"}
 }
 
 -- The Fish
@@ -2191,7 +2191,8 @@ WaffleMod.BossJoker {
         if context.press_play then
             card.ability.extra.prepped = true
         end
-    end
+    end,
+    attributes = { "mult", "boss", "modify_card", "perma_bonus" }
 }
 
 -- The Gate
@@ -2409,7 +2410,8 @@ WaffleMod.BossJoker {
                 dollars = card.ability.extra.dollars
             }
         end
-    end
+    end,
+    attributes = {"boss", "face"}
 }
 
 -- The Mouth
@@ -2564,7 +2566,8 @@ WaffleMod.BossJoker{
                 xmult = card.ability.extra.xmult_per * WaffleMod.getNumFaceCardsInDeck() + 1
             }
         end
-    end
+    end,
+    attributes = {"boss", "face", "xmult"}
 }
 
 -- The Psychic
