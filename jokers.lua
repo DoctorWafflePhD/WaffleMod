@@ -2513,6 +2513,26 @@ WaffleMod.BossJoker {
     attributes = { "modify_card", "perma_bonus", "mult", "boss" }
 }
 
+-- The Plant
+WaffleMod.BossJoker{
+    key = "plant",
+    config = {extra = {
+        xmult_per = 0.15
+    }},
+    pos = {x = 6, y = 9},
+    soul_pos = {x = 7, y = 9},
+    loc_vars = function (self, info_queue, card)
+        return {vars = {card.ability.extra.xmult_per, card.ability.extra.xmult_per * WaffleMod.getNumFaceCardsInDeck() + 1}}
+    end,
+    calculate = function (self, card, context)
+        if context.joker_main then
+            return {
+                xmult = card.ability.extra.xmult_per * WaffleMod.getNumFaceCardsInDeck() + 1
+            }
+        end
+    end
+}
+
 -- The Psychic
 WaffleMod.BossJoker {
     key = "psychic",

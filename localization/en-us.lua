@@ -702,6 +702,15 @@ return {
                 }
             },
 
+            j_wafflemod_plant = {
+                name = "The Plant",
+                text = {
+                    "This Joker gains {X:mult,C:white}X#1#{} Mult",
+                    "per {C:attention}face{} card in {C:attention}full deck{}",
+                    "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
+                }
+            },
+
             j_wafflemod_pillar = {
                 name = "The Pillar",
                 text = {
@@ -715,7 +724,7 @@ return {
                 name = "The Psychic",
                 text = {
                     "{X:mult,C:white}X#1#{} Mult for each",
-                    "card in scored hand"
+                    "card in {C:attention}poker hand"
                 }
             },
 

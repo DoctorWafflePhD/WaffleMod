@@ -268,6 +268,20 @@ function WaffleMod.getJokerToRight(joker)
     return other_joker
 end
 
+function WaffleMod.getNumFaceCardsInDeck()
+    local numFaceCards = 0
+    if G.playing_cards then
+        for i = 1, #(G.playing_cards or {}) do
+        if G.playing_cards[i]:is_face() then
+            numFaceCards = numFaceCards + 1
+        end
+    end
+    else
+        numFaceCards = 12
+    end
+    return numFaceCards
+end
+
 WaffleMod.calculateFunctions = {}
 function WaffleMod.bindToModCalculate(func, name)
     if name then
