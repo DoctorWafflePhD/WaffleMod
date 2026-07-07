@@ -2036,19 +2036,44 @@ local suitBossMultGain = 0.03
 WaffleMod.BossJoker {
     key = "arm",
     config = { extra = {
-        odds = 2
+        active = false
     } },
     pos = { x = 8, y = 4 },
     soul_pos = { x = 9, y = 4 },
     loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
-        return { vars = { G.GAME.probabilities.normal or 1, card.ability.extra.odds } }
+        local main_end = {
+            {
+                n = G.UIT.C,
+                config = { align = "bm", minh = 0.4 },
+                nodes = {
+                    {
+                        n = G.UIT.C,
+                        config = { ref_table = card, align = "m", colour = (card.ability.extra.active) and G.C.GREEN or G.C.RED, r = 0.05, padding = 0.06 },
+                        nodes = {
+                            { n = G.UIT.T, config = { text = ' ' .. localize((card.ability.extra.active) and 'k_active' or 'k_wafflemod_inactive') .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.9 } },
+                        }
+                    }
+                }
+            }
+        }
+        return { main_end = main_end }
     end,
     calculate = function(self, card, context)
-        if context.before and SMODS.pseudorandom_probability(card, 'wafflemod_arm', 1, card.ability.extra.odds) then
+        if context.before and card.ability.extra.active then
             return {
                 level_up = true,
                 message = localize('k_level_up_ex')
+            }
+        end
+        if context.after and not card.ability.extra.active then
+            card.ability.extra.active = true
+            local eval = function ()
+                return not card.ability.extra.active
+            end
+            juice_card_until(card, eval, true)
+            return {
+                message = localize('k_active_ex')
             }
         end
     end,

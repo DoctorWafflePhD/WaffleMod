@@ -584,9 +584,8 @@ return {
             j_wafflemod_arm = {
                 name = "The Arm",
                 text = {
-                    "{C:green}#1# in #2#{} chance to",
-                    "upgrade level of",
-                    "played {C:attention}poker hand{}",
+                    "Upgrade level of every",
+                    "{C:attention}other{} played {C:attention}poker hand{}",
                 }
             },
 
