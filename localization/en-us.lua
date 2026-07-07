@@ -396,7 +396,7 @@ return {
                 name = "Pop Art",
                 text = {
                     "Earn {C:money}$#1#{} at end of round, increases",
-                    "by {C:money}$#2#{} for each {V:1}#3#{} card in {C:attention}scoring hand{},",
+                    "by {C:money}$#2#{} for each {V:1}#3#{} card in {C:attention}poker hand{},",
                     "{s:0.85}value resets and suit changes at end of round"
                 }
             },
@@ -435,7 +435,7 @@ return {
                 text = {
                     "Played {C:attention}Aces{} give {C:white,X:mult}+X#1#{} Mult",
                     "when scored for every",
-                    "{C:attention}Ace{} in scoring hand"
+                    "{C:attention}Ace{} in {C:attention}poker hand"
                 }
             },
 
@@ -768,7 +768,7 @@ return {
                 text = {
                     "{C:green}#1# in #2#{} chance to add",
                     "{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or {C:dark_edition}Polychrome{}",
-                    "to each card in scoring hand"
+                    "to each card in {C:attention}poker hand{}"
                 }
             },
 
@@ -1115,7 +1115,7 @@ return {
                 text = {
                     "{C:green}#1# in #2#{} chance to",
                     "{C:attention}level up{} poker hand",
-                    "if part of {C:attention}scoring hand{}"
+                    "if part of {C:attention}poker hand{}"
                 }
             },
 
@@ -1434,7 +1434,8 @@ return {
     misc = {
 
         challenge_names = {
-            c_wafflemod_trickle_down_1 = "Trickle Down"
+            c_wafflemod_trickle_down_1 = "Trickle Down",
+            c_wafflemod_claustrophobia_1 = "Claustrophobia"
         },
 
         dictionary = {
