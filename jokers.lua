@@ -440,7 +440,7 @@ SMODS.Joker {
 local function getNumNonDiamondsInFullDeck()
     local numberNonDiamonds = 0
     if not G.playing_cards then -- For cases where there is no G.playing_cards, i.e. viewing in collection
-        return 52 - 13 -- Amount of non-diamonds in a standard 52 card deck
+        return 52 - 13          -- Amount of non-diamonds in a standard 52 card deck
     else
         for _, v in pairs(G.playing_cards) do
             if not v:is_suit("Diamonds") then
@@ -2018,7 +2018,7 @@ end
 
 local lockedBossVars = function(self, info_queue, card)
     WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
-    return {key = "wafflemod_joker_locked_boss", set = "Other"}
+    return { key = "wafflemod_joker_locked_boss", set = "Other" }
 end
 
 WaffleMod.BossJoker = SMODS.Joker:extend {
@@ -2099,16 +2099,16 @@ WaffleMod.BossJoker {
 -- The Eye
 WaffleMod.BossJoker {
     key = "eye",
-    config = {extra = {
+    config = { extra = {
         xmult_per_play = 0.1
-    }},
-    pos = {x = 8, y = 8},
-    soul_pos = {x = 9, y = 8},
-    loc_vars = function (self, info_queue, card)
+    } },
+    pos = { x = 8, y = 8 },
+    soul_pos = { x = 9, y = 8 },
+    loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
-        return {vars = {card.ability.extra.xmult_per_play}}
+        return { vars = { card.ability.extra.xmult_per_play } }
     end,
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
         if context.joker_main then
             local timesPlayed = G.GAME.hands[context.scoring_name].played
             local xmultToGive = 1 + timesPlayed * card.ability.extra.xmult_per_play
@@ -2117,27 +2117,27 @@ WaffleMod.BossJoker {
             }
         end
     end,
-    attributes = {"xmult", "boss"}
+    attributes = { "xmult", "boss" }
 }
 
 -- The Fish
 WaffleMod.BossJoker {
     key = "fish",
-    config = {extra = {
+    config = { extra = {
         mult = 4,
         prepped = nil
-    }},
-    loc_vars = function (self, info_queue, card)
-        return {vars = {card.ability.extra.mult}}
+    } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult } }
     end,
-    pos = {x = 4, y = 9},
-    soul_pos = {x = 5, y = 9},
-    calculate = function (self, card, context)
-
+    pos = { x = 4, y = 9 },
+    soul_pos = { x = 5, y = 9 },
+    calculate = function(self, card, context)
         if context.stay_flipped and context.to_area == G.hand and card.ability.extra.prepped then
-            context.other_card.ability.perma_mult = (context.other_card.ability.perma_mult or 0) + card.ability.extra.mult
+            context.other_card.ability.perma_mult = (context.other_card.ability.perma_mult or 0) +
+                card.ability.extra.mult
             G.E_MANAGER:add_event(Event({
-                func = function ()
+                func = function()
                     card:juice_up()
                     return true
                 end
@@ -2156,7 +2156,6 @@ WaffleMod.BossJoker {
         if context.press_play then
             card.ability.extra.prepped = true
         end
-
     end
 }
 
@@ -2301,31 +2300,32 @@ WaffleMod.BossJoker {
     key = "house",
     config = { extra = {
         mult_bonus = 6
-    }},
-    pos = {x = 0, y = 9},
-    soul_pos = {x = 1, y = 9},
-    loc_vars = function (self, info_queue, card)
+    } },
+    pos = { x = 0, y = 9 },
+    soul_pos = { x = 1, y = 9 },
+    loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
-        return {vars = {card.ability.extra.mult_bonus}}
+        return { vars = { card.ability.extra.mult_bonus } }
     end,
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
         if context.first_hand_drawn then
             for _, drawn_card in pairs(G.hand.cards) do
                 G.E_MANAGER:add_event(Event({
-                    func = function ()
-                        drawn_card.ability.perma_mult = (drawn_card.ability.perma_mult or 0) + card.ability.extra.mult_bonus
+                    func = function()
+                        drawn_card.ability.perma_mult = (drawn_card.ability.perma_mult or 0) +
+                            card.ability.extra.mult_bonus
                         drawn_card:juice_up()
                         return true
                     end
                 }))
             end
-            return{
+            return {
                 message = localize("k_upgrade_ex"),
                 colour = G.C.MULT
             }
         end
     end,
-    attributes = {"mult", "boss", "modify_card", "perma_bonus"}
+    attributes = { "mult", "boss", "modify_card", "perma_bonus" }
 }
 
 -- The Manacle
@@ -2353,18 +2353,18 @@ WaffleMod.BossJoker {
 -- Oh, hi Mark
 WaffleMod.BossJoker {
     key = "mark",
-    config = {extra = {
+    config = { extra = {
         dollars = 3
-    }},
-    pos = {x = 2, y = 9},
-    soul_pos = {x = 3, y = 9},
+    } },
+    pos = { x = 2, y = 9 },
+    soul_pos = { x = 3, y = 9 },
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.dollars}}
+        return { vars = { card.ability.extra.dollars } }
     end,
     calculate = function(self, card, context)
         if context.stay_flipped and context.to_area == G.hand and context.other_card:is_face() then
             G.E_MANAGER:add_event(Event({
-                func = function ()
+                func = function()
                     context.other_card:juice_up()
                     return true
                 end
@@ -2617,9 +2617,9 @@ WaffleMod.BossJoker {
     } },
     loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
-        info_queue[#info_queue+1] = G.P_CENTERS.e_foil
-        info_queue[#info_queue+1] = G.P_CENTERS.e_holo
-        info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_foil
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_holo
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
         return {
             vars = {
                 G.GAME.probabilities.normal or 1,
@@ -2698,9 +2698,9 @@ WaffleMod.ShowdownJoker = SMODS.Joker:extend {
     rarity = "wafflemod_Showdown",
     cost = 20,
     unlocked = false,
-    locked_loc_vars = function (self, info_queue, card)
+    locked_loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
-        return {key = "wafflemod_joker_locked_showdown", set = "Other"}
+        return { key = "wafflemod_joker_locked_showdown", set = "Other" }
     end
 }
 

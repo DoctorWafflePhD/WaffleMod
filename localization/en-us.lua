@@ -1415,6 +1415,10 @@ return {
 
     misc = {
 
+        challenge_names = {
+            c_wafflemod_trickle_down_1 = "Trickle Down"
+        },
+
         dictionary = {
             b_wafflemod_arcade_cards = "Arcade Cabinets",
             k_wafflemod_tarot_rx = "Tarot?",
