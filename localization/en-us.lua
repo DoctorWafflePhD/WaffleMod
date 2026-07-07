@@ -603,9 +603,9 @@ return {
             j_wafflemod_eye = {
                 name = "The Eye",
                 text = {
-                    "{X:mult,C:white}X#1#{} Mult per number ",
-                    "of times {C:attention}poker hand{} has", 
-                    "been played this run"
+                    "{X:mult,C:white}X#1#{} Mult for each unique ",
+                    "{C:attention}poker hand{} played this round", 
+                    "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
                 }
             },
 
@@ -677,6 +677,15 @@ return {
                 text = {
                     "Earn {C:money}$#1#{} when a {C:attention}face{} card",
                     "is drawn from deck"
+                }
+            },
+
+            j_wafflemod_mouth = {
+                name = "The Mouth",
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult per number ",
+                    "of times {C:attention}poker hand{} has", 
+                    "been played this run"
                 }
             },
 

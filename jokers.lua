@@ -2127,24 +2127,31 @@ WaffleMod.BossJoker {
 WaffleMod.BossJoker {
     key = "eye",
     config = { extra = {
-        xmult_per_play = 0.1
+        hands_played = {},
+        xmult_per_hand = 1
     } },
     pos = { x = 8, y = 8 },
     soul_pos = { x = 9, y = 8 },
     loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
-        return { vars = { card.ability.extra.xmult_per_play } }
+        return { vars = { card.ability.extra.xmult_per_hand, 1 + #card.ability.extra.hands_played * card.ability.extra.xmult_per_hand } }
     end,
     calculate = function(self, card, context)
+        local hands_played = card.ability.extra.hands_played
+        if context.before then
+            hands_played[#hands_played+1] = context.scoring_name
+        end
+        if WaffleMod.endOfRoundContext(context) then
+            card.ability.extra.hands_played = {}
+        end
         if context.joker_main then
-            local timesPlayed = G.GAME.hands[context.scoring_name].played
-            local xmultToGive = 1 + timesPlayed * card.ability.extra.xmult_per_play
+            local xmultToGive = 1 + #hands_played * card.ability.extra.xmult_per_hand
             return {
                 xmult = xmultToGive
             }
         end
     end,
-    attributes = { "xmult", "boss" }
+    attributes = { "xmult", "boss",}
 }
 
 -- The Fish
@@ -2155,6 +2162,7 @@ WaffleMod.BossJoker {
         prepped = nil
     } },
     loc_vars = function(self, info_queue, card)
+        WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = { card.ability.extra.mult } }
     end,
     pos = { x = 4, y = 9 },
@@ -2386,6 +2394,7 @@ WaffleMod.BossJoker {
     pos = { x = 2, y = 9 },
     soul_pos = { x = 3, y = 9 },
     loc_vars = function(self, info_queue, card)
+        WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = { card.ability.extra.dollars } }
     end,
     calculate = function(self, card, context)
@@ -2401,6 +2410,30 @@ WaffleMod.BossJoker {
             }
         end
     end
+}
+
+-- The Mouth
+WaffleMod.BossJoker {
+    key = "mouth",
+    config = { extra = {
+        xmult_per_play = 0.1
+    } },
+        loc_vars = function(self, info_queue, card)
+        WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
+        return { vars = { card.ability.extra.xmult_per_play } }
+    end,
+        pos = { x = 8, y = 9 },
+    soul_pos = { x = 9, y = 9 },
+    calculate = function(self, card, context)
+        if context.joker_main then
+            local timesPlayed = G.GAME.hands[context.scoring_name].played
+            local xmultToGive = 1 + timesPlayed * card.ability.extra.xmult_per_play
+            return {
+                xmult = xmultToGive
+            }
+        end
+    end,
+    attributes = { "xmult", "boss" }
 }
 
 -- The Needle
@@ -2522,6 +2555,7 @@ WaffleMod.BossJoker{
     pos = {x = 6, y = 9},
     soul_pos = {x = 7, y = 9},
     loc_vars = function (self, info_queue, card)
+        WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return {vars = {card.ability.extra.xmult_per, card.ability.extra.xmult_per * WaffleMod.getNumFaceCardsInDeck() + 1}}
     end,
     calculate = function (self, card, context)
