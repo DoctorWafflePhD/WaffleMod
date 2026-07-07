@@ -2066,15 +2066,17 @@ WaffleMod.BossJoker {
                 message = localize('k_level_up_ex')
             }
         end
-        if context.after and not card.ability.extra.active then
-            card.ability.extra.active = true
-            local eval = function ()
-                return not card.ability.extra.active
+        if context.after then
+            card.ability.extra.active = not card.ability.extra.active
+            if card.ability.extra.active then
+                local eval = function(card)
+                    return card.ability.extra.active == false
+                end
+                juice_card_until(card, eval, true)
+                return {
+                    message = localize('k_active_ex')
+                }
             end
-            juice_card_until(card, eval, true)
-            return {
-                message = localize('k_active_ex')
-            }
         end
     end,
     attributes = { "hand_type", "chance", "boss" }
