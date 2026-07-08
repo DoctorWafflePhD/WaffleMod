@@ -5,8 +5,10 @@ SMODS.Atlas {
     py = 95,
 }
 
+local config = WaffleMod.config
+
 -- Hunting License
--- (See jokers.lua for boss joker implementation)
+-- (See jokers.lua for boss joker drop implementation)
 SMODS.Voucher {
     key = "hunting_license",
     atlas = "voucherAtlas",
@@ -15,30 +17,25 @@ SMODS.Voucher {
         boost = 2
     } },
     loc_vars = function(self, info_queue, card)
-        if not WaffleMod.config.boss_jokers.enabled then
-            info_queue[#info_queue + 1] = { key = 'wafflemod_disabled_tooltip', set = 'Other', config = {} }
-        end
+        WaffleMod.addDisabledTooltip(info_queue, config.boss_jokers.enabled)
         return { vars = { card.ability.extra.boost } }
     end,
     in_pool = function()
-        return WaffleMod.config.boss_jokers.enabled == 1
+        return WaffleMod.config.boss_jokers.enabled
     end
 }
 
 -- Trophy Collector
--- (See jokers.lua for boss joker implementation)
 SMODS.Voucher {
     key = "trophy_collector",
     atlas = "voucherAtlas",
     pos = { x = 1, y = 1 },
     requires = { 'v_wafflemod_hunting_license' },
     loc_vars = function(self, info_queue)
-        if not WaffleMod.config.boss_jokers.enabled then
-            info_queue[#info_queue + 1] = { key = 'wafflemod_disabled_tooltip', set = 'Other', config = {} }
-        end
+        WaffleMod.addDisabledTooltip(info_queue, config.boss_jokers.enabled)
     end,
     in_pool = function()
-        return WaffleMod.config.boss_jokers.enabled == 1
+        return WaffleMod.config.boss_jokers.enabled
     end
 }
 
@@ -50,9 +47,7 @@ SMODS.Voucher {
     config = { extra = { rate = 4 } },
     loc_vars = function(self, info_queue)
         info_queue[#info_queue + 1] = { key = "wafflemod_arcade_hint", set = "Other", config = {} }
-        if not WaffleMod.config.arcade_cabinets.enabled then
-            info_queue[#info_queue + 1] = { key = 'wafflemod_disabled_tooltip', set = 'Other', config = {} }
-        end
+        WaffleMod.addDisabledTooltip(info_queue, config.arcade_cabinets.enabled)
     end,
     redeem = function(self, card)
         G.E_MANAGER:add_event(Event({
@@ -77,9 +72,7 @@ SMODS.Voucher {
         loc_vars = function(self, info_queue)
         info_queue[#info_queue + 1] = { key = "wafflemod_arcade_hint", set = "Other", config = {} }
         info_queue[#info_queue + 1] = { key = "e_negative_consumable", set = "Edition", config = {extra = 1} }
-        if not WaffleMod.config.arcade_cabinets.enabled then
-            info_queue[#info_queue + 1] = { key = 'wafflemod_disabled_tooltip', set = 'Other', config = {} }
-        end
+        WaffleMod.addDisabledTooltip(info_queue, config.arcade_cabinets.enabled)
     end,
     in_pool = function()
         return WaffleMod.config.arcade_cabinets.enabled == 1
