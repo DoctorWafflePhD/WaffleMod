@@ -18,7 +18,7 @@ SMODS.ConsumableType {
 SMODS.UndiscoveredSprite {
     key = "wafflemod_arcade",
     atlas = "wafflemod_arcadeAtlas",
-    pos = {x = 0, y = 0}
+    pos = { x = 0, y = 0 }
 }
 
 local function addArcadeHint(info_queue)
@@ -30,26 +30,29 @@ local function addArcadeHint(info_queue)
     end
 end
 
+WaffleMod.ArcadeCabinet = SMODS.Consumable:extend {
+    set = "wafflemod_arcade",
+    atlas = "wafflemod_arcadeAtlas",
+    cost = 5,
+    keep_on_use = function(self, card)
+        return true
+    end,
+}
+
 -- (Sorted by release date)
 
 -- Asteroids
 
 -- Space Invaders
-SMODS.Consumable {
+WaffleMod.ArcadeCabinet {
     key = "space_invaders",
-    set = "wafflemod_arcade",
-    atlas = "wafflemod_arcadeAtlas",
     pos = { x = 3, y = 0 },
-    cost = 4,
     config = { extra = {
         use_cost = 3,
     } },
     loc_vars = function(self, info_queue, card)
         addArcadeHint(info_queue)
         return { vars = { card.ability.extra.use_cost } }
-    end,
-    keep_on_use = function(self, card)
-        return true
     end,
     can_use = function(self, card)
         return G.consumeables and #G.consumeables.cards < G.consumeables.config.card_limit
@@ -84,12 +87,9 @@ SMODS.Consumable {
 }
 
 -- Pac-Man
-SMODS.Consumable {
+WaffleMod.ArcadeCabinet {
     key = "pacman",
-    set = "wafflemod_arcade",
-    atlas = "wafflemod_arcadeAtlas",
     pos = { x = 1, y = 0 },
-    cost = 4,
     config = { extra = {
         conv_enhancement = "m_wild",
         use_cost = 3,
@@ -102,9 +102,6 @@ SMODS.Consumable {
         addArcadeHint(info_queue)
         info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.conv_enhancement]
         return { vars = { card.ability.extra.use_cost, card.ability.extra.xmult } }
-    end,
-    keep_on_use = function(self, card)
-        return true
     end,
     can_use = function(self, card)
         return G.hand and #G.hand.highlighted == 1 and WaffleMod.canAfford(card.ability.extra.use_cost)
@@ -155,25 +152,19 @@ SMODS.Consumable {
 }
 
 -- Dig Dug
-SMODS.Consumable {
+WaffleMod.ArcadeCabinet {
     key = "dig_dug",
-    set = "wafflemod_arcade",
-    atlas = "wafflemod_arcadeAtlas",
     pos = { x = 2, y = 0 },
-    cost = 4,
     config = { extra = {
         target_enhancement = "m_stone",
         use_cost = 3,
-        target_interval = 4,
-        cards_needed = 4
+        target_interval = 3,
+        cards_needed = 3
     } },
     loc_vars = function(self, info_queue, card)
         addArcadeHint(info_queue)
         info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.target_enhancement]
         return { vars = { card.ability.extra.use_cost, card.ability.extra.target_interval, card.ability.extra.cards_needed } }
-    end,
-    keep_on_use = function(self, card)
-        return true
     end,
     can_use = function(self, card)
         return G.hand and #G.hand.highlighted == 1 and WaffleMod.canAfford(card.ability.extra.use_cost)
@@ -196,46 +187,40 @@ SMODS.Consumable {
     end,
     calculate = function(self, card, context)
         local extra = card.ability.extra
-        if context.before then
-            for _, c in pairs(context.full_hand) do
-                if SMODS.has_enhancement(c, "m_stone") then
-                    extra.cards_needed = extra.cards_needed - 1
-                    if extra.cards_needed <= 0 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                        print("make tarot lalalala")
-                        G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                        G.E_MANAGER:add_event(Event({
-                            func = (function()
-                                G.E_MANAGER:add_event(Event({
-                                    func = function()
-                                        SMODS.add_card {
-                                            set = 'Tarot',
-                                            key_append = 'wafflemod_dig_dug'
-                                        }
-                                        G.GAME.consumeable_buffer = 0
-                                        return true
-                                    end
-                                }))
-                                SMODS.calculate_effect({ message = localize('k_plus_tarot'), colour = G.C.PURPLE },
-                                    card)
-                                return true
-                            end)
-                        }))
-
-                        extra.cards_needed = 2
-                    end
-                end
+        if context.individual and SMODS.has_enhancement(context.other_card, "m_stone") then
+            extra.cards_needed = math.max(extra.cards_needed - 1, 0)
+            if extra.cards_needed <= 0 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                --print("make tarot lalalala")
+                extra.cards_needed = card.ability.extra.target_interval
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                return {
+                    extra = {
+                        message = localize('k_plus_tarot'),
+                        message_card = card,
+                        colour = G.C.PURPLE,
+                        func = function()
+                            G.E_MANAGER:add_event(Event({
+                                func = function()
+                                    SMODS.add_card {
+                                        set = 'Tarot',
+                                        key_append = 'wafflemod_dig_dug'
+                                    }
+                                    G.GAME.consumeable_buffer = 0
+                                    return true
+                                end
+                            }))
+                        end
+                    }
+                }
             end
         end
     end
 }
 
 -- Metro-Cross
-SMODS.Consumable {
+WaffleMod.ArcadeCabinet {
     key = "metro_cross",
-    set = "wafflemod_arcade",
-    atlas = "wafflemod_arcadeAtlas",
     pos = { x = 5, y = 0 },
-    cost = 4,
     config = { extra = {
         create_set = "Spectral",
         use_cost = 3,
@@ -243,9 +228,6 @@ SMODS.Consumable {
     loc_vars = function(self, info_queue, card)
         addArcadeHint(info_queue)
         return { vars = { card.ability.extra.use_cost } }
-    end,
-    keep_on_use = function(self, card)
-        return true
     end,
     can_use = function(self, card)
         return WaffleMod.canAfford(card.ability.extra.use_cost)
@@ -290,11 +272,12 @@ SMODS.Consumable {
 }
 
 -- Polybius
-SMODS.Consumable {
+WaffleMod.ArcadeCabinet {
     key = "polybius",
     set = "Spectral",
     atlas = "wafflemod_arcadeAtlas",
     pos = { x = 4, y = 0 },
+    cost = 10,
     config = { extra = {
         edition = "e_negative",
         use_cost = 6,
@@ -307,9 +290,6 @@ SMODS.Consumable {
     end,
     hidden = true,
     soul_set = "wafflemod_arcade",
-    keep_on_use = function(self, card)
-        return true
-    end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
             trigger = "after",

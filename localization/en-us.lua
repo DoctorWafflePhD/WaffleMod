@@ -1338,7 +1338,7 @@ return {
                     "When {C:attention}used:{} Spend {C:money}$#1#{} to enhance",
                     "{C:attention}1{} selected card into a {C:attention}Stone Card{}",
                     "While {C:attention}held:{} Create a {C:tarot}Tarot Card{}",
-                    "after every {C:attention}#2#{} {C:inactive}[#3#]{} {C:attention}Stone Cards{} played",
+                    "after every {C:attention}#2#{} {C:inactive}[#3#]{} {C:attention}Stone Cards{} scored",
                     "{C:inactive}(Must have room)"
                 },
             },
