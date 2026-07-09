@@ -142,7 +142,7 @@ return {
 
         Enhanced = {
             m_wafflemod_monochrome = {
-                name = "Monochrome",
+                name = "Monochrome Card",
                 text = { "Retrigger this",
                     "card {C:attention}#1#{} time",
                     "Has no suit"
@@ -756,6 +756,14 @@ return {
                 }
             },
 
+            j_wafflemod_tooth = {
+                name = "The Tooth",
+                text = {
+                    "All cards earn",
+                    "{C:money}$#1#{} when scored"
+                }
+            },
+
             j_wafflemod_wall = {
                 name = "The Wall",
                 text = {
@@ -956,6 +964,15 @@ return {
 
             c_wafflemod_artist = {
                 name = "The Artist",
+                text = {
+                    "Enhances {C:attention}#1#",
+                    "selected cards to",
+                    "{C:attention}#2#s",
+                }
+            },
+
+            c_wafflemod_destiny = {
+                name = "Destiny",
                 text = {
                     "Enhances {C:attention}#1#",
                     "selected cards to",

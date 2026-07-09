@@ -56,3 +56,17 @@ SMODS.Consumable {
         return { vars = { card.ability.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv } } }
     end
 }
+
+-- Destiny
+-- Fun fact on the off chance anyone ever reads this, this is based off this one tarot themed shirt I keep seeing that pisses me off because no, Destiny is NOT a card in the Major Arcana, thank you very much
+SMODS.Consumable {
+    key = "destiny",
+    set = "Tarot",
+    atlas = "wafflemod_tarotsAtlas",
+    pos = {x = 2, y = 0},
+    config = {max_highlighted = 2, mod_conv = "m_wafflemod_monochrome"},
+    loc_vars = function (self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
+        return { vars = { card.ability.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv } } }
+    end
+}

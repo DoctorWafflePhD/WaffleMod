@@ -5,8 +5,12 @@ SMODS.Atlas {
     py = 95,
 }
 
+SMODS.Shader {
+    key = "monochrome",
+    path = "monochrome.fs"
+}
+
 -- Monochrome
-if false then
     SMODS.Enhancement {
         key = "monochrome",
         atlas = "wafflemod_enhancementAtlas",
@@ -26,7 +30,18 @@ if false then
             end
         end,
     }
-end
+SMODS.DrawStep {
+    key = "monochrome_shader_step",
+    order = 21,
+    func = function (card, layer)
+        if SMODS.has_enhancement(card, "m_wafflemod_monochrome") and card.children and card.children.front then
+            card.children.front:draw_shader('wafflemod_monochrome', nil, card.ARGS.send_to_shader)
+        end
+    end,
+    conditions = {
+        facing = 'front'
+    }
+}
 
 -- Scribbled
 SMODS.Enhancement {

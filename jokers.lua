@@ -2211,6 +2211,9 @@ WaffleMod.BossJoker {
     } },
     pos = {x = 0, y = 10},
     soul_pos = {x = 1, y = 10},
+    loc_vars = function (self, info_queue, card)
+        WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
+    end,
     calculate = function(self, card, context)
         if context.modify_hand then
             hand_chips = mod_chips(hand_chips * card.ability.extra.bonus)
@@ -2676,6 +2679,36 @@ function SMODS.current_mod.calculate(self, context)
     end
     return curModCalcRef(self, context)
 end
+
+-- The Tooth
+WaffleMod.BossJoker {
+    key = "tooth",
+    config = {extra = {
+        dollars = 2
+    }},
+    pos = {x = 2, y = 10},
+    soul_pos = {x = 3, y = 10},
+    loc_vars = function (self, info_queue, card)
+        WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
+        return {vars = {card.ability.extra.dollars}}
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
+            return {
+                dollars = card.ability.extra.dollars,
+                func = function()
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            G.GAME.dollar_buffer = 0
+                            return true
+                        end
+                    }))
+                end
+            }
+        end
+    end
+}
 
 -- The Wall
 WaffleMod.BossJoker {
