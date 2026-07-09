@@ -1901,7 +1901,7 @@ SMODS.Joker {
                     local getPomnis = {}
                     for _, joker in pairs(G.jokers.cards) do
                         if joker.config.center.key == "j_wafflemod_pomni" then
-                            getPomnis[#getPomnis+1] = joker
+                            getPomnis[#getPomnis + 1] = joker
                         end
                     end
                     SMODS.destroy_cards(getPomnis, nil, true)
@@ -2147,7 +2147,7 @@ WaffleMod.BossJoker {
     calculate = function(self, card, context)
         local hands_played = card.ability.extra.hands_played
         if context.before then
-            hands_played[#hands_played+1] = context.scoring_name
+            hands_played[#hands_played + 1] = context.scoring_name
         end
         if WaffleMod.endOfRoundContext(context) then
             card.ability.extra.hands_played = {}
@@ -2159,7 +2159,7 @@ WaffleMod.BossJoker {
             }
         end
     end,
-    attributes = { "xmult", "boss", "hand_type"}
+    attributes = { "xmult", "boss", "hand_type" }
 }
 
 -- The Fish
@@ -2201,6 +2201,31 @@ WaffleMod.BossJoker {
         end
     end,
     attributes = { "mult", "boss", "modify_card", "perma_bonus" }
+}
+
+-- The Flint
+WaffleMod.BossJoker {
+    key = "flint",
+    config = { extra = {
+        bonus = 2
+    } },
+    pos = {x = 0, y = 10},
+    soul_pos = {x = 1, y = 10},
+    calculate = function(self, card, context)
+        if context.modify_hand then
+            hand_chips = mod_chips(hand_chips * card.ability.extra.bonus)
+            mult = mod_mult(mult * card.ability.extra.bonus)
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    play_sound("generic1")
+                    card:juice_up()
+                    return true
+                end
+            }))
+            delay(0.8)
+        end
+    end,
+    attributes = {"boss", "passive"}
 }
 
 -- The Gate
@@ -2419,7 +2444,7 @@ WaffleMod.BossJoker {
             }
         end
     end,
-    attributes = {"boss", "face"}
+    attributes = { "boss", "face" }
 }
 
 -- The Mouth
@@ -2428,11 +2453,11 @@ WaffleMod.BossJoker {
     config = { extra = {
         xmult_per_play = 0.1
     } },
-        loc_vars = function(self, info_queue, card)
+    loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = { card.ability.extra.xmult_per_play } }
     end,
-        pos = { x = 8, y = 9 },
+    pos = { x = 8, y = 9 },
     soul_pos = { x = 9, y = 9 },
     calculate = function(self, card, context)
         if context.joker_main then
@@ -2557,25 +2582,25 @@ WaffleMod.BossJoker {
 }
 
 -- The Plant
-WaffleMod.BossJoker{
+WaffleMod.BossJoker {
     key = "plant",
-    config = {extra = {
+    config = { extra = {
         xmult_per = 0.15
-    }},
-    pos = {x = 6, y = 9},
-    soul_pos = {x = 7, y = 9},
-    loc_vars = function (self, info_queue, card)
+    } },
+    pos = { x = 6, y = 9 },
+    soul_pos = { x = 7, y = 9 },
+    loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
-        return {vars = {card.ability.extra.xmult_per, card.ability.extra.xmult_per * WaffleMod.getNumFaceCardsInDeck() + 1}}
+        return { vars = { card.ability.extra.xmult_per, card.ability.extra.xmult_per * WaffleMod.getNumFaceCardsInDeck() + 1 } }
     end,
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
         if context.joker_main then
             return {
                 xmult = card.ability.extra.xmult_per * WaffleMod.getNumFaceCardsInDeck() + 1
             }
         end
     end,
-    attributes = {"boss", "face", "xmult"}
+    attributes = { "boss", "face", "xmult" }
 }
 
 -- The Psychic

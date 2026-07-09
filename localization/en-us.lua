@@ -241,8 +241,9 @@ return {
             j_wafflemod_golfer = {
                 name = "Golfer",
                 text = {
-                    "{V:1}#1#{} cards held in hand",
-                    "each give {C:mult}+#2#{} Mult"
+                    "{V:1}#1#{} cards held",
+                    "in hand each",
+                    "give {C:mult}+#2#{} Mult"
                 }
             },
 
@@ -616,6 +617,14 @@ return {
                     "Cards drawn after",
                     "playing a hand",
                     "permanently gain {C:mult}+#1#{} Mult"
+                }
+            },
+
+            j_wafflemod_flint = {
+                name = "The Flint",
+                text = {
+                    "Base Chips and",
+                    "Mult are {C:attention}doubled{}"
                 }
             },
 
