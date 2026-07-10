@@ -611,6 +611,14 @@ return {
                 }
             },
 
+            j_wafflemod_axe = {
+                name = "The Axe",
+                text = {
+                    "Earn {C:money}$#1#{} for each",
+                    "card {C:attention}discarded{}"
+                }
+            },
+
             j_wafflemod_fish = {
                 name = "The Fish",
                 text = {

@@ -1939,6 +1939,7 @@ WaffleMod.bossJokerTable = {
     bl_club = "j_wafflemod_club",
     bl_eye = "j_wafflemod_eye",
     bl_fish = "j_wafflemod_fish",
+    bl_flint = "j_wafflemod_flint",
     bl_goad = "j_wafflemod_goad",
     bl_head = "j_wafflemod_head",
     bl_hook = "j_wafflemod_hook",
@@ -1952,6 +1953,7 @@ WaffleMod.bossJokerTable = {
     bl_plant = "j_wafflemod_plant",
     bl_psychic = "j_wafflemod_psychic",
     bl_serpent = "j_wafflemod_serpent",
+    bl_tooth = "j_wafflemod_tooth",
     bl_wall = "j_wafflemod_wall",
     bl_water = "j_wafflemod_water",
     bl_window = "j_wafflemod_window",
@@ -1962,6 +1964,7 @@ WaffleMod.bossJokerTable = {
     bl_final_leaf = "j_wafflemod_verdant_leaf",
     bl_final_vessel = "j_wafflemod_violet_vessel",
 
+    bl_wafflemod_axe = "j_wafflemod_axe",
     bl_wafflemod_gate = "j_wafflemod_gate"
 
 }
@@ -2088,6 +2091,26 @@ WaffleMod.BossJoker {
         end
     end,
     attributes = { "hand_type", "boss" }
+}
+
+-- The Axe
+WaffleMod.BossJoker {
+    key = "axe",
+    pos = {x = 4, y = 10},
+    soul_pos = {x = 5, y = 10},
+    config = {extra = {
+        dollars = 2
+    }},
+    loc_vars = function (self, info_queue, card)
+        return {vars = {card.ability.extra.dollars}}
+    end,
+    calculate = function (self, card, context)
+        if context.discard then
+            return {
+                dollars = card.ability.extra.dollars
+            }
+        end
+    end
 }
 
 -- The Club
