@@ -84,7 +84,7 @@ SMODS.Blind {
     end
 }
 
--- The Tail
+-- The Tail (currently disabled due to bugs)
 if false then
     SMODS.Blind {
         key = "tail",
@@ -120,7 +120,8 @@ if false then
     }
 end
 
--- The Union
+-- The Union (Currently disabled, not really that interesting)
+if false then
 SMODS.Blind {
     key = "union",
     boss = { min = 1 },
@@ -138,3 +139,4 @@ SMODS.Blind {
         end
     end
 }
+end
