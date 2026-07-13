@@ -31,6 +31,7 @@ SMODS.Joker {
     atlas = "wafflemod_jokerAtlas",
     pos = { x = 1, y = 0 },
     cost = 5,
+    eternal_compat = false,
     calculate = function(self, card, context)
         -- Add mult to score
         if context.joker_main then
@@ -82,6 +83,7 @@ SMODS.Joker {
     cost = 5,
     atlas = "wafflemod_jokerAtlas",
     pos = { x = 5, y = 0 },
+    perishable_compat = false,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chip_gain, card.ability.extra.chips } }
     end,
@@ -137,6 +139,7 @@ SMODS.Joker {
     atlas = "wafflemod_jokerAtlas",
     cost = 5,
     pos = { x = 3, y = 8 },
+    perishable_compat = false,
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -283,6 +286,7 @@ SMODS.Joker {
     cost = 5,
     atlas = "wafflemod_jokerAtlas",
     pos = { x = 5, y = 1 },
+    perishable_compat = false,
     loc_vars = function(self, info_queue, card)
         local suit = (G.GAME.current_round.wafflemod_fickle_suit or {}).suit or 'Spades'
         return { vars = { card.ability.extra.chip_gain, localize(suit, 'suits_singular'), card.ability.extra.chip_loss, card.ability.extra.chips, colours = { G.C.SUITS[suit] } } }
@@ -1140,6 +1144,7 @@ SMODS.Joker {
     rarity = 2,
     cost = 7,
     pos = { x = 6, y = 8 },
+    perishable_compat = false,
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -1326,6 +1331,7 @@ SMODS.Joker {
     rarity = 2,
     cost = 6,
     blueprint_compat = false,
+    perishable_compat = false,
     calculate = function(self, card, context)
         if WaffleMod.endOfRoundContext(context) and (G.GAME.current_round.hands_played <= 1) and not context.blueprint then
             SMODS.scale_card(card, {
@@ -1508,6 +1514,7 @@ SMODS.Joker {
     atlas = "wafflemod_jokerAtlas",
     pos = { x = 4, y = 1 },
     cost = 7,
+    perishable_compat = false,
     calculate = function(self, card, context)
         -- Upgrade when a Queen is scored
         if context.individual and context.cardarea == G.play and context.other_card:get_id() == 12 and not context.blueprint then
@@ -1593,6 +1600,7 @@ SMODS.Joker {
                 "j_wafflemod_trophy_hunters_tricorn"
         }
     end,
+    eternal_compat = false,
     calculate = function(self, card, context)
         if context.selling_self then
             if G.GAME.blind and not G.GAME.blind.disabled and G.GAME.blind.boss then
@@ -1887,7 +1895,7 @@ SMODS.Joker {
     pos = { x = 2, y = 3 },
     soul_pos = { x = 3, y = 3 },
     cost = 20,
-    eternal_compat = false, -- I don't quite know if this will do anything considering this is a Legendary but better safe than sorry
+    eternal_compat = false, -- I don't quite know if this will do anything considering this is a Legendary, but better safe than sorry
     calculate = function(self, card, context)
         -- New effect
         if context.end_of_round and context.game_over and context.main_eval then

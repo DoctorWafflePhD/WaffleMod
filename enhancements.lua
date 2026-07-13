@@ -30,7 +30,7 @@ SMODS.Shader {
             end
         end,
     }
-SMODS.DrawStep {
+SMODS.DrawStep { -- Done in a drawstep so it happens after the normal-colored front layer
     key = "monochrome_shader_step",
     order = 21,
     func = function (card, layer)

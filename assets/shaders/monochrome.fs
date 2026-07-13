@@ -90,7 +90,7 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     // gTex = HSL(gTex);
     // bTex = HSL(bTex);
 
-    float gray = (0.3 * tex.r) + (0.55 * tex.g) + (0.15 * tex.b) + monochrome.x*0.01;
+    float gray = (0.3 * tex.r) + (0.55 * tex.g) + (0.15 * tex.b) + monochrome.x*0.001;
 
     tex.r = gray;
     tex.g = gray * 1.05;
