@@ -4,7 +4,7 @@ return {
         held_effects = true
     },
     boss_jokers = {
-        enabled = false,
+        enabled = true,
         chance = 10
     },
     reverse_arcana = {

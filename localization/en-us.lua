@@ -276,6 +276,16 @@ return {
                 }
             },
 
+            j_wafflemod_potato_battery = {
+                name = "Potato Battery",
+                text = {
+                    "Copies effect of",
+                    "{C:attention}Joker{} to the right",
+                    "for the next {C:attention}#1#{}",
+                    "hands played"
+                }
+            },
+
             j_wafflemod_purple = {
                 name = "Purple Joker",
                 text = {
@@ -1481,6 +1491,7 @@ return {
             k_wafflemod_deactived_ex = "Deactivated!",
             k_wafflemod_inactive = "inactive",
             k_wafflemod_treasure_ex = "Treasure!",
+            k_wafflemod_drained_ex = "Drained!",
             ph_wafflemod_no_boss_joker = "no matching joker",
             ph_wafflemod_saved_pomni = "Saved by Pomni",
             wafflemod_dubious_legendary = "Legendary?",

@@ -676,6 +676,54 @@ SMODS.Joker {
     attributes = { "tag", "generation", "chance" }
 }
 
+-- Potato Battery (disabled until art is made)
+if false then
+WaffleMod.Joker {
+    key = "potato_battery",
+    config = {extra = {
+        hands_left = 4,
+    }},
+    loc_vars = function (self, info_queue, card)
+        return {
+            vars = {card.ability.extra.hands_left}
+        }
+    end,
+    cost = 7,
+    eternal_compat =false,
+    calculate = function (self, card, context)
+        local jokerToRight = WaffleMod.getJokerToRight(card)
+        if jokerToRight then
+            local otherJokerRet = SMODS.blueprint_effect(card, jokerToRight, context)
+            if otherJokerRet then
+                return otherJokerRet
+            end
+        end
+        if context.after and not context.blueprint then
+            if card.ability.extra.hands_left - 1 <= 0 then
+                SMODS.destroy_cards(card, nil, nil, true)
+                return {
+                    message = localize('k_wafflemod_drained_ex'),
+                    colour = G.C.FILTER
+                }
+            else
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "hands_left",
+                    operation = function (ref_table, ref_value, initial, change)
+                        ref_table[ref_value] = initial - 1
+                    end,
+                    no_message = true
+                })
+                return {
+                    message = card.ability.extra.hands_left .. '',
+                    colour = G.C.FILTER
+                }
+            end
+        end
+    end
+}
+end
+
 -- Purple Joker
 SMODS.Joker {
     key = "purple",
