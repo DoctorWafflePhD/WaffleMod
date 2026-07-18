@@ -96,3 +96,41 @@ SMODS.Challenge {
         -- }
     }
 }
+
+-- To Be His Friend
+SMODS.Challenge {
+    key = "to_be_his_friend_1",
+    rules = {
+        custom = {
+            {id = "wafflemod_debuff_spades_hearts_diamonds"}
+        }
+    },
+    jokers = {
+        {
+            id = "j_wafflemod_moon_child",
+            eternal = true
+        },
+        {
+            id = "j_oops",
+            eternal = true,
+            edition = "negative"
+        },
+    },
+    restrictions = {
+        banned_other = {
+            {
+                type = "blind",
+                id = "bl_club"
+            }
+        }
+    }
+}
+WaffleMod.bindToModCalculate(function(context)
+    if context.debuff_card and G.GAME and G.GAME.modifiers and G.GAME.modifiers.wafflemod_debuff_spades_hearts_diamonds then
+        if context.debuff_card:is_suit("Spades", true) or context.debuff_card:is_suit("Hearts", true) or context.debuff_card:is_suit("Diamonds", true) then
+            --print("debuff this")
+            return {debuff = true}
+        end
+    end
+end,
+"moon_child_challenge_modifier")

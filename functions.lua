@@ -34,6 +34,7 @@ function WaffleMod.flipFunctionCards(cards, applyFunc)
             end
         }))
     end
+    delay(0.15)
     for i = 1, #cards do
         G.E_MANAGER:add_event(Event({
             func = function()
@@ -297,12 +298,15 @@ function SMODS.current_mod.calculate(self, context)
     for _, func in pairs(WaffleMod.calculateFunctions) do
         local returnEffect = func(context)
         if returnEffect then
-            if not retTable then
+            if not retTable then -- First return table
                 retTable = returnEffect
-            elseif curExtra then
+            elseif not curExtra then -- Second return table
+                retTable.extra = returnEffect
+                curExtra = returnEffect
+            else -- Further return tables
                 curExtra.extra = returnEffect
+                curExtra = returnEffect
             end
-            curExtra = returnEffect
         end
     end
     return retTable

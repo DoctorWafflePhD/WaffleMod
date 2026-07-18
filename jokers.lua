@@ -230,7 +230,7 @@ SMODS.Joker {
     cost = 6,
     eternal_compat = false,
     calculate = function(self, card, context)
-        if context.buying_card and not context.buying_self and card.ability.set ~= "Voucher" and context.card ~= card then
+        if context.buying_card and not context.buying_self and (not card.ability.set == "Voucher") and context.card ~= card then
             G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
             if not context.blueprint then
                 SMODS.scale_card(card, {
@@ -611,7 +611,7 @@ SMODS.Joker {
         if context.press_play then
             local cardsThatHaveThePowerToBeHisFriend = {}
             for _, played_card in pairs(G.hand.highlighted) do
-                if not SMODS.has_no_suit(played_card) and SMODS.pseudorandom_probability(card, "wafflemod_moon_child", 1, card.ability.extra.odds) then
+                if not SMODS.has_no_suit(played_card) and not played_card:is_suit(card.ability.extra.suit) and SMODS.pseudorandom_probability(card, "wafflemod_moon_child", 1, card.ability.extra.odds) then
                     table.insert(cardsThatHaveThePowerToBeHisFriend, played_card)
                 end
             end

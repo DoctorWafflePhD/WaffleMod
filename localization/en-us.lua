@@ -1493,7 +1493,8 @@ return {
 
         challenge_names = {
             c_wafflemod_trickle_down_1 = "Trickle Down",
-            c_wafflemod_claustrophobia_1 = "Claustrophobia"
+            c_wafflemod_claustrophobia_1 = "Claustrophobia",
+            c_wafflemod_to_be_his_friend_1 = "To Be His Friend",
         },
 
         dictionary = {
@@ -1527,6 +1528,10 @@ return {
             a_chips_scale_minus = "-#1# Chips",
             k_wafflemod_copper_seal_eval = " Copper Seals ($#1# each)",
             k_wafflemod_copper_seal_eval_singular = " Copper Seal ($#1# each)",
+        },
+
+        v_text = {
+            ch_c_wafflemod_debuff_spades_hearts_diamonds = {"{C:spades}Spades{}, {C:hearts}Hearts{}, and {C:diamonds}Diamonds{} are {C:attention}debuffed{}"}
         }
 
     }
