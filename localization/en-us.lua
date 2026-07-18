@@ -305,6 +305,15 @@ return {
                 },
             },
 
+            j_wafflemod_moon_child = {
+                name = "Moon Child",
+                text = {
+                    "Played cards have",
+                    "a {C:green}#1# in #2#{} chance",
+                    "to become {V:1}#3#{}"
+                }
+            },
+
             j_wafflemod_motley = {
                 name = "Motley Joker",
                 text = {
@@ -1350,6 +1359,11 @@ return {
                 name = "Reference",
                 text = { "Yume Nikki" }
             },
+
+            r_j_wafflemod_moon_child = {
+                name = "Reference",
+                text = { "Moon Child" }
+            }
 
         },
 

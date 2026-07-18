@@ -590,6 +590,41 @@ SMODS.Joker {
     attributes = { "seals", "enhancements" }
 }
 
+-- Moon Child (Woah oh, oh, oh) (You've got the power to be his friend)
+SMODS.Joker {
+    key = "moon_child",
+    atlas = "wafflemod_jokerAtlas",
+    pos = {x = 7, y = 8},
+    cost = 5,
+    rarity = 1,
+    config = {extra = {
+        odds = 4,
+        suit = "Clubs",
+    }},
+    loc_vars = function (self, info_queue, card)
+        local num, denom = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
+        return {
+            vars = {num, denom, card.ability.extra.suit, colours = { G.C.SUITS[card.ability.extra.suit] } }
+        }
+    end,
+    calculate = function (self, card, context)
+        if context.press_play then
+            local cardsThatHaveThePowerToBeHisFriend = {}
+            for _, played_card in pairs(G.hand.highlighted) do
+                if not SMODS.has_no_suit(played_card) and SMODS.pseudorandom_probability(card, "wafflemod_moon_child", 1, card.ability.extra.odds) then
+                    table.insert(cardsThatHaveThePowerToBeHisFriend, played_card)
+                end
+            end
+            if #cardsThatHaveThePowerToBeHisFriend > 0 then
+                WaffleMod.flipFunctionCards(cardsThatHaveThePowerToBeHisFriend, function(played_card)
+                    SMODS.change_base(played_card, card.ability.extra.suit)
+                end)
+            end
+        end
+    end,
+    attributes = {"reference", "suit", "clubs", "chance", "modify_card", "space"}
+}
+
 -- Motley Joker
 SMODS.Joker {
     key = "motley",
@@ -1190,7 +1225,7 @@ SMODS.Joker {
         hand = "Pair"
     } },
     rarity = 2,
-    cost = 7,
+    cost = 6,
     pos = { x = 6, y = 8 },
     perishable_compat = false,
     loc_vars = function(self, info_queue, card)
