@@ -334,6 +334,15 @@ return {
                 }
             },
 
+            j_wafflemod_wooden_nickel = {
+                name = 'Wooden Nickel',
+                text = {
+                    "{C:green}#1# in #2#{} chance to",
+                    "earn {C:money}$#3#{} when",
+                    "hand is played"
+                }
+            },
+
             -- Uncommon --------------------------------------------------------------------------------------------------------------
 
             j_wafflemod_3d_glasses = {
@@ -1363,6 +1372,11 @@ return {
             r_j_wafflemod_moon_child = {
                 name = "Reference",
                 text = { "Moon Child" }
+            },
+
+            r_j_wafflemod_wooden_nickel = {
+                name = "Reference",
+                text = {"The Binding", "of Isaac"}
             }
 
         },

@@ -8,7 +8,7 @@ SMODS.Atlas {
 }
 
 WaffleMod.Joker = SMODS.Joker:extend {
-    atlas = "wafflemod_jokerAtlas"
+    atlas = "wafflemod_jokerAtlas",
 }
 
 -- Common
@@ -805,6 +805,30 @@ SMODS.Joker {
         end
     end,
     attributes = { "chips", "scaling", "reset", "discard" }
+}
+
+-- Wooden Nickel
+SMODS.Joker {
+    key = "wooden_nickel",
+    atlas = "wafflemod_jokerAtlas",
+    cost = 2,
+    rarity = 1,
+    config = { extra = {
+        odds = 2,
+        dollars = 1
+    }},
+    loc_vars = function (self, info_queue, card)
+        local num, den = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
+        return {vars = {num, den, card.ability.extra.dollars}}
+    end,
+    calculate = function (self, card, context)
+        if context.before and SMODS.pseudorandom_probability(card, "wafflemod_wooden_nickel_roll", 1, card.ability.extra.odds) then
+            return {
+                dollars = card.ability.extra.dollars
+            }
+        end
+    end,
+    attributes = {"reference", "economy", "chance"}
 }
 
 -- Uncommon
@@ -1727,7 +1751,11 @@ SMODS.Joker {
 -- Waffle
 SMODS.Joker {
     key = "doctorwaffle",
-    no_collection = true,
+    --no_collection = true,
+    unlocked = false,
+    locked_loc_vars = function (self, info_queue, card)
+        return {key = 'joker_locked_legendary'}
+    end,
     config = {
         extra = {
             rounds_cleared = 0
@@ -1804,6 +1832,10 @@ SMODS.Joker {
     } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.h_size, card.ability.extra.xmult_gain, card.ability.extra.xmult } }
+    end,
+    unlocked = false,
+    locked_loc_vars = function (self, info_queue, card)
+        return {key = 'joker_locked_legendary'}
     end,
     atlas = "wafflemod_jokerAtlas",
     pos = { x = 6, y = 3 },
@@ -1896,6 +1928,10 @@ SMODS.Joker {
             }
         }
     end,
+    unlocked = false,
+    locked_loc_vars = function (self, info_queue, card)
+        return {key = 'joker_locked_legendary'}
+    end,
     rarity = 4,
     cost = 20,
     atlas = "wafflemod_jokerAtlas",
@@ -1972,6 +2008,10 @@ SMODS.Joker {
 SMODS.Joker {
     key = "pomni",
     loc_vars = function(self, info_queue, card)
+    end,
+    unlocked = false,
+    locked_loc_vars = function (self, info_queue, card)
+        return {key = 'joker_locked_legendary'}
     end,
     rarity = 4,
     atlas = "wafflemod_jokerAtlas",
