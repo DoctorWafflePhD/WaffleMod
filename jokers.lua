@@ -594,20 +594,20 @@ SMODS.Joker {
 SMODS.Joker {
     key = "moon_child",
     atlas = "wafflemod_jokerAtlas",
-    pos = {x = 7, y = 8},
+    pos = { x = 7, y = 8 },
     cost = 5,
     rarity = 1,
-    config = {extra = {
+    config = { extra = {
         odds = 4,
         suit = "Clubs",
-    }},
-    loc_vars = function (self, info_queue, card)
+    } },
+    loc_vars = function(self, info_queue, card)
         local num, denom = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
         return {
-            vars = {num, denom, card.ability.extra.suit, colours = { G.C.SUITS[card.ability.extra.suit] } }
+            vars = { num, denom, card.ability.extra.suit, colours = { G.C.SUITS[card.ability.extra.suit] } }
         }
     end,
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
         if context.press_play then
             local cardsThatHaveThePowerToBeHisFriend = {}
             for _, played_card in pairs(G.hand.highlighted) do
@@ -622,7 +622,7 @@ SMODS.Joker {
             end
         end
     end,
-    attributes = {"reference", "suit", "clubs", "chance", "modify_card", "space"}
+    attributes = { "reference", "suit", "clubs", "chance", "modify_card", "space" }
 }
 
 -- Motley Joker
@@ -714,18 +714,36 @@ SMODS.Joker {
 -- Potato Battery
 WaffleMod.Joker {
     key = "potato_battery",
-    config = {extra = {
+    config = { extra = {
         hands_left = 4,
-    }},
-    loc_vars = function (self, info_queue, card)
+    } },
+    loc_vars = function(self, info_queue, card)
+        local other_joker = WaffleMod.getJokerToRight(card)
+        local compatible = other_joker and other_joker ~= card and other_joker.config.center.blueprint_compat
+        local main_end = {
+            {
+                n = G.UIT.C,
+                config = { align = "bm", minh = 0.4 },
+                nodes = {
+                    {
+                        n = G.UIT.C,
+                        config = { ref_table = card, align = "m", colour = compatible and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06 },
+                        nodes = {
+                            { n = G.UIT.T, config = { text = ' ' .. localize('k_' .. (compatible and 'compatible' or 'incompatible')) .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
+                        }
+                    }
+                }
+            }
+        }
         return {
-            vars = {card.ability.extra.hands_left}
+            main_end = main_end,
+            vars = { card.ability.extra.hands_left }
         }
     end,
-    pos = {x = 6, y = 10},
+    pos = { x = 6, y = 10 },
     cost = 7,
     eternal_compat = false,
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
         local jokerToRight = WaffleMod.getJokerToRight(card)
         if jokerToRight then
             local otherJokerRet = SMODS.blueprint_effect(card, jokerToRight, context)
@@ -744,7 +762,7 @@ WaffleMod.Joker {
                 SMODS.scale_card(card, {
                     ref_table = card.ability.extra,
                     ref_value = "hands_left",
-                    operation = function (ref_table, ref_value, initial, change)
+                    operation = function(ref_table, ref_value, initial, change)
                         ref_table[ref_value] = initial - 1
                     end,
                     no_message = true
@@ -756,7 +774,7 @@ WaffleMod.Joker {
             end
         end
     end,
-    attributes = {"copying", "food", "scaling"}
+    attributes = { "copying", "food", "scaling" }
 }
 
 -- Purple Joker
@@ -816,19 +834,20 @@ SMODS.Joker {
     config = { extra = {
         odds = 2,
         dollars = 1
-    }},
-    loc_vars = function (self, info_queue, card)
+    } },
+    pos = { x = 7, y = 10 },
+    loc_vars = function(self, info_queue, card)
         local num, den = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
-        return {vars = {num, den, card.ability.extra.dollars}}
+        return { vars = { num, den, card.ability.extra.dollars } }
     end,
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
         if context.before and SMODS.pseudorandom_probability(card, "wafflemod_wooden_nickel_roll", 1, card.ability.extra.odds) then
             return {
                 dollars = card.ability.extra.dollars
             }
         end
     end,
-    attributes = {"reference", "economy", "chance"}
+    attributes = { "reference", "economy", "chance" }
 }
 
 -- Uncommon
@@ -1753,8 +1772,8 @@ SMODS.Joker {
     key = "doctorwaffle",
     --no_collection = true,
     unlocked = false,
-    locked_loc_vars = function (self, info_queue, card)
-        return {key = 'joker_locked_legendary'}
+    locked_loc_vars = function(self, info_queue, card)
+        return { key = 'joker_locked_legendary' }
     end,
     config = {
         extra = {
@@ -1834,8 +1853,8 @@ SMODS.Joker {
         return { vars = { card.ability.extra.h_size, card.ability.extra.xmult_gain, card.ability.extra.xmult } }
     end,
     unlocked = false,
-    locked_loc_vars = function (self, info_queue, card)
-        return {key = 'joker_locked_legendary'}
+    locked_loc_vars = function(self, info_queue, card)
+        return { key = 'joker_locked_legendary' }
     end,
     atlas = "wafflemod_jokerAtlas",
     pos = { x = 6, y = 3 },
@@ -1929,8 +1948,8 @@ SMODS.Joker {
         }
     end,
     unlocked = false,
-    locked_loc_vars = function (self, info_queue, card)
-        return {key = 'joker_locked_legendary'}
+    locked_loc_vars = function(self, info_queue, card)
+        return { key = 'joker_locked_legendary' }
     end,
     rarity = 4,
     cost = 20,
@@ -2010,8 +2029,8 @@ SMODS.Joker {
     loc_vars = function(self, info_queue, card)
     end,
     unlocked = false,
-    locked_loc_vars = function (self, info_queue, card)
-        return {key = 'joker_locked_legendary'}
+    locked_loc_vars = function(self, info_queue, card)
+        return { key = 'joker_locked_legendary' }
     end,
     rarity = 4,
     atlas = "wafflemod_jokerAtlas",
@@ -2227,15 +2246,15 @@ WaffleMod.BossJoker {
 -- The Axe
 WaffleMod.BossJoker {
     key = "axe",
-    pos = {x = 4, y = 10},
-    soul_pos = {x = 5, y = 10},
-    config = {extra = {
+    pos = { x = 4, y = 10 },
+    soul_pos = { x = 5, y = 10 },
+    config = { extra = {
         dollars = 2
-    }},
-    loc_vars = function (self, info_queue, card)
-        return {vars = {card.ability.extra.dollars}}
+    } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.dollars } }
     end,
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
         if context.discard then
             return {
                 dollars = card.ability.extra.dollars
@@ -2363,9 +2382,9 @@ WaffleMod.BossJoker {
     config = { extra = {
         bonus = 2
     } },
-    pos = {x = 0, y = 10},
-    soul_pos = {x = 1, y = 10},
-    loc_vars = function (self, info_queue, card)
+    pos = { x = 0, y = 10 },
+    soul_pos = { x = 1, y = 10 },
+    loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
     end,
     calculate = function(self, card, context)
@@ -2382,7 +2401,7 @@ WaffleMod.BossJoker {
             delay(0.8)
         end
     end,
-    attributes = {"boss", "passive"}
+    attributes = { "boss", "passive" }
 }
 
 -- The Gate
@@ -2837,14 +2856,14 @@ end
 -- The Tooth
 WaffleMod.BossJoker {
     key = "tooth",
-    config = {extra = {
+    config = { extra = {
         dollars = 2
-    }},
-    pos = {x = 2, y = 10},
-    soul_pos = {x = 3, y = 10},
-    loc_vars = function (self, info_queue, card)
+    } },
+    pos = { x = 2, y = 10 },
+    soul_pos = { x = 3, y = 10 },
+    loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
-        return {vars = {card.ability.extra.dollars}}
+        return { vars = { card.ability.extra.dollars } }
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
