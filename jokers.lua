@@ -720,7 +720,10 @@ WaffleMod.Joker {
     loc_vars = function(self, info_queue, card)
         local other_joker = WaffleMod.getJokerToRight(card)
         local compatible = other_joker and other_joker ~= card and other_joker.config.center.blueprint_compat
-        local main_end = {
+        local in_jokers = card.area == G.jokers
+        local main_end = nil
+        if in_jokers then
+            main_end = {
             {
                 n = G.UIT.C,
                 config = { align = "bm", minh = 0.4 },
@@ -735,6 +738,7 @@ WaffleMod.Joker {
                 }
             }
         }
+        end
         return {
             main_end = main_end,
             vars = { card.ability.extra.hands_left }
