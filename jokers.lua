@@ -711,8 +711,7 @@ SMODS.Joker {
     attributes = { "tag", "generation", "chance" }
 }
 
--- Potato Battery (disabled until art is made)
-if false then
+-- Potato Battery
 WaffleMod.Joker {
     key = "potato_battery",
     config = {extra = {
@@ -723,8 +722,9 @@ WaffleMod.Joker {
             vars = {card.ability.extra.hands_left}
         }
     end,
+    pos = {x = 6, y = 10},
     cost = 7,
-    eternal_compat =false,
+    eternal_compat = false,
     calculate = function (self, card, context)
         local jokerToRight = WaffleMod.getJokerToRight(card)
         if jokerToRight then
@@ -755,9 +755,9 @@ WaffleMod.Joker {
                 }
             end
         end
-    end
+    end,
+    attributes = {"copying", "food", "scaling"}
 }
-end
 
 -- Purple Joker
 SMODS.Joker {
