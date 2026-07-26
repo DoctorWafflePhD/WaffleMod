@@ -1090,13 +1090,20 @@ SMODS.Joker {
 }
 
 -- Fuzzy Pickle
+local fuzzyPickleRarity do
+    if WaffleMod.config.fuzzy_pickle_rare then
+        fuzzyPickleRarity = 3
+    else
+        fuzzyPickleRarity = 2
+    end
+end
 SMODS.Joker {
     key = "fuzzy_pickle",
     config = { extra = {
         xmult = 1.5
     } },
     cost = 6,
-    rarity = 2,
+    rarity = fuzzyPickleRarity or 2,
     atlas = "wafflemod_jokerAtlas",
     pos = { x = 8, y = 2 },
     loc_vars = function(self, info_queue, card)

@@ -1123,8 +1123,8 @@ return {
                 name = "Arcade Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:wafflemod_arcade} Arcade Cabinets{} to",
-                    "add to your consumable area",
+                    "{C:attention}#2#{C:wafflemod_arcade} Arcade Cabinets{} to add",
+                    "to your consumable area",
                 },
             },
 
@@ -1441,6 +1441,7 @@ return {
                 text = {
                     "When {C:attention}used:{} Spend {C:money}$#1#{} to",
                     "create a random {C:planet}Planet{} card",
+                    "{C:inactive}(Must have room)",
                     "While {C:attention}held:{} Using a {C:planet}Planet{} card also",
                     "upgrades a random {C:attention}poker hand{}"
                 }

@@ -39,7 +39,7 @@ SMODS.Voucher {
     end
 }
 
--- Extra Credit
+-- Insert Coin
 SMODS.Voucher {
     key = "insert_coin",
     atlas = "voucherAtlas",
@@ -58,12 +58,12 @@ SMODS.Voucher {
         }))
     end,
     in_pool = function()
-        return WaffleMod.config.arcade_cabinets.enabled == 1
+        return WaffleMod.config.arcade_cabinets.enabled
     end
 }
 
 -- Kill Screen
-local killScreenNegativeChance = 1 / 15
+local killScreenNegativeChance = 1 / 12
 SMODS.Voucher {
     key = "kill_screen",
     atlas = "voucherAtlas",
@@ -75,7 +75,7 @@ SMODS.Voucher {
         WaffleMod.addDisabledTooltip(info_queue, config.arcade_cabinets.enabled)
     end,
     in_pool = function()
-        return WaffleMod.config.arcade_cabinets.enabled == 1
+        return WaffleMod.config.arcade_cabinets.enabled
     end
 }
 WaffleMod.bindToModCalculate(function(context)
