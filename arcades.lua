@@ -30,6 +30,8 @@ local function addArcadeHint(info_queue)
     end
 end
 
+local doHeldEffects = WaffleMod.config.arcade_cabinets.held_effects
+
 WaffleMod.ArcadeCabinet = SMODS.Consumable:extend {
     set = "wafflemod_arcade",
     atlas = "wafflemod_arcadeAtlas",
@@ -43,7 +45,7 @@ WaffleMod.ArcadeCabinet = SMODS.Consumable:extend {
 
 -- Asteroids
 
--- Space Invaders
+-- Space Invaders (1979)
 WaffleMod.ArcadeCabinet {
     key = "space_invaders",
     pos = { x = 3, y = 0 },
@@ -86,7 +88,7 @@ WaffleMod.ArcadeCabinet {
     end
 }
 
--- Pac-Man
+-- Pac-Man (1980)
 WaffleMod.ArcadeCabinet {
     key = "pacman",
     pos = { x = 1, y = 0 },
@@ -151,7 +153,7 @@ WaffleMod.ArcadeCabinet {
     end
 }
 
--- Dig Dug
+-- Dig Dug (February 1982)
 WaffleMod.ArcadeCabinet {
     key = "dig_dug",
     pos = { x = 2, y = 0 },
@@ -217,7 +219,65 @@ WaffleMod.ArcadeCabinet {
     end
 }
 
--- Metro-Cross
+-- Joust (July 1982)
+WaffleMod.ArcadeCabinet {
+    key = "joust",
+    pos = {x = 6, y = 0},
+    config = { extra = {
+        use_cost = 3,
+        price = 3 -- egg on vremade uses this terminology, soooo :b
+    } },
+    loc_vars = function(self, info_queue, card)
+        addArcadeHint(info_queue)
+        return { vars = { card.ability.extra.use_cost, card.ability.extra.price } }
+    end,
+    can_use = function(self, card)
+        local anyCardsWithRankInHand = false
+        for i = 1, #G.hand.cards do
+            if not SMODS.has_no_rank(G.hand.cards[i]) then
+                anyCardsWithRankInHand = true
+            end
+        end
+        return WaffleMod.canAfford(card.ability.extra.use_cost) and anyCardsWithRankInHand
+    end,
+    use = function(self, card, area, copier)
+        G.E_MANAGER:add_event(Event({
+            trigger = "after",
+            delay = "0.2",
+            blocking = false,
+            func = function()
+                card:juice_up()
+                local tempId = 15
+                local destroyThisCard = nil
+                for i = 1, #G.hand.cards do
+                    if not SMODS.has_no_rank(G.hand.cards[i]) and tempId >= G.hand.cards[i]:get_id() then
+                        tempId = G.hand.cards[i].base.id
+                        destroyThisCard = G.hand.cards[i]
+                    end
+                end
+                if destroyThisCard then
+                    SMODS.destroy_cards(destroyThisCard)
+                end
+                return true
+            end
+        }))
+        ease_dollars(-card.ability.extra.use_cost)
+    end,
+    calculate = function(self, card, context)
+        if doHeldEffects then
+            if WaffleMod.endOfRoundContext(context) then
+                card.ability.extra_value = card.ability.extra_value or 0 + card.ability.extra.price
+                card:set_cost()
+                return {
+                    message = localize('k_val_up'),
+                    colour = G.C.MONEY
+                }
+            end
+        end
+    end
+}
+
+-- Metro-Cross (May 1985)
 WaffleMod.ArcadeCabinet {
     key = "metro_cross",
     pos = { x = 5, y = 0 },
@@ -271,7 +331,7 @@ WaffleMod.ArcadeCabinet {
     end
 }
 
--- Polybius
+-- Polybius (???)
 WaffleMod.ArcadeCabinet {
     key = "polybius",
     set = "Spectral",

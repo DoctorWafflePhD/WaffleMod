@@ -1447,6 +1447,16 @@ return {
                 }
             },
 
+            c_wafflemod_joust = {
+                name = "Joust",
+                text = {
+                    "When {C:attention}used:{} Spend {C:money}$#1#{} to {C:attention}destroy{}",
+                    "{C:attention}lowest{} ranked card in hand",
+                    "While {C:attention}held:{} Gains {C:money}$#2#{} in {C:attention}sell",
+                    "{C:attention}value{} at end of round"
+                }
+            }
+
         },
 
         Sleeve = {
