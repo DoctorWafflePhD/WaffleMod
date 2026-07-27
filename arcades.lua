@@ -43,8 +43,6 @@ WaffleMod.ArcadeCabinet = SMODS.Consumable:extend {
 
 -- (Sorted by release date)
 
--- Asteroids
-
 -- Space Invaders (1979)
 WaffleMod.ArcadeCabinet {
     key = "space_invaders",

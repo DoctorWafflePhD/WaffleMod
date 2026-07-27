@@ -173,13 +173,13 @@ return {
             },
 
             j_wafflemod_card_house = {
-              name = "Card House",
-              text = {
-                "This Joker gains {C:chips}+#1#{} Chip per",
-                "card in {C:attention}poker hand{}, {C:chips}+#2#{} Chips per",
-                "card if hand contains a {C:attention}#3#{}",
-                "{C:inactive}(Currently {C:chips}+#4#{C:inactive} Chips)"
-              }
+                name = "Card House",
+                text = {
+                    "This Joker gains {C:chips}+#1#{} Chip per",
+                    "card in {C:attention}poker hand{}, {C:chips}+#2#{} Chips per",
+                    "card if hand contains a {C:attention}#3#{}",
+                    "{C:inactive}(Currently {C:chips}+#4#{C:inactive} Chips)"
+                }
             },
 
             j_wafflemod_broken_record = {
@@ -634,7 +634,7 @@ return {
                 name = "The Eye",
                 text = {
                     "{X:mult,C:white}X#1#{} Mult for each unique ",
-                    "{C:attention}poker hand{} played this round", 
+                    "{C:attention}poker hand{} played this round",
                     "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
                 }
             },
@@ -730,7 +730,7 @@ return {
                 name = "The Mouth",
                 text = {
                     "{X:mult,C:white}X#1#{} Mult per number ",
-                    "of times {C:attention}poker hand{} has", 
+                    "of times {C:attention}poker hand{} has",
                     "been played this run"
                 }
             },
@@ -932,11 +932,15 @@ return {
             c_wafflemod_polybius = {
                 name = "Polybius",
                 text = {
-                    "When {C:attention}used:{} Spend {C:money}$#1#{} to",
-                    "add {C:dark_edition}Negative{} edition",
-                    "to {C:attention}1{} selected card",
-                    "While {C:attention}held:{} {C:dark_edition}Negative{} cards",
-                    "give {C:mult}+#2#{} Mult when scored"
+                    {
+                        "When {C:attention}used:{} Spend {C:money}$#1#{} to",
+                        "add {C:dark_edition}Negative{} edition",
+                        "to {C:attention}1{} selected card",
+                    },
+                    {
+                        "While {C:attention}held:{} {C:dark_edition}Negative{} cards",
+                        "give {C:mult}+#2#{} Mult when scored"
+                    }
                 }
             },
 
@@ -1182,16 +1186,16 @@ return {
             },
 
             wafflemod_joker_locked_boss = {
-                name="Locked",
-                text={
+                name = "Locked",
+                text = {
                     "Find this Joker by defeating",
                     "its respective {C:attention}Boss Blind",
                 },
             },
 
             wafflemod_joker_locked_showdown = {
-                name="Locked",
-                text={
+                name = "Locked",
+                text = {
                     "Find this Joker by defeating",
                     "its respective {C:attention}Showdown Blind",
                 },
@@ -1376,84 +1380,83 @@ return {
 
             r_j_wafflemod_wooden_nickel = {
                 name = "Reference",
-                text = {"The Binding", "of Isaac"}
+                text = { "The Binding", "of Isaac" }
             }
 
         },
 
         wafflemod_arcade = {
 
-            c_wafflemod_asteroids = {
-                name = "Asteroids",
-                text = {
-                    "When {C:attention}used:{} Spend {C:money}$#1#{} to",
-                    "create a random Planet card",
-                    "{C:inactive}(Must have room)",
-                    "While {C:attention}held:{} Destroying a Stone Card",
-                    "levels up your most played poker hand"
-                }
-            },
-
-            c_wafflemod_crystal_castles = {
-                name = "Crystal Castles",
-                text = {
-                    "When {C:attention}used:{} Spend {C:money}$#1#{} to",
-                    "add 2 Ephemeral Diamond cards to hand",
-                    "While {C:attention}held:{} Cards with Diamond suit",
-                    "add their rank to Mult when scored"
-                }
-            },
-
             c_wafflemod_dig_dug = {
                 name = "Dig Dug",
                 text = {
-                    "When {C:attention}used:{} Spend {C:money}$#1#{} to enhance",
-                    "{C:attention}1{} selected card into a {C:attention}Stone Card{}",
-                    "While {C:attention}held:{} Create a {C:tarot}Tarot Card{}",
-                    "after every {C:attention}#2#{} {C:inactive}[#3#]{} {C:attention}Stone Cards{} scored",
-                    "{C:inactive}(Must have room)"
+                    {
+                        "When {C:attention}used:{} Spend {C:money}$#1#{} to enhance",
+                        "{C:attention}1{} selected card into a {C:attention}Stone Card{}",
+                    },
+                    {
+                        "While {C:attention}held:{} Create a {C:tarot}Tarot Card{}",
+                        "after every {C:attention}#2#{} {C:inactive}[#3#]{} {C:attention}Stone Cards{} scored",
+                        "{C:inactive}(Must have room)"
+                    }
                 },
             },
 
             c_wafflemod_metro_cross = {
                 name = "Metro-Cross",
                 text = {
-                    "When {C:attention}used:{} Spend {C:money}$#1#{} to",
-                    "create a random {C:attention}Tag{}",
-                    "While {C:attention}held:{} Skipping a Blind creates",
-                    "a random {C:spectral}Spectral Card{}",
-                    "{C:inactive}(Must have room){}"
+                    {
+                        "When {C:attention}used:{} Spend {C:money}$#1#{} to",
+                        "create a random {C:attention}Tag{}",
+                    },
+                    {
+                        "While {C:attention}held:{} Skipping a Blind creates",
+                        "a random {C:spectral}Spectral Card{}",
+                        "{C:inactive}(Must have room){}"
+                    },
                 }
             },
 
             c_wafflemod_pacman = {
                 name = "Pac-Man",
                 text = {
-                    "When {C:attention}used:{} Spend {C:money}$#1#{} to enhance",
-                    "{C:attention}1{} selected card into a {C:attention}Wild Card{}",
-                    "While {C:attention}held:{} {C:white,X:mult}X#2#{} Mult first",
-                    "time each unique {C:attention}suit{} is scored"
+                    {
+                        "When {C:attention}used:{} Spend {C:money}$#1#{} to enhance",
+                        "{C:attention}1{} selected card into a {C:attention}Wild Card{}",
+                    },
+                    {
+                        "While {C:attention}held:{} {C:white,X:mult}X#2#{} Mult first",
+                        "time each unique {C:attention}suit{} is scored"
+                    },
                 },
             },
 
             c_wafflemod_space_invaders = {
                 name = "Space Invaders",
                 text = {
-                    "When {C:attention}used:{} Spend {C:money}$#1#{} to",
-                    "create a random {C:planet}Planet{} card",
-                    "{C:inactive}(Must have room)",
-                    "While {C:attention}held:{} Using a {C:planet}Planet{} card also",
-                    "upgrades a random {C:attention}poker hand{}"
+                    {
+                        "When {C:attention}used:{} Spend {C:money}$#1#{} to",
+                        "create a random {C:planet}Planet{} card",
+                        "{C:inactive}(Must have room)",
+                    },
+                    {
+                        "While {C:attention}held:{} Using a {C:planet}Planet{} card also",
+                        "upgrades a random {C:attention}poker hand{}"
+                    }
                 }
             },
 
             c_wafflemod_joust = {
                 name = "Joust",
                 text = {
-                    "When {C:attention}used:{} Spend {C:money}$#1#{} to {C:attention}destroy{}",
-                    "{C:attention}lowest{} ranked card in hand",
-                    "While {C:attention}held:{} Gains {C:money}$#2#{} in {C:attention}sell",
-                    "{C:attention}value{} at end of round"
+                    {
+                        "When {C:attention}used:{} Spend {C:money}$#1#{} to {C:attention}destroy{}",
+                        "{C:attention}lowest{} ranked card in hand",
+                    },
+                    {
+                        "While {C:attention}held:{} Gains {C:money}$#2#{} in {C:attention}sell",
+                        "{C:attention}value{} at end of round"
+                    }
                 }
             }
 
@@ -1556,7 +1559,7 @@ return {
         },
 
         v_text = {
-            ch_c_wafflemod_debuff_spades_hearts_diamonds = {"{C:spades}Spades{}, {C:hearts}Hearts{}, and {C:diamonds}Diamonds{} are {C:attention}debuffed{}"}
+            ch_c_wafflemod_debuff_spades_hearts_diamonds = { "{C:spades}Spades{}, {C:hearts}Hearts{}, and {C:diamonds}Diamonds{} are {C:attention}debuffed{}" }
         }
 
     }
