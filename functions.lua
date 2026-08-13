@@ -263,8 +263,10 @@ end
 -- Gets the joker to the right of a given Joker, or nil if there is none.
 function WaffleMod.getJokerToRight(joker)
     local other_joker
-    for i = 1, #G.jokers.cards do
-        if G.jokers.cards[i] == joker then other_joker = G.jokers.cards[i + 1] end
+    if G.jokers then
+        for i = 1, #G.jokers.cards do
+            if G.jokers.cards[i] == joker then other_joker = G.jokers.cards[i + 1] end
+        end
     end
     return other_joker
 end

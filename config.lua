@@ -7,9 +7,6 @@ return {
         enabled = true,
         chance = 10
     },
-    reverse_arcana = {
-        enabled = false
-    },
     fuzzy_pickle_rare = false,
     legendary_joker_sounds = true 
 }

@@ -7,7 +7,7 @@ SMODS.Atlas {
 
 local function findEternalJoker()
     if G.jokers and G.jokers.cards then
-            for _, v in pairs(G.jokers.cards) do
+        for _, v in pairs(G.jokers.cards) do
             if v.ability.eternal then
                 return true
             end
@@ -27,9 +27,10 @@ SMODS.Consumable {
     } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = { key = 'e_wafflemod_ephemeral_joker', set = 'Edition', config = {} }
-        return { 
+        return {
             key = findEternalJoker() and "c_wafflemod_well_eternal" or nil,
-            vars = { card.ability.extra.clone_edition, card.ability.max_highlighted } }
+            vars = { card.ability.extra.clone_edition, card.ability.max_highlighted }
+        }
     end,
     can_use = function()
         return G.jokers and #G.jokers.highlighted == 1
@@ -63,10 +64,37 @@ SMODS.Consumable {
     key = "destiny",
     set = "Tarot",
     atlas = "wafflemod_tarotsAtlas",
-    pos = {x = 2, y = 0},
-    config = {max_highlighted = 2, mod_conv = "m_wafflemod_monochrome"},
-    loc_vars = function (self, info_queue, card)
+    pos = { x = 2, y = 0 },
+    config = { max_highlighted = 2, mod_conv = "m_wafflemod_monochrome" },
+    loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
         return { vars = { card.ability.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv } } }
+    end
+}
+
+-- The Game
+SMODS.Consumable {
+    key = "game",
+    set = "Tarot",
+    atlas = "wafflemod_tarotsAtlas",
+    pos = { x = 3, y = 0 },
+    use = function(self, card, area, copier)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+                if G.consumeables.config.card_limit > #G.consumeables.cards then
+                    play_sound('timpani')
+                    SMODS.add_card({ set = 'wafflemod_arcade', key_append = "wafflemod_game_tarot" })
+                    card:juice_up(0.3, 0.5)
+                end
+                return true
+            end
+        }))
+        delay(0.6)
+    end,
+    can_use = function(self, card)
+        return G.consumeables and #G.consumeables.cards < G.consumeables.config.card_limit or
+            (card.area == G.consumeables)
     end
 }

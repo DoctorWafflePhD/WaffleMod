@@ -374,6 +374,28 @@ return {
                 }
             },
 
+            j_wafflemod_fnaj = {
+                name = "Five Nights at Jimbo's",
+                text = {
+                    {
+                        "{C:attention}Select{} this card to shine",
+                        "a {C:attention}flashlight{} down the hall"
+                    },
+                    {
+                        "{C:red}Withered Jimbo {C:green}might{} appear in the",
+                        "hall after {C:attention}Play{} or {C:attention}Discard{}; shine the",
+                        "{C:attention}flashlight{} repeatedly to make him leave",
+                        "and create a random {C:spectral}Spectral{} card",
+                        "{C:inactive}(Must have room){}"
+                    },
+                    {
+                        "Playing a hand while {C:red}Withered Jimbo{}",
+                        "is in the hall {C:green}might{} cause him",
+                        "to {C:red}attack{}, {C:attention}destroying{} this card"
+                    }
+                }
+            },
+
             j_wafflemod_fortune_iii = {
                 name = "Fortune III",
                 text = {
@@ -1020,6 +1042,15 @@ return {
                 }
             },
 
+            c_wafflemod_game = {
+                name = "The Game",
+                text = {
+                    "Creates a random",
+                    "{C:wafflemod_arcade}Arcade Cabinet",
+                    "{C:inactive}(Must have room)"
+                }
+            },
+
             c_wafflemod_fool_rx = {
                 name = string.reverse("The Fool"),
                 text = {
@@ -1381,6 +1412,11 @@ return {
             r_j_wafflemod_wooden_nickel = {
                 name = "Reference",
                 text = { "The Binding", "of Isaac" }
+            },
+
+            r_j_wafflemod_fnaj = {
+                name = "Reference",
+                text = {"Five Nights", "at Freddy's"}
             }
 
         },
@@ -1395,8 +1431,8 @@ return {
                         "{C:attention}1{} selected card into a {C:attention}Stone Card{}",
                     },
                     {
-                        "While {C:attention}held:{} Create a {C:tarot}Tarot Card{}",
-                        "after every {C:attention}#2#{} {C:inactive}[#3#]{} {C:attention}Stone Cards{} scored",
+                        "Create a {C:tarot}Tarot Card{} after",
+                        "every {C:attention}#2#{} {C:inactive}[#3#]{} {C:attention}Stone Cards{} scored",
                         "{C:inactive}(Must have room)"
                     }
                 },
@@ -1410,7 +1446,7 @@ return {
                         "create a random {C:attention}Tag{}",
                     },
                     {
-                        "While {C:attention}held:{} Skipping a Blind creates",
+                        "Skipping a Blind creates",
                         "a random {C:spectral}Spectral Card{}",
                         "{C:inactive}(Must have room){}"
                     },
@@ -1425,8 +1461,8 @@ return {
                         "{C:attention}1{} selected card into a {C:attention}Wild Card{}",
                     },
                     {
-                        "While {C:attention}held:{} {C:white,X:mult}X#2#{} Mult first",
-                        "time each unique {C:attention}suit{} is scored"
+                        "{C:white,X:mult}X#2#{} Mult first time each",
+                        "unique {C:attention}suit{} is scored"
                     },
                 },
             },
@@ -1440,8 +1476,8 @@ return {
                         "{C:inactive}(Must have room)",
                     },
                     {
-                        "While {C:attention}held:{} Using a {C:planet}Planet{} card also",
-                        "upgrades a random {C:attention}poker hand{}"
+                        "Using a {C:planet}Planet{} card also upgrades",
+                        "a random {C:attention}poker hand{}"
                     }
                 }
             },
@@ -1454,11 +1490,26 @@ return {
                         "{C:attention}lowest{} ranked card in hand",
                     },
                     {
-                        "While {C:attention}held:{} Gains {C:money}$#2#{} in {C:attention}sell",
-                        "{C:attention}value{} at end of round"
+                        "Gains {C:money}$#2#{} in {C:attention}sell value",
+                        "at end of round"
                     }
                 }
-            }
+            },
+
+            c_wafflemod_sinistar = {
+                name = "Sinistar",
+                text = {
+                    {
+                        "When {C:attention}used:{} Spend {C:money}$#1#{} to destroy {C:attention}#2#{}",
+                        "random card in your hand, then",
+                        "add {C:attention}#3#{} random {C:attention}Steel Card#4#{} to your hand"
+                    },
+                    {
+                        "Enhance played cards in {C:attention}final hand{}",
+                        "of round into {C:attention}Steel Cards{}"
+                    }
+                }
+            },
 
         },
 
@@ -1538,7 +1589,8 @@ return {
             ph_wafflemod_no_boss_joker = "no matching joker",
             ph_wafflemod_saved_pomni = "Saved by Pomni",
             wafflemod_dubious_legendary = "Legendary?",
-            wafflemod_arcade_pack = "Arcade Pack"
+            k_arcade_pack = "Arcade Pack",
+            k_wafflemod_jumpscare_ex = "Jumpscare!"
         },
 
         labels = {

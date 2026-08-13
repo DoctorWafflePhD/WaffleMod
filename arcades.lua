@@ -5,6 +5,8 @@ SMODS.Atlas {
     py = 95,
 }
 
+WaffleMod.addLocColor("wafflemod_arcade", HEX("4F4C84"))
+
 SMODS.ConsumableType {
     key = "wafflemod_arcade",
     default = "c_wafflemod_pacman",
@@ -93,7 +95,7 @@ WaffleMod.ArcadeCabinet {
     config = { extra = {
         conv_enhancement = "m_wild",
         use_cost = 3,
-        xmult = 1.75,
+        xmult = 1.5,
         suit_cache = {},
         scored_wilds = {},
         num_scored_suits = 0
@@ -264,13 +266,95 @@ WaffleMod.ArcadeCabinet {
     calculate = function(self, card, context)
         if doHeldEffects then
             if WaffleMod.endOfRoundContext(context) then
-                card.ability.extra_value = card.ability.extra_value or 0 + card.ability.extra.price
+                SMODS.scale_card(card, {
+                    ref_table = card.ability,
+                    ref_value = "extra_value",
+                    scalar_table = card.ability.extra,
+                    scalar_value = "price",
+                    no_message = true
+                })
+                --card.ability.extra_value = card.ability.extra_value or 0 + card.ability.extra.price
                 card:set_cost()
                 return {
                     message = localize('k_val_up'),
                     colour = G.C.MONEY
                 }
             end
+        end
+    end
+}
+
+-- Sinistar (February 1983)
+WaffleMod.ArcadeCabinet {
+    key = "sinistar",
+    pos = { x = 7, y = 0},
+    config = {extra = {
+            use_cost = 3,
+            destroy_cards = 1,
+            add_cards = 1,
+            add_enhancement = "m_steel",
+        }
+    },
+    loc_vars = function (self, info_queue, card)
+        addArcadeHint(info_queue)
+        return { vars = {
+            card.ability.extra.use_cost,
+            card.ability.extra.destroy_cards,
+            card.ability.extra.add_cards,
+            card.ability.extra.add_cards > 1 and "s" or '',
+        }}
+    end,
+    can_use = function (self, card)
+        if G.hand and G.hand.cards then
+                    local eligibleCards = {}
+                for i = 1, #G.hand.cards do
+                    if not SMODS.is_eternal(G.hand.cards[i]) then
+                        eligibleCards[#eligibleCards+1] = G.hand.cards[i]
+                    end
+                end
+                return WaffleMod.canAfford(card.ability.extra.use_cost) and #eligibleCards > 0
+        end
+    end,
+    use = function (self, card, area, copier)
+        G.E_MANAGER:add_event(Event({
+            trigger = "after",
+            delay = "0.2",
+            blocking = false,
+            func = function()
+                card:juice_up()
+                local tempId = 15
+                local eligibleCards = {}
+                for i = 1, #G.hand.cards do
+                    if not SMODS.is_eternal(G.hand.cards[i]) then
+                        eligibleCards[#eligibleCards+1] = G.hand.cards[i]
+                    end
+                end
+                local destroyThisCard = pseudorandom_element(eligibleCards, "wafflemod_sinistar_destroy")
+                if destroyThisCard then
+                    SMODS.destroy_cards(destroyThisCard)
+                end
+                SMODS.add_card({
+                    enhancement = card.ability.extra.add_enhancement,
+                    set = "Enhanced",
+                    key_append = "wafflemod_sinistar_create"
+                })
+                return true
+            end
+        }))
+        ease_dollars(-card.ability.extra.use_cost)
+    end,
+    calculate = function (self, card, context)
+        if context.before and G.GAME.current_round.hands_left == 0 then
+            for _, played_card in pairs(context.full_hand) do
+                played_card:set_ability(card.ability.extra.add_enhancement, nil, true)
+                G.E_MANAGER:add_event(Event({
+                    func = function ()
+                        played_card:juice_up()
+                        return true
+                    end
+                }))
+            end
+            card:juice_up()
         end
     end
 }

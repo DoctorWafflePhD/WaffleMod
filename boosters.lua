@@ -7,6 +7,7 @@ SMODS.Atlas{
 
 SMODS.Booster {
     key = "arcade_normal_1",
+    group_key = "k_arcade_pack",
     weight = 0.6,
     kind = 'wafflemod_arcade',
     cost = 4,
@@ -24,7 +25,8 @@ SMODS.Booster {
         }
     end,
     ease_background_colour = function(self)
-        ease_background_colour_blind(G.STATES.TAROT_PACK)
+        ease_background_colour({new_colour = G.C.wafflemod_arcade, special_colour = darken(G.C.BLACK, 0.2), contrast = 1.5})
+        ease_colour(G.C.DYN_UI.MAIN, HEX('B270D3'))
     end,
     particles = function(self)
         G.booster_pack_sparkles = Particles(1, 1, 0, 0, {
@@ -35,7 +37,7 @@ SMODS.Booster {
             speed = 1.1,
             padding = -1,
             attach = G.ROOM_ATTACH,
-            colours = { G.C.WHITE, lighten(G.C.GREEN, 0.4), lighten(G.C.PURPLE, 0.2), lighten(G.C.BLUE, 0.2) },
+            colours = { G.C.WHITE, lighten(G.C.BLUE, 0.4), lighten(G.C.MONEY, 0.2), lighten(HEX('C07DD1'), 0.2) },
             fill = true
         })
         G.booster_pack_sparkles.fade_alpha = 1
@@ -77,7 +79,8 @@ SMODS.Booster {
         }
     end,
     ease_background_colour = function(self)
-        ease_background_colour_blind(G.STATES.TAROT_PACK)
+        ease_background_colour({new_colour = G.C.wafflemod_arcade, special_colour = darken(G.C.BLACK, 0.2), contrast = 1.5})
+        ease_colour(G.C.DYN_UI.MAIN, HEX('B270D3'))
     end,
     particles = function(self)
         G.booster_pack_sparkles = Particles(1, 1, 0, 0, {
@@ -88,7 +91,7 @@ SMODS.Booster {
             speed = 1.1,
             padding = -1,
             attach = G.ROOM_ATTACH,
-            colours = { G.C.WHITE, lighten(G.C.GREEN, 0.4), lighten(G.C.PURPLE, 0.2), lighten(G.C.BLUE, 0.2) },
+            colours = { G.C.WHITE, lighten(G.C.BLUE, 0.4), lighten(G.C.MONEY, 0.2), lighten(HEX('C07DD1'), 0.2) },
             fill = true
         })
         G.booster_pack_sparkles.fade_alpha = 1

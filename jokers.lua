@@ -7,8 +7,11 @@ SMODS.Atlas {
     py = 95,
 }
 
-WaffleMod.Joker = SMODS.Joker:extend {
-    atlas = "wafflemod_jokerAtlas",
+SMODS.Atlas {
+    key = "wafflemod_fnajAtlas",
+    path = "fnaj.png",
+    px = 71,
+    py = 95,
 }
 
 -- Common
@@ -712,8 +715,9 @@ SMODS.Joker {
 }
 
 -- Potato Battery
-WaffleMod.Joker {
+SMODS.Joker {
     key = "potato_battery",
+    atlas = "wafflemod_jokerAtlas",
     config = { extra = {
         hands_left = 4,
     } },
@@ -724,20 +728,20 @@ WaffleMod.Joker {
         local main_end = nil
         if in_jokers then
             main_end = {
-            {
-                n = G.UIT.C,
-                config = { align = "bm", minh = 0.4 },
-                nodes = {
-                    {
-                        n = G.UIT.C,
-                        config = { ref_table = card, align = "m", colour = compatible and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06 },
-                        nodes = {
-                            { n = G.UIT.T, config = { text = ' ' .. localize('k_' .. (compatible and 'compatible' or 'incompatible')) .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
+                {
+                    n = G.UIT.C,
+                    config = { align = "bm", minh = 0.4 },
+                    nodes = {
+                        {
+                            n = G.UIT.C,
+                            config = { ref_table = card, align = "m", colour = compatible and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06 },
+                            nodes = {
+                                { n = G.UIT.T, config = { text = ' ' .. localize('k_' .. (compatible and 'compatible' or 'incompatible')) .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
+                            }
                         }
                     }
                 }
             }
-        }
         end
         return {
             main_end = main_end,
@@ -1056,6 +1060,75 @@ SMODS.Joker {
     attributes = { "xmult", "food", "scaling" },
 }
 
+-- Five Nights at Jimbo's
+SMODS.Joker {
+    key = "fnaj",
+    atlas = "wafflemod_fnajAtlas",
+    pos = { x = 0, y = 0 },
+    rarity = 2,
+    cost = 8,
+    config = { extra = {
+        hall_counter = 0
+    } },
+    blueprint_compat = false,
+    calculate = function(self, card, context)
+        if context.wafflemod_card_highlighted and context.card == card then
+            if context.is_highlighted then
+                if card.ability.extra.hall_counter > 0 then
+                    card.children.center:set_sprite_pos({ x = 2, y = 0 })
+                    card.ability.extra.hall_counter = math.max(card.ability.extra.hall_counter - 1, 0)
+                    if card.ability.extra.hall_counter == 0 then
+                        card.children.center:set_sprite_pos({ x = 1, y = 0 })
+                        if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                            G.E_MANAGER:add_event(Event({
+                                func = (function()
+                                    SMODS.add_card {
+                                        set = 'Spectral',
+                                        key_append = 'wafflemod_fnaj_create_spectral'
+                                    }
+                                    G.GAME.consumeable_buffer = 0
+                                    return true
+                                end)
+                            }))
+                            return {
+                                message = localize('k_plus_spectral'),
+                                colour = G.C.SECONDARY_SET.Spectral
+                            }
+                        end
+                    end
+                else
+                    card.children.center:set_sprite_pos({ x = 1, y = 0 })
+                end
+            else
+                card.children.center:set_sprite_pos({ x = 0, y = 0 })
+            end
+        end
+
+        if context.hand_drawn and not context.first_hand_drawn then
+            if SMODS.pseudorandom_probability(card, "wafflemod_fnaj_appear", G.GAME.round_resets.ante, 20) then
+                card.ability.extra.hall_counter = pseudorandom("wafflemod_fnaj_counter", 4, 8)
+            end
+        end
+
+        if context.after and card.ability.extra.hall_counter > 0 and SMODS.pseudorandom_probability(card, "wafflemod_fnaj_attack", G.GAME.round_resets.ante, 20) then
+            SMODS.destroy_cards(card, {pinch_anim = true})
+            return {
+                message = localize('k_wafflemod_jumpscare_ex'),
+                colour = G.C.RED
+            }
+        end
+
+    end,
+    attributes = {"reference", "generation", "spectral", "chance"}
+}
+-- Highlight hook
+local card_highlight_ref = Card.highlight
+function Card:highlight(is_highlighted)
+    card_highlight_ref(self, is_highlighted)
+    SMODS.calculate_context({ wafflemod_card_highlighted = self, card = self, is_highlighted = is_highlighted })
+end
+
 -- Fortune III
 SMODS.Joker {
     key = "fortune_iii",
@@ -1090,7 +1163,8 @@ SMODS.Joker {
 }
 
 -- Fuzzy Pickle
-local fuzzyPickleRarity do
+local fuzzyPickleRarity
+do
     if WaffleMod.config.fuzzy_pickle_rare then
         fuzzyPickleRarity = 3
     else
