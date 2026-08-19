@@ -1617,6 +1617,8 @@ SMODS.Joker {
         xmult_gain = 0.75,
         xmult = 1
     }},
+    rarity = 2,
+    cost = 6,
     loc_vars = function (self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.arcade_cabinets.enabled)
         info_queue[#info_queue + 1] = { key = 'wafflemod_arcade_hint', set = 'Other', config = {} }
