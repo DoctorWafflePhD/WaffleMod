@@ -299,7 +299,14 @@ SMODS.Joker {
     perishable_compat = false,
     loc_vars = function(self, info_queue, card)
         local suit = (G.GAME.current_round.wafflemod_fickle_suit or {}).suit or 'Spades'
-        return { vars = { card.ability.extra.chip_gain, localize(suit, 'suits_singular'), card.ability.extra.chip_loss, card.ability.extra.chips, colours = { G.C.SUITS[suit] } } }
+        return { vars = { 
+            card.ability.extra.chip_gain, 
+            localize(suit, 'suits_singular'), 
+            card.ability.extra.chip_loss, 
+            math.abs(card.ability.extra.chip_loss) ~= 1 and "s" or "", 
+            card.ability.extra.chips, 
+            colours = { G.C.SUITS[suit] } 
+        } }
     end,
     calculate = function(self, card, context)
         if context.joker_main and card.ability.extra.chips > 0 then
@@ -1601,6 +1608,60 @@ SMODS.Joker {
     attributes = { "reference", "generation", "editions" }
 }
 
+-- Video Games Are Bad
+SMODS.Joker {
+    key = "video_games_are_bad",
+    atlas = "wafflemod_jokerAtlas",
+    pos = {x = 8, y = 4},
+    config = {extra = {
+        xmult_gain = 0.75,
+        xmult = 1
+    }},
+    loc_vars = function (self, info_queue, card)
+        WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.arcade_cabinets.enabled)
+        info_queue[#info_queue + 1] = { key = 'wafflemod_arcade_hint', set = 'Other', config = {} }
+        return {vars = {
+            card.ability.extra.xmult_gain, card.ability.extra.xmult
+        }}
+    end,
+    perishable_compat = false,
+    blueprint_compat = true,
+    calculate = function (self, card, context)
+        if context.setting_blind and not context.blueprint then
+            local arcadeCabinets = {}
+            for _, held_consumable in pairs(G.consumeables.cards) do
+                if held_consumable.ability.set == "wafflemod_arcade" then
+                    arcadeCabinets[#arcadeCabinets+1] = held_consumable
+                end
+            end
+            if #arcadeCabinets > 0 then
+                SMODS.destroy_cards(arcadeCabinets, {silent = true})
+                play_sound('slice1', 0.96 + math.random() * 0.08)
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "xmult",
+                    scalar_value = "xmult_gain",
+                    operation = function (ref_table, ref_value, initial, change)
+                        ref_table[ref_value] = initial + #arcadeCabinets * change
+                    end,
+                    no_message = true
+                })
+                return {
+                    colour = G.C.MULT,
+                    message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.xmult } }
+                }
+            end
+        end
+        if context.joker_main and card.ability.extra.xmult ~= 1 then
+            return {xmult = card.ability.extra.xmult}
+        end
+    end,
+    in_pool = function (self, args)
+        return WaffleMod.config.arcade_cabinets.enabled
+    end,
+    attributes = {"xmult", "scaling", "destroy_card", "reference", "arcade"}
+}
+
 -- Rare
 ------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -2602,7 +2663,6 @@ WaffleMod.BossJoker {
 -- The Hook
 WaffleMod.BossJoker {
     key = "hook",
-    atlas = "wafflemod_jokerAtlas",
     pos = { x = 4, y = 1 },
     soul_pos = { x = 5, y = 1 },
     config = { extra = {

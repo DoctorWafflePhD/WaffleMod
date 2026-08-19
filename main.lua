@@ -95,6 +95,11 @@ SMODS.Attribute {
     keys = {"j_hit_the_road", "j_seeing_double", "j_mail", "j_mr_bones", "j_egg", "j_yorick", "j_caino"}
 }
 
+-- "arcade" attribute for arcade-related Jokers
+SMODS.Attribute {
+    key = "arcade"
+}
+
 -- funny scream
 local removeRef = Card.start_dissolve
 function Card.start_dissolve(self)

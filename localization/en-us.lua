@@ -213,10 +213,10 @@ return {
                 name = "Fickle Joker",
                 text = {
                     "This Joker gains {C:chips}+#1#{} Chips when",
-                    "cards with {V:1}#2#{} suit are scored",
-                    "Loses {C:chips}-#3#{} Chips when",
-                    "other suits are scored",
-                    "{C:inactive}(Currently {C:chips}+#4#{C:inactive} Chips){}",
+                    "cards with {V:1}#2#{} suit are {C:attention}scored{}",
+                    "Loses {C:chips}-#3#{} Chip#4# when",
+                    "{C:attention}other{} suits are scored",
+                    "{C:inactive}(Currently {C:chips}+#5#{C:inactive} Chips){}",
                     "{C:inactive}(Suit changes at end of round){}"
                 }
             },
@@ -476,6 +476,16 @@ return {
                     "When round begins,",
                     "add {C:attention}#1#{} random {C:dark_edition}Ephemeral{}",
                     "playing cards to hand",
+                }
+            },
+
+            j_wafflemod_video_games_are_bad = {
+                name = "Video Games are Bad",
+                text = {
+                    "When {C:attention}Blind{} is selected, this Joker",
+                    "{C:attention}destroys{} held {C:wafflemod_arcade}Arcade Cabinets{} and gains",
+                    "{C:white,X:mult}X#1#{} Mult for each {C:wafflemod_arcade}Arcade Cabinet{} destroyed",
+                    "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
                 }
             },
 
@@ -1417,6 +1427,11 @@ return {
             r_j_wafflemod_fnaj = {
                 name = "Reference",
                 text = {"Five Nights", "at Freddy's"}
+            },
+
+            r_j_wafflemod_video_games_are_bad = {
+                name = "Reference",
+                text = {"Ctrl + Alt + Del"}
             }
 
         },
