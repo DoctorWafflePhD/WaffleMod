@@ -8,6 +8,13 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas {
+    key = "wafflemod_bossJokerAtlas",
+    path = "boss_jokers.png",
+    px = 71,
+    py = 95,
+}
+
+SMODS.Atlas {
     key = "wafflemod_fnajAtlas",
     path = "fnaj.png",
     px = 71,
@@ -141,7 +148,7 @@ SMODS.Joker {
     } },
     atlas = "wafflemod_jokerAtlas",
     cost = 5,
-    pos = { x = 3, y = 8 },
+    pos = { x = 3, y = 4 },
     perishable_compat = false,
     loc_vars = function(self, info_queue, card)
         return {
@@ -189,7 +196,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "classical_bust",
     atlas = "wafflemod_jokerAtlas",
-    pos = { x = 0, y = 8 },
+    pos = { x = 0, y = 4 },
     config = { extra = {
         bust_at = 21,
         mult = 17,
@@ -597,7 +604,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "moon_child",
     atlas = "wafflemod_jokerAtlas",
-    pos = { x = 7, y = 8 },
+    pos = { x = 5, y = 4 },
     cost = 5,
     rarity = 1,
     config = { extra = {
@@ -748,7 +755,7 @@ SMODS.Joker {
             vars = { card.ability.extra.hands_left }
         }
     end,
-    pos = { x = 6, y = 10 },
+    pos = { x = 6, y = 4 },
     cost = 7,
     eternal_compat = false,
     calculate = function(self, card, context)
@@ -843,7 +850,7 @@ SMODS.Joker {
         odds = 2,
         dollars = 1
     } },
-    pos = { x = 7, y = 10 },
+    pos = { x = 5, y = 4 },
     loc_vars = function(self, info_queue, card)
         local num, den = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
         return { vars = { num, den, card.ability.extra.dollars } }
@@ -871,7 +878,7 @@ SMODS.Joker {
         edition = "e_wafflemod_ephemeral",
         odds = 2
     } },
-    pos = { x = 2, y = 8 },
+    pos = { x = 2, y = 4 },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = { key = "e_wafflemod_ephemeral_playing_card", set = 'Edition', config = {} }
         return { vars = { (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
@@ -1019,7 +1026,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "dragonfruit",
     atlas = "wafflemod_jokerAtlas",
-    pos = { x = 1, y = 8 },
+    pos = { x = 1, y = 4 },
     config = {
         extra = {
             xmult = 2.5,
@@ -1112,15 +1119,14 @@ SMODS.Joker {
         end
 
         if context.after and card.ability.extra.hall_counter > 0 and SMODS.pseudorandom_probability(card, "wafflemod_fnaj_attack", G.GAME.round_resets.ante, 20) then
-            SMODS.destroy_cards(card, {pinch_anim = true})
+            SMODS.destroy_cards(card, { pinch_anim = true })
             return {
                 message = localize('k_wafflemod_jumpscare_ex'),
                 colour = G.C.RED
             }
         end
-
     end,
-    attributes = {"reference", "generation", "spectral", "chance"}
+    attributes = { "reference", "generation", "spectral", "chance" }
 }
 -- Highlight hook
 local card_highlight_ref = Card.highlight
@@ -1354,7 +1360,7 @@ SMODS.Joker {
     } },
     rarity = 2,
     cost = 6,
-    pos = { x = 6, y = 8 },
+    pos = { x = 4, y = 4 },
     perishable_compat = false,
     loc_vars = function(self, info_queue, card)
         return {
@@ -2270,7 +2276,7 @@ end
 WaffleMod.BossJoker = SMODS.Joker:extend {
     unlocked = false,
     rarity = "wafflemod_Boss",
-    atlas = "wafflemod_jokerAtlas",
+    atlas = "wafflemod_bossJokerAtlas",
     cost = 15,
     draw = bossCardDraw,
     locked_loc_vars = lockedBossVars
@@ -2284,8 +2290,8 @@ WaffleMod.BossJoker {
     config = { extra = {
         active = false
     } },
-    pos = { x = 8, y = 4 },
-    soul_pos = { x = 9, y = 4 },
+    pos = { x = 0, y = 0 },
+    soul_pos = { x = 1, y = 0 },
     loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         local main_end = {
@@ -2331,8 +2337,8 @@ WaffleMod.BossJoker {
 -- The Axe
 WaffleMod.BossJoker {
     key = "axe",
-    pos = { x = 4, y = 10 },
-    soul_pos = { x = 5, y = 10 },
+    pos = { x = 6, y = 5 },
+    soul_pos = { x = 7, y = 5 },
     config = { extra = {
         dollars = 2
     } },
@@ -2362,8 +2368,8 @@ WaffleMod.BossJoker {
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = { card.ability.extra.xmult_gain, card.ability.extra.target_suit, card.ability.extra.xmult } }
     end,
-    pos = { x = 0, y = 6 },
-    soul_pos = { x = 1, y = 6 },
+    pos = { x = 2, y = 0 },
+    soul_pos = { x = 3, y = 0 },
     calculate = function(self, card, context)
         if context.joker_main then
             return { xmult = card.ability.extra.xmult }
@@ -2396,8 +2402,8 @@ WaffleMod.BossJoker {
         hands_played = {},
         xmult_per_hand = 1
     } },
-    pos = { x = 8, y = 8 },
-    soul_pos = { x = 9, y = 8 },
+    pos = { x = 4, y = 0 },
+    soul_pos = { x = 5, y = 0 },
     loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = { card.ability.extra.xmult_per_hand, 1 + #card.ability.extra.hands_played * card.ability.extra.xmult_per_hand } }
@@ -2431,8 +2437,8 @@ WaffleMod.BossJoker {
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = { card.ability.extra.mult } }
     end,
-    pos = { x = 4, y = 9 },
-    soul_pos = { x = 5, y = 9 },
+    pos = { x = 6, y = 0 },
+    soul_pos = { x = 7, y = 0 },
     calculate = function(self, card, context)
         if context.stay_flipped and context.to_area == G.hand and card.ability.extra.prepped then
             context.other_card.ability.perma_mult = (context.other_card.ability.perma_mult or 0) +
@@ -2467,8 +2473,8 @@ WaffleMod.BossJoker {
     config = { extra = {
         bonus = 2
     } },
-    pos = { x = 0, y = 10 },
-    soul_pos = { x = 1, y = 10 },
+    pos = { x = 8, y = 0 },
+    soul_pos = { x = 9, y = 0 },
     loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
     end,
@@ -2495,8 +2501,8 @@ WaffleMod.BossJoker {
     config = { extra = {
         retriggers = 1
     } },
-    pos = { x = 4, y = 8 },
-    soul_pos = { x = 5, y = 8 },
+    pos = { x = 8, y = 5 },
+    soul_pos = { x = 9, y = 5 },
     loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = { card.ability.extra.retriggers, card.ability.extra.retriggers ~= 1 and "s" or "" } }
@@ -2525,8 +2531,8 @@ WaffleMod.BossJoker {
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = { card.ability.extra.xmult_gain, card.ability.extra.target_suit, card.ability.extra.xmult } }
     end,
-    pos = { x = 2, y = 6 },
-    soul_pos = { x = 3, y = 6 },
+    pos = { x = 0, y = 1 },
+    soul_pos = { x = 1, y = 1 },
     calculate = function(self, card, context)
         if context.joker_main then
             return { xmult = card.ability.extra.xmult }
@@ -2566,8 +2572,8 @@ WaffleMod.BossJoker {
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = { card.ability.extra.xmult_gain, card.ability.extra.target_suit, card.ability.extra.xmult } }
     end,
-    pos = { x = 0, y = 5 },
-    soul_pos = { x = 1, y = 5 },
+    pos = { x = 2, y = 1 },
+    soul_pos = { x = 3, y = 1 },
     calculate = function(self, card, context)
         if context.joker_main then
             return { xmult = card.ability.extra.xmult }
@@ -2597,8 +2603,8 @@ WaffleMod.BossJoker {
 WaffleMod.BossJoker {
     key = "hook",
     atlas = "wafflemod_jokerAtlas",
-    pos = { x = 4, y = 4 },
-    soul_pos = { x = 5, y = 4 },
+    pos = { x = 4, y = 1 },
+    soul_pos = { x = 5, y = 1 },
     config = { extra = {
         dollars = 2
     } },
@@ -2631,8 +2637,8 @@ WaffleMod.BossJoker {
     config = { extra = {
         mult_bonus = 6
     } },
-    pos = { x = 0, y = 9 },
-    soul_pos = { x = 1, y = 9 },
+    pos = { x = 6, y = 1 },
+    soul_pos = { x = 7, y = 1 },
     loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = { card.ability.extra.mult_bonus } }
@@ -2661,8 +2667,8 @@ WaffleMod.BossJoker {
 -- The Manacle
 WaffleMod.BossJoker {
     key = "manacle",
-    pos = { x = 2, y = 7 },
-    soul_pos = { x = 3, y = 7 },
+    pos = { x = 8, y = 1 },
+    soul_pos = { x = 9, y = 1 },
     blueprint_compat = false,
     config = { extra = {
         h_size = 2
@@ -2686,8 +2692,8 @@ WaffleMod.BossJoker {
     config = { extra = {
         dollars = 3
     } },
-    pos = { x = 2, y = 9 },
-    soul_pos = { x = 3, y = 9 },
+    pos = { x = 0, y = 2 },
+    soul_pos = { x = 1, y = 2 },
     loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = { card.ability.extra.dollars } }
@@ -2718,8 +2724,8 @@ WaffleMod.BossJoker {
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = { card.ability.extra.xmult_per_play } }
     end,
-    pos = { x = 8, y = 9 },
-    soul_pos = { x = 9, y = 9 },
+    pos = { x = 2, y = 2 },
+    soul_pos = { x = 3, y = 2 },
     calculate = function(self, card, context)
         if context.joker_main then
             local timesPlayed = G.GAME.hands[context.scoring_name].played
@@ -2745,8 +2751,8 @@ WaffleMod.BossJoker {
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = { card.ability.extra.xmult_gain, card.ability.extra.xmult } }
     end,
-    pos = { x = 0, y = 4 },
-    soul_pos = { x = 1, y = 4 },
+    pos = { x = 4, y = 2 },
+    soul_pos = { x = 5, y = 2 },
     calculate = function(self, card, context)
         if context.joker_main then
             return { xmult = card.ability.extra.xmult }
@@ -2786,8 +2792,8 @@ WaffleMod.BossJoker {
     collection_loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.dollars, localize(ph_most_played) } }
     end,
-    pos = { x = 2, y = 4 },
-    soul_pos = { x = 3, y = 4 },
+    pos = { x = 6, y = 2 },
+    soul_pos = { x = 7, y = 2 },
     calculate = function(self, card, context)
         local function dosh()
             G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
@@ -2827,8 +2833,8 @@ WaffleMod.BossJoker {
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = { card.ability.extra.perma_mult } }
     end,
-    pos = { x = 4, y = 7 },
-    soul_pos = { x = 5, y = 7 },
+    pos = { x = 8, y = 2 },
+    soul_pos = { x = 9, y = 2 },
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             context.other_card.ability.perma_mult = (context.other_card.ability.perma_mult or 0) +
@@ -2848,8 +2854,8 @@ WaffleMod.BossJoker {
     config = { extra = {
         xmult_per = 0.15
     } },
-    pos = { x = 6, y = 9 },
-    soul_pos = { x = 7, y = 9 },
+    pos = { x = 0, y = 3 },
+    soul_pos = { x = 1, y = 3 },
     loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = { card.ability.extra.xmult_per, card.ability.extra.xmult_per * WaffleMod.getNumFaceCardsInDeck() + 1 } }
@@ -2874,8 +2880,8 @@ WaffleMod.BossJoker {
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = { card.ability.extra.xmult } }
     end,
-    pos = { x = 4, y = 5 },
-    soul_pos = { x = 5, y = 5 },
+    pos = { x = 2, y = 3 },
+    soul_pos = { x = 3, y = 3 },
     calculate = function(self, card, context)
         if context.joker_main then
             for _, scoredCard in pairs(context.scoring_hand) do
@@ -2915,8 +2921,8 @@ WaffleMod.BossJoker {
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = { card.ability.extra.h_size } }
     end,
-    pos = { x = 4, y = 6 },
-    soul_pos = { x = 5, y = 6 },
+    pos = { x = 4, y = 3 },
+    soul_pos = { x = 5, y = 3 },
     calculate = function(self, card, context)
         if context.pre_discard or context.after then
             G.GAME.serpent_joker_boost = (G.GAME.serpent_joker_boost or 0) + card.ability.extra.h_size
@@ -2944,8 +2950,8 @@ WaffleMod.BossJoker {
     config = { extra = {
         dollars = 2
     } },
-    pos = { x = 2, y = 10 },
-    soul_pos = { x = 3, y = 10 },
+    pos = { x = 6, y = 3 },
+    soul_pos = { x = 7, y = 3 },
     loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = { card.ability.extra.dollars } }
@@ -2978,8 +2984,8 @@ WaffleMod.BossJoker {
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = { card.ability.extra.xmult } }
     end,
-    pos = { x = 6, y = 6 },
-    soul_pos = { x = 7, y = 6 },
+    pos = { x = 8, y = 3 },
+    soul_pos = { x = 9, y = 3 },
     calculate = function(self, card, context)
         if context.joker_main then
             return {
@@ -2993,8 +2999,8 @@ WaffleMod.BossJoker {
 -- The Water
 WaffleMod.BossJoker {
     key = "water",
-    pos = { x = 6, y = 4 },
-    soul_pos = { x = 7, y = 4 },
+    pos = { x = 0, y = 4 },
+    soul_pos = { x = 1, y = 4 },
     config = { extra = {
         xmult = 1
     } },
@@ -3035,8 +3041,8 @@ WaffleMod.BossJoker {
             }
         }
     end,
-    pos = { x = 8, y = 6 },
-    soul_pos = { x = 9, y = 6 },
+    pos = { x = 2, y = 4 },
+    soul_pos = { x = 3, y = 4 },
     calculate = function(self, card, context)
         if context.before then
             for _, playing_card in pairs(context.scoring_hand) do
@@ -3071,8 +3077,8 @@ WaffleMod.BossJoker {
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         return { vars = { card.ability.extra.xmult_gain, card.ability.extra.target_suit, card.ability.extra.xmult } }
     end,
-    pos = { x = 2, y = 5 },
-    soul_pos = { x = 3, y = 5 },
+    pos = { x = 4, y = 4 },
+    soul_pos = { x = 5, y = 4 },
     calculate = function(self, card, context)
         if context.joker_main then
             return { xmult = card.ability.extra.xmult }
@@ -3102,7 +3108,7 @@ WaffleMod.BossJoker {
 ------------------------------------------------------------------------------------------------------------------------------------------
 
 WaffleMod.ShowdownJoker = SMODS.Joker:extend {
-    atlas = "wafflemod_jokerAtlas",
+    atlas = "wafflemod_bossJokerAtlas",
     rarity = "wafflemod_Showdown",
     cost = 20,
     unlocked = false,
@@ -3115,8 +3121,8 @@ WaffleMod.ShowdownJoker = SMODS.Joker:extend {
 -- Amber Acorn
 WaffleMod.ShowdownJoker {
     key = "amber_acorn",
-    pos = { x = 0, y = 7 },
-    soul_pos = { x = 1, y = 7 },
+    pos = { x = 6, y = 4 },
+    soul_pos = { x = 7, y = 4 },
     config = { extra = {
         dollars = 5,
         xmult = 1.5
@@ -3162,8 +3168,8 @@ WaffleMod.ShowdownJoker {
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
         info_queue[#info_queue + 1] = { key = 'wafflemod_cerulean', set = 'Other', config = { vars = { 2.5 } } }
     end,
-    pos = { x = 8, y = 5 },
-    soul_pos = { x = 9, y = 5 },
+    pos = { x = 8, y = 4 },
+    soul_pos = { x = 9, y = 4 },
     blueprint_compat = false,
     attributes = { "boss", "xmult", "modify_card" }
 }
@@ -3199,8 +3205,8 @@ end)
 -- Crimson Heart
 WaffleMod.ShowdownJoker {
     key = "crimson_heart",
-    pos = { x = 6, y = 5 },
-    soul_pos = { x = 7, y = 5 },
+    pos = { x = 0, y = 5 },
+    soul_pos = { x = 1, y = 5 },
     blueprint_compat = false,
     config = {
         extra = {
@@ -3226,8 +3232,8 @@ WaffleMod.ShowdownJoker {
 -- Verdant Leaf
 WaffleMod.ShowdownJoker {
     key = "verdant_leaf",
-    pos = { x = 8, y = 7 },
-    soul_pos = { x = 9, y = 7 },
+    pos = { x = 2, y = 5 },
+    soul_pos = { x = 3, y = 5 },
     config = { extra = {
         sell_value_percentage = 10,
         xmult = 1,
@@ -3270,8 +3276,8 @@ WaffleMod.ShowdownJoker {
 -- Violet Vessel
 WaffleMod.ShowdownJoker {
     key = "violet_vessel",
-    pos = { x = 6, y = 7 },
-    soul_pos = { x = 7, y = 7 },
+    pos = { x = 4, y = 5 },
+    soul_pos = { x = 5, y = 5 },
     config = { extra = {
         xmult_per_ante = 0.75,
         minimum_xmult = 1
