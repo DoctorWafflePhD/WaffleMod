@@ -2868,7 +2868,7 @@ WaffleMod.BossJoker {
 WaffleMod.BossJoker {
     key = "psychic",
     config = { extra = {
-        xmult = 1.5,
+        xmult = 1.2,
     } },
     loc_vars = function(self, info_queue, card)
         WaffleMod.addDisabledTooltip(info_queue, WaffleMod.config.boss_jokers.enabled)
